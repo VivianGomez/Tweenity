@@ -6,8 +6,7 @@
 //  Copyright © 2021 Vivian Gómez - Pablo Figueroa - Universidad de los Andes
 //
 
-using System.Collections;
-using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -17,7 +16,19 @@ using System.Text.RegularExpressions;
 // del lenguaje (C#)
 public class ObjectController : MonoBehaviour
 {
-    public Object modelObject;
+    public UnityEngine.Object modelObject;
+    CancellationTokenSource tokenSource;
+
+
+    private void Start() {
+        tokenSource = new CancellationTokenSource();
+    }
+
+
+    private void OnDisable() 
+    {
+        tokenSource.Cancel();
+    }
 
     // Busca el método en el objeto modelObject, que tenga el mismo nombre y parámetos dados
     // Si lo encuentra, lo invoca con los parámetros dados (si es que tiene)
@@ -52,9 +63,9 @@ public class ObjectController : MonoBehaviour
             Debug.Log("No existe un método llamado "+ methodName + ", en el objeto "+ modelObject);
         }
         
-        Debug.Log("Esperando ... ("+ delay+" ms)");
+        Debug.Log("Esperando ... "+ delay);
 
-        await Task.Delay(delay);
+        await Task.Delay(delay, tokenSource.Token);
 
         return loadingMethod;
     }  

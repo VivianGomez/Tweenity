@@ -8,6 +8,7 @@
 
 using System.Reflection;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using static SimulationObject;
 using System.Threading.Tasks;
@@ -40,6 +41,14 @@ public class SimulationController : MonoBehaviour {
     bool remember = true;
     bool timeOut = true;
 
+    CancellationTokenSource tokenSource;
+
+
+    private void OnDisable() 
+    {
+        tokenSource.Cancel();
+    }
+
     public Node GetCurrentNode() {
         return curNode;
     }
@@ -47,6 +56,7 @@ public class SimulationController : MonoBehaviour {
     //Al empezar la aplicación se empieza la lectura del grafo (guión de simulación)
      void Start()
     {
+        tokenSource = new CancellationTokenSource();
         onEnteredNode += OnNodeEntered;
         InitializeDialogue();
     }
@@ -91,12 +101,21 @@ public class SimulationController : MonoBehaviour {
 
             if(curSimulatorActions.Count>0)
             {
-                MethodInfo taskObject = await ExecuteSimulatorActions(curSimulatorActions);
-
-                if (taskObject!=null)
+                try
                 {
-                    SelectNextNode(actRecibida);
+                    curExpectedUserAction = new Action();
+                    MethodInfo taskObject = await ExecuteSimulatorActions(curSimulatorActions);
+
+                    if (taskObject!=null)
+                    {
+                        SelectNextNode(actRecibida);
+                    }
                 }
+                catch(System.OperationCanceledException)
+                {
+                    Debug.Log("Se canceló la tarea");
+                } 
+
             }
             else
             {
@@ -198,24 +217,40 @@ public class SimulationController : MonoBehaviour {
 
         if(newNode.tags.Contains("END"))
         {
-            await ExecuteSimulatorActions(newNode.simulatorActions);
-            return;
+            try
+            {
+                await ExecuteSimulatorActions(newNode.simulatorActions);
+                return;
+            }
+            catch(System.OperationCanceledException)
+            {
+                Debug.Log("Se canceló la tarea");
+                return;
+            } 
         }
 
         if(newNode.userActions.Count == 0)
         {
-            taskObject = await ExecuteSimulatorActions(newNode.simulatorActions);
-            if(newNode.tags.Contains("random"))
+            try
             {
-                ChooseResponse(Random.Range(0,newNode.responses.Count));
-            }
-            else
-            {
-                if(newNode.responses.Count == 1 && taskObject!=null && !newNode.tags.Contains("dialogue"))
+                taskObject = await ExecuteSimulatorActions(newNode.simulatorActions);
+                if(newNode.tags.Contains("random"))
                 {
-                    ChooseResponse(0);
-                }  
-            }       
+                    ChooseResponse(Random.Range(0,newNode.responses.Count));
+                }
+                else
+                {
+                    if(newNode.responses.Count == 1 && taskObject!=null && !newNode.tags.Contains("dialogue"))
+                    {
+                        ChooseResponse(0);
+                    }  
+                }
+            }
+            catch(System.OperationCanceledException)
+            {
+                Debug.Log("Se canceló la tarea");
+                return;
+            }         
         }
         else{
             if(newNode.userActions.Count > 1 && curNode.tags.Contains("reminder"))
