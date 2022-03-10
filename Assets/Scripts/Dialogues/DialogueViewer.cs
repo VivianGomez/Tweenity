@@ -20,7 +20,7 @@ public class DialogueViewer : MonoBehaviour
 
     Animator anim;
 
-    private void Start()
+    private void Awake()
     {
         controller.onEnteredNode += OnNodeEnteredDV;
         //controller.InitializeDialogue();
