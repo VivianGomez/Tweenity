@@ -61,9 +61,9 @@ public class SimulationObject {
         string title;
         Dictionary<string, Node> nodes;
         string titleOfStartNode;
-        public SimulationScript( TextAsset twineText ) {
+        public SimulationScript( TextAsset twineText, bool debugging ) {
             nodes = new Dictionary<string, Node>();
-            ParseTwineText( twineText );
+            ParseTwineText( twineText, debugging );
         }
 
         public Node GetNode( string nodeTitle ) {
@@ -77,7 +77,7 @@ public class SimulationObject {
             return nodes [ titleOfStartNode ];
         }
 
-        public void ParseTwineText( TextAsset twineText ) {
+        public void ParseTwineText( TextAsset twineText, bool debugging ) {
             string text = twineText.text;
             string[] nodeData = text.Split(new string[] { "::" }, StringSplitOptions.None);
 
@@ -93,18 +93,20 @@ public class SimulationObject {
                 bool tagsPresent = currLineText.IndexOf( "[" ) < currLineText.IndexOf( "\r\n" );
                 int endOfFirstLine = currLineText.IndexOf( "\r\n" );
                 //Debug.Log("CUR LINE: ---" + currLineText);
+
                 // Extract Title
                 int titleStart = 0;
                 int titleEnd = tagsPresent
                     ? currLineText.IndexOf( "[" )
                     : endOfFirstLine;
                 string title = currLineText.Substring(titleStart, titleEnd).Trim();
-                //Debug.Log("BODY title  "+title);
+                if (debugging) Debug.Log("Título del nodo:  "+title);
+
                 // Extract Tags (if any)
                 string tags = tagsPresent
                     ? currLineText.Substring( titleEnd + 1, (endOfFirstLine - titleEnd)-2)
                     : "";
-                //Debug.Log("BODY tags  "+tags);
+                if (debugging) Debug.Log("Tipo(s) del nodo:  "+tags);
 
                 // Extract Responses, Message Text user and simulator actions
                 string bodyNode = currLineText.Split('@')[1].Trim();

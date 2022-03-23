@@ -20,6 +20,7 @@ public class SimulationController : MonoBehaviour {
 
     //Este es el archivo de Twine en FORMATO ENTWEE 1.1.1 o ENTWEEDLE 1.0.1
     [SerializeField] public TextAsset twineText;
+    public bool debugging = false;
 
     //Guión de simulación actual
     SimulationScript currSim;
@@ -63,7 +64,7 @@ public class SimulationController : MonoBehaviour {
 
     //Se crea un objeto SimulationScript que modela el contenido del guión de simulación a partir del grafo
     public void InitializeDialogue() {
-        currSim = new SimulationScript( twineText );
+        currSim = new SimulationScript( twineText, debugging );
         curNode = currSim.GetStartNode();
         onEnteredNode( curNode );
     }

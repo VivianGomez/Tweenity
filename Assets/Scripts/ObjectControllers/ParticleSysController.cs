@@ -1,30 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 public class ParticleSysController : MonoBehaviour
 {
+    private ParticleSystem ps;
+    private ParticleSystem.MainModule main;
+
+    void Start() {
+        ps = GetComponent<ParticleSystem>();
+        main = ps.main;
+    }
+
     public void ChangeParticleColor(string colorName)
     {
         switch (colorName)
         {
             case "red":
-                GetComponent<ParticleSystem>().startColor = Color.red;
+                main.startColor = Color.red;
                 break;
             case "green":
-                GetComponent<ParticleSystem>().startColor = Color.green;
+                main.startColor = Color.green;
                 break;
             case "blue":
-                GetComponent<ParticleSystem>().startColor = Color.blue;
+                main.startColor = Color.blue;
                 break;
             case "yellow":
-                GetComponent<ParticleSystem>().startColor = Color.yellow;
+                main.startColor = Color.yellow;
                 break;
             case "pink":
-                GetComponent<ParticleSystem>().startColor = new Vector4(1, 0.627451f, 0.9722671f, 1f);
+                main.startColor = new Color(1, 0.627451f, 0.9722671f, 1f);
                 break;
             case "purple":
-                GetComponent<ParticleSystem>().startColor = new Vector4(0.3773585f, 0.05482377f, 0.3535928f, 1f);
+                main.startColor = new Color(0.3773585f, 0.05482377f, 0.3535928f, 1f);
                 break;
         }        
     }
