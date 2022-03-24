@@ -64,7 +64,7 @@ public class DialogueViewer : MonoBehaviour
             GameObject objectF =  GameObject.Find(action.object2Action);
             taskObject = await objectF.GetComponent<ObjectController>().MethodAccess(action.actionName, action.actionParams);
 
-            if (controller.GetCurrentNode().tags.Contains("END"))
+            if (controller.GetCurrentNode().tags.Contains("end"))
             {
                 controller.ChooseResponse(0);
             }
@@ -80,7 +80,7 @@ public class DialogueViewer : MonoBehaviour
 
         KillAllChildren(parentOfResponses);
         
-        if (newNode.tags.Contains("END"))
+        if (newNode.tags.Contains("end"))
         {
             gameObject.GetComponent<Animator>().SetTrigger("close");
             //RadioController.ColgarLlamada(false);

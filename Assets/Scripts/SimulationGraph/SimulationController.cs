@@ -40,7 +40,7 @@ public class SimulationController : MonoBehaviour {
     public static string currentDirectoryAudios = "TweenityInstructions";
 
     bool remember = true;
-    bool timeOut = true;
+    bool timeout = true;
 
     CancellationTokenSource tokenSource;
 
@@ -74,7 +74,7 @@ public class SimulationController : MonoBehaviour {
     }
 
     public void ChooseResponse( int responseIndex ) {
-        if(!curNode.tags.Contains("END"))
+        if(!curNode.tags.Contains("end"))
         {
             print("responseIndex "+responseIndex);
             string nextNodeID = curNode.responses[responseIndex].destinationNode;
@@ -96,7 +96,7 @@ public class SimulationController : MonoBehaviour {
         if(actRecibida.Equals(curExpectedUserAction) || curNode.userActions.Contains(actRecibida))
         {
             remember = false;
-            timeOut = false;
+            timeout = false;
             ReminderController.HideReminder();
             print("La función recibida es la esperada en el nodo actual");
 
@@ -154,7 +154,7 @@ public class SimulationController : MonoBehaviour {
                 print("Se pasa al siguiente nodo");
                 ChooseResponse(0);
             } 
-            else if(GetCurrentNode().tags.Contains("timeOut"))
+            else if(GetCurrentNode().tags.Contains("timeout"))
             {
                 print("Era timeout, pero realizó la acción antes -> Se pasa al siguiente nodo");
                 ChooseResponse(1);
@@ -197,7 +197,7 @@ public class SimulationController : MonoBehaviour {
 
     public void TimeOut()
     {
-        if(timeOut)
+        if(timeout)
         {
             ChooseResponse(GetPositionOfResponse("timeout"));
         }
@@ -216,7 +216,7 @@ public class SimulationController : MonoBehaviour {
         curSimulatorActions = null;
         MethodInfo taskObject = null;
 
-        if(newNode.tags.Contains("END"))
+        if(newNode.tags.Contains("end"))
         {
             try
             {
@@ -267,7 +267,7 @@ public class SimulationController : MonoBehaviour {
                 curExpectedUserAction = newNode.userActions[0];
             }
 
-            if(newNode.userActions.Count > 1 && curNode.tags.Contains("timeOut"))
+            if(newNode.userActions.Count > 1 && curNode.tags.Contains("timeout"))
             {
                 // Invocar el timeout despues de x tiempo
                 remember = true;

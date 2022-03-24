@@ -7,8 +7,8 @@ TutorialUsoTweenity
 :: UserStylesheet[stylesheet]
 
 
-:: Recibir instrucción inicial - Nodo sin acciones de usuario, sólo acciones de simulador[START]
-En este nodo se va a reproducir un audio y se mostraran particulas de color azul celeste. El audio dirá "este es un audio de ejemplo, en el nodo actual sólo hay acciones de simulador y una de ellas es la ejecución de este audio, esto puede ser muy util para dar instrucciones en tus entornos virtuales"
+:: Abrir puerta indicada en el audio de instrucciones[start]
+En este nodo se va a reproducir un audio y se mostraran particulas de color azul celeste. El audio dirá "este es un audio de ejemplo, en el nodo actual sólo hay acciones de simulador y una de ellas es la ejecución de este audio, esto puede ser muy util para dar instrucciones en tus entornos virtuales".
 <img src="https://raw.githubusercontent.com/VivianGomez/Tweenity/main/Ejemplos%20bocetos/inicial.jpeg" width="500" height="300">
 @
 [[Ver un ejemplo de diálogo]]
@@ -33,7 +33,7 @@ Este es un ejemplo de diálogo con varias posibles respuestas de usuario.
 <>
 
 :: Ver ejemplo selección random[random reminder]
-Al oprimir se selecciona una de 3 opciones (aleatoriamente)
+Al oprimir se selecciona una de 3 opciones (:aleatoriamente)
 @
 [[1:Mostrar partículas amarillas]]
 [[2:Mostrar partículas rosadas]]
@@ -97,7 +97,7 @@ BtnsManager.ShowButton("button1";false)
 BtnsManager.ShowButton("button2";false)
 >
 
-:: 1:Mostrar partículas amarillas[END]
+:: 1:Mostrar partículas amarillas[end]
 Cuando el usuario oprime el botón, se le muestran unas partículas color amarillo
 <img src="https://raw.githubusercontent.com/VivianGomez/Tweenity/main/Ejemplos%20bocetos/p.amarillo.jpeg" width="500" height="300">
 @
@@ -107,7 +107,7 @@ Cuando el usuario oprime el botón, se le muestran unas partículas color amaril
 Particles.ChangeParticleColor(yellow)
 >
 
-:: 2:Mostrar partículas rosadas[END]
+:: 2:Mostrar partículas rosadas[end]
 Cuando el usuario oprime el botón, se le muestran unas partículas color rosado
 <img src="https://raw.githubusercontent.com/VivianGomez/Tweenity/main/Ejemplos%20bocetos/p.rosa.jpeg" width="500" height="300">
 @
@@ -118,7 +118,7 @@ Particles.ChangeParticleColor(pink)
 >
 
 
-:: 3:Mostrar partículas moradas[END]
+:: 3:Mostrar partículas moradas[end]
 Cuando el usuario oprime el botón, se le muestran unas partículas color morado
 <img src="https://raw.githubusercontent.com/VivianGomez/Tweenity/main/Ejemplos%20bocetos/p.purple.jpeg" width="500" height="300">
 @
@@ -128,7 +128,7 @@ Cuando el usuario oprime el botón, se le muestran unas partículas color morado
 Particles.ChangeParticleColor(purple)
 >
 
-:: BtnTutorial.Touched():Ver partículas de color azul[END]
+:: BtnTutorial.Touched():Ver partículas de color azul[end]
 Cuando el usuario oprime el botón azul, se desaparecen los dos botones y  se le muestran unas partículas color azul. 
 <img src="https://raw.githubusercontent.com/VivianGomez/Tweenity/main/Ejemplos%20bocetos/p.azul.jpeg" width="500" height="300">
 @
@@ -138,7 +138,7 @@ Cuando el usuario oprime el botón azul, se desaparecen los dos botones y  se le
 Particles.ChangeParticleColor(blue)
 >
 
-:: BtnTutorial2.Touched():Ver partículas de color rojo[END]
+:: BtnTutorial2.Touched():Ver partículas de color rojo[end]
 Cuando el usuario oprime el botón rojo, se desaparecen los dos botones y  se le muestran unas partículas color rojo. 
 <img src="https://raw.githubusercontent.com/VivianGomez/Tweenity/main/Ejemplos%20bocetos/p.rojp.jpeg" width="500" height="300">
 @
@@ -148,7 +148,7 @@ Cuando el usuario oprime el botón rojo, se desaparecen los dos botones y  se le
 Particles.ChangeParticleColor(red)
 >
 
-:: Ver ejemplo de timeout[timeOut]
+:: Ver ejemplo de timeout[timeout]
 En este nodo se quiere que el usuario oprima el botón verde. Si no lo hace después de un determinado tiempo se mostrará una pantalla de "GameOver"
 @
 [[Mostrar partículas verdes]]
@@ -161,7 +161,7 @@ BtnTutorial.Touched()
 BtnsManager.ShowButton("button1";false)
 >
 
-:: Mostrar partículas verdes[END]
+:: Mostrar partículas verdes[end]
 Cuando el usuario oprime el botón, se le muestran unas partículas color verde
 @
 [[X]]
@@ -170,7 +170,7 @@ Cuando el usuario oprime el botón, se le muestran unas partículas color verde
 Particles.ChangeParticleColor(green)
 >
 
-:: timeout: Ver pantalla GameOver[END]
+:: timeout: Ver pantalla GameOver[end]
 Cuando el usuario oprime el botón, se le muestran un mensaje de GameOver
 @
 [[X]]
@@ -179,3 +179,4 @@ Cuando el usuario oprime el botón, se le muestran un mensaje de GameOver
 BtnsManager.ShowButton("button1";false)
 GameOver.Activate()
 >
+
