@@ -13,16 +13,18 @@ public class LoggerGraph : MonoBehaviour
 
     void Update()
     {
-        currentNode.text = "<b>Nodo actual: </b>"+simulationController.GetCurrentNode().title;
+        if(simulationController.GetCurrentNode()!=null)
+        {    
+            currentNode.text = "<b>Nodo actual: </b>"+simulationController.GetCurrentNode().title;
 
-        if(simulationController.GetCurrentNode().tags.Count > 0)
-        {
-            nodeType.text = "<b>Tipo de nodo: </b>"+simulationController.GetCurrentNode().tags[0];
+            if(simulationController.GetCurrentNode().tags.Count > 0)
+            {
+                nodeType.text = "<b>Tipo de nodo: </b>"+simulationController.GetCurrentNode().tags[0];
+            }
+            else
+            {
+                nodeType.text = "<b>Tipo de nodo: </b> sin categoria";
+            }
         }
-        else
-        {
-            nodeType.text = "<b>Tipo de nodo: </b> sin categoria";
-        }
-        
     }
 }
