@@ -96,7 +96,7 @@ public class SimulationObject {
         private bool IsValidTag(string tag)
         {
             return (tag.Equals("start") || tag.Equals("end") || tag.Equals("dialogue") || tag.Equals("random") 
-                            || tag.Equals("reminder") || tag.Equals("multipleChoice") || tag.Equals("timeout"));
+                            || tag.Equals("reminder") || tag.Equals("multiplechoice") || tag.Equals("timeout"));
         }
 
         private bool ContainsSpecialCharacter(string tNodo, string textoCompleto, char sc, string msjUsoCorrecto, string msjUbicacionCorrecta)
@@ -190,6 +190,7 @@ public class SimulationObject {
                 string tags = tagsPresent
                     ? currLineText.Substring( titleEnd + 1, (endOfFirstLine - titleEnd)-2)
                     : "";
+                tags = tags.ToLower();
 
                 if(!ContainsSpecialCharacter(title,currLineText.Substring(endOfFirstLine),'@',"dividir la parte _descriptiva_ de la de _scripting_","al finalizar la descripción y antes de la zona scripting")) return; 
                 // Extract Responses, Message Text user and simulator actions
@@ -297,7 +298,7 @@ public class SimulationObject {
                                 }
                             }
                         }
-                        else if(curNode.tags.Contains("multipleChoice"))
+                        else if(curNode.tags.Contains("multiplechoice"))
                         {
                             pattern = @"^[A-Za-z]+\w+.[A-Za-z]+\w+\(['\u0022'?\w+.'\u0022'?; ]*\):"+patternSimpleText;
                             rg = new Regex(pattern);

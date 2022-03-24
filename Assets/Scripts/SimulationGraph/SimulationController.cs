@@ -129,9 +129,9 @@ public class SimulationController : MonoBehaviour {
         }
     }
 
-    //Para seleccionar el nodo siguiente se verifica si el actual es de tipo random, multipleChoice o sin tipo
+    //Para seleccionar el nodo siguiente se verifica si el actual es de tipo random, multiplechoice o sin tipo
     //Si es un nodo de selección aleatoria (random), se selecciona el siguiente de manera aleatoria entre la cantidad de posibles respuestas
-    //Si es un nodo de selección múltiple (multipleChoice), se selecciona el siguiente nodo con base en la acción realizadaa, determinando su índice
+    //Si es un nodo de selección múltiple (multiplechoice), se selecciona el siguiente nodo con base en la acción realizadaa, determinando su índice
     //Si es un nodo sin tipo, debe tener sólo un posible camino o nodo hijo, y este es el que se selecciona
     public void SelectNextNode(Action actRecibida)
     {
@@ -141,7 +141,7 @@ public class SimulationController : MonoBehaviour {
             print("Se detecta que se realizó la acción esperada y se selecciona el nodo consecuencia de manera aleatoria");
             ChooseResponse(Random.Range(0,GetCurrentNode().responses.Count));
         }
-        else if(GetCurrentNode().tags.Contains("multipleChoice"))
+        else if(GetCurrentNode().tags.Contains("multiplechoice"))
         {
             print("Es MULTIPLE CHOICE");
             ChooseResponse(GetPositionOfResponse(actRecibida.object2Action+"."+actRecibida.actionName));
