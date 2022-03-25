@@ -201,6 +201,41 @@ public class SimulationObject {
             return c==1 ? true : false;
         }
 
+        private string SetColorByType(string str)
+        {
+            string respuesta = "";
+            if(str.Contains("start"))
+            {
+                respuesta = str.Color("green");
+            }
+            else if(str.Contains("end"))
+            {
+                respuesta = str.Color("red");
+            }
+            else if(str.Contains("dialogue"))
+            {
+                respuesta = str.Color("magenta");
+            }
+            else if(str.Contains("random"))
+            {
+                respuesta = str.Color("yellow");
+            }
+            else if(str.Contains("timeout"))
+            {
+                respuesta = str.Color("cyan");
+            }
+            else if(str.Contains("reminder"))
+            {
+                respuesta = str.Color("cyan");
+            }
+            else if(str.Contains("multiplechoice"))
+            {
+                respuesta = str.Color("orange");
+            }
+
+            return respuesta;
+        }
+
         public void ParseTwineText( TextAsset twineText) {
             string text = twineText.text;
             string[] nodeData = text.Split(new string[] { "::" }, StringSplitOptions.None);
@@ -224,7 +259,7 @@ public class SimulationObject {
                     ? currLineText.IndexOf( "[" )
                     : endOfFirstLine;
                 string title = currLineText.Substring(titleStart, titleEnd).Trim();
-                PrintOnDebug("Título del nodo:  "+title);
+                PrintOnDebug("Título del nodo:  ".Bold()+title);
 
                 // Extract Tags (if any)
                 string tags = tagsPresent
@@ -269,7 +304,7 @@ public class SimulationObject {
                     }
                 }
 
-                if(tags!="") {PrintOnDebug("El nodo es de tipo(s): "+tags);} else{PrintOnDebug("Es un nodo sin un tipo particular (sin tags)");}
+                if(tags!="") {PrintOnDebug(("El nodo es de tipo(s): "+ SetColorByType(tags)).Bold());} else{PrintOnDebug("Es un nodo sin un tipo particular (sin tags)");}
                 if (tags.Contains("dialogue")) PrintOnDebug("El mensaje del diálogo es:  "+message);
 
                 if ( curNode.tags.Contains( kStart ) ) {
@@ -288,7 +323,7 @@ public class SimulationObject {
 
                     if(curNode.userActions.Count == 1)
                     {
-                        PrintOnDebug("El nodo  tiene 1 acción de usuario");
+                        PrintOnDebug("En total el nodo tiene 1 acción de usuario");
                     }
                 }
                 else
@@ -302,7 +337,7 @@ public class SimulationObject {
                 {
                     if(curNode.userActions.Count>1)
                     {
-                        PrintOnDebug("El nodo tiene "+curNode.userActions.Count+" acciones de usuario");
+                        PrintOnDebug("En total el nodo tiene "+curNode.userActions.Count+" acciones de usuario");
                     }
                     else
                     {
@@ -330,11 +365,11 @@ public class SimulationObject {
 
                     if(curNode.simulatorActions.Count == 1)
                     {
-                        PrintOnDebug("El nodo  tiene 1 acción de simulador");
+                        PrintOnDebug("En total el nodo tiene 1 acción de simulador");
                     }
                     else
                     {
-                        PrintOnDebug("El nodo tiene "+curNode.simulatorActions.Count+" acciones de simulador");
+                        PrintOnDebug("En total el nodo tiene "+curNode.simulatorActions.Count+" acciones de simulador");
                     }
                 }
                 else
@@ -347,7 +382,7 @@ public class SimulationObject {
                 curNode.responses = new List<Response>();
                 //if ( !lastNode ) {
                     List<string> responseData = new List<string>(responseText.Split( new string [] { "\r\n" }, StringSplitOptions.None ));
-                    PrintOnDebug("El nodo tiene "+(responseData.Count)+" camino (s).");
+                    PrintOnDebug("Se cargaron los siguientes caminos: ");
                     for ( int k = responseData.Count-1; k >= 0; k-- ) {
                         string curResponseData = responseData[k];
                         //PrintOnDebug("El camino:  "+k+ " es: "+ curResponseData);
@@ -406,8 +441,10 @@ public class SimulationObject {
                             }
                         }
 
+                        PrintOnDebug("- [["+curResponse.displayText+"]]");
                         curNode.responses.Add( curResponse );
                     }
+                    PrintOnDebug("En total el nodo tiene "+(curNode.responses.Count)+" camino (s).");
 
                     if(curNode.tags.Contains("multiplechoice") && curNode.responses.Count!=curNode.userActions.Count)
                     {
