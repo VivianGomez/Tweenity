@@ -84,121 +84,10 @@ public class SimulationObject {
             }
             catch(Exception)
             {
-                Debug.LogError("NullException: Error al cargar el nodo inicial, asegúrese de tener un nodo start y un nodo end. \nSi los tiene, verifique que sus nodos tengan la estructura correcta");
+                PrintError("NullException","Error al cargar el nodo inicial, asegúrese de tener un nodo start y un nodo end. \nSi los tiene, verifique que sus nodos tengan la estructura correcta");
             }
             
             return nodes [ titleOfStartNode ];
-        }
-
-        private void PrintOnDebug(string msj)
-        {
-            if (debugging) Debug.Log(msj);
-        }
-
-        private bool IsValidTag(string tag)
-        {
-            return (tag.Equals("start") || tag.Equals("end") || tag.Equals("dialogue") || tag.Equals("random") 
-                            || tag.Equals("reminder") || tag.Equals("multiplechoice") || tag.Equals("timeout"));
-        }
-
-        private bool ContainsSpecialCharacter(string tNodo, string textoCompleto, char sc, string msjUsoCorrecto, string msjUbicacionCorrecta)
-        {
-            
-                int count = textoCompleto.Split(sc).Length - 1;
-                if(textoCompleto.Contains(sc))
-                {
-                    if(count>1)
-                    {
-                        Debug.LogError("NodeFormatError: El nodo \""+ tNodo+ "\" tiene más de un caracter "+sc+". Tiene ("+count+") \n Por favor ingrese sólo un caracter "+sc+", y asegurese de usarlo "+ msjUbicacionCorrecta);
-                        return false;
-                    }
-                }
-                else
-                {
-                    Debug.LogError("NodeFormatError: El nodo \""+ tNodo+ "\" no tiene el caracter "+sc+", el cual es esencial para "+msjUsoCorrecto+". \n Por favor ingrese el caracter "+sc+" "+msjUbicacionCorrecta);
-                    return false;
-                }
-            
-
-            return true;
-        }
-
-        
-
-        private List<Action> CreateActions(string titleNode, string[] ActionData, Regex rg, string msjeTipoAccion)
-        {
-            List<Action> actionsList = new List<Action>();
-            if(ActionData.Length>0)
-            {
-                PrintOnDebug("Se cargaron las siguientes acciones "+msjeTipoAccion+": ");
-                for ( int k = 0; k < ActionData.Length; k++ ) 
-                {
-                    string curActionData = ActionData[k].Trim();
-                    curActionData = Regex.Replace(curActionData, @"\;\s", ";");
-
-                    if(curActionData!="")
-                    {
-                        if(rg.IsMatch(curActionData))
-                        {
-                            Action curAction = new Action();
-                
-                            string[] splitSepParams = curActionData.Split('(');
-                            string[] splitObjectName = splitSepParams[0].Split('.');
-
-                            curAction.object2Action = splitObjectName[0];
-                            curAction.actionName = splitObjectName[1];
-
-                            int paramsEnd = splitSepParams[1].IndexOf(")");
-                            curAction.actionParams = splitSepParams[1].Substring(0, paramsEnd).Replace("\"", "");
-
-                            PrintOnDebug("- GameObject: "+curAction.object2Action+" - Nombre función: "+curAction.actionName+" -  "+(curAction.actionParams==""?"Sin parámetros":" Parámetros: ")+curAction.actionParams);
-
-                            actionsList.Add( curAction );
-                        }
-                        else
-                        {
-                            Debug.LogError("NodeFormatError: En el nodo '"+titleNode+"' la acción "+curActionData+ " no tiene el formato esperado, verifique que los parámetros estén separados por ';' no por ',' ni por ' '(espacio en blanco) u otro separador \n Y recuerde que el formato es NombreGameObject.NombreFuncion(param1;...;paramn)");
-                        }
-                    } 
-                }
-                PrintOnDebug("---");
-            }
-
-            return actionsList;           
-        }
-
-        private void VerifyActionsReminderTimeout(Node curNode, string tipoNodo, string metodo1, string parametros)
-        {
-            if(curNode.userActions.Count==0 || curNode.userActions.Count==1 || curNode.userActions.Count>2)
-            {
-                Debug.LogError("NodeFormatError: El nodo '"+curNode.title+"' de tipo "+tipoNodo+" debe tener exactamente dos acciones en el bloque {}, pero tiene "+ curNode.userActions.Count +", la primera debería ser el llamado al método "+metodo1+" con sus respectivos parámetros ("+parametros+"). Y la segunda debe ser la acción de usuario esperada (sólo una)");
-            }
-            else if(curNode.userActions.Count==2)
-            {
-                Action reminder = curNode.userActions[0];
-                string action1 = reminder.object2Action+"."+reminder.actionName;
-                string action2 = curNode.userActions[1].object2Action+"."+curNode.userActions[1].actionName;
-
-                if(!(action1.Equals(metodo1)) || (action2.Equals(metodo1)))
-                {
-                    Debug.LogError("NodeFormatError: El nodo '"+curNode.title+"' de tipo "+tipoNodo+" debería tener como primera acción del bloque {...} a "+metodo1+" con sus respectivos parámetros ("+parametros+"). Sin embargo, se encontró "+action1+" en su lugar");
-                }
-            }       
-        }
-
-        private bool HaveTimeoutReponse(List<Response> responses, string pattern)
-        {
-            Regex rg = new Regex(pattern);
-            int c = 0;
-            for (int i = 0; i < responses.Count; i++)
-            {
-                if(rg.IsMatch(responses[i].displayText))
-                {
-                    c++;
-                }
-            }
-
-            return c==1 ? true : false;
         }
 
         private string SetColorByType(string str)
@@ -236,10 +125,126 @@ public class SimulationObject {
             return respuesta;
         }
 
+        private void PrintError(string error, string msj)
+        {
+            Debug.LogError((error+": ").Bold().Color("red")+ msj+"\n");
+        }
+
+        private void PrintOnDebug(string msj)
+        {
+            if (debugging) Debug.Log(msj);
+        }
+
+        private bool IsValidTag(string tag)
+        {
+            return (tag.Equals("start") || tag.Equals("end") || tag.Equals("dialogue") || tag.Equals("random") 
+                            || tag.Equals("reminder") || tag.Equals("multiplechoice") || tag.Equals("timeout"));
+        }
+
+        private bool ContainsSpecialCharacter(string tNodo, string textoCompleto, char sc, string msjUsoCorrecto, string msjUbicacionCorrecta)
+        {
+            
+                int count = textoCompleto.Split(sc).Length - 1;
+                if(textoCompleto.Contains(sc))
+                {
+                    if(count>1)
+                    {
+                        PrintError("NodeFormatError", "El nodo \""+ tNodo+ "\" tiene más de un caracter "+sc+". Tiene ("+count+") \n Por favor ingrese sólo un caracter "+sc+", y asegurese de usarlo "+ msjUbicacionCorrecta);
+                        return false;
+                    }
+                }
+                else
+                {
+                    PrintError("NodeFormatError","El nodo \""+ tNodo+ "\" no tiene el caracter "+sc+", el cual es esencial para "+msjUsoCorrecto+". \n Por favor ingrese el caracter "+sc+" "+msjUbicacionCorrecta);
+                    return false;
+                }
+            
+
+            return true;
+        }
+
+        private List<Action> CreateActions(string titleNode, string[] ActionData, Regex rg, string msjeTipoAccion)
+        {
+            List<Action> actionsList = new List<Action>();
+            if(ActionData.Length>0)
+            {
+                PrintOnDebug("Se cargaron las siguientes acciones "+msjeTipoAccion+": ");
+                for ( int k = 0; k < ActionData.Length; k++ ) 
+                {
+                    string curActionData = ActionData[k].Trim();
+                    curActionData = Regex.Replace(curActionData, @"\;\s", ";");
+
+                    if(curActionData!="")
+                    {
+                        if(rg.IsMatch(curActionData))
+                        {
+                            Action curAction = new Action();
+                
+                            string[] splitSepParams = curActionData.Split('(');
+                            string[] splitObjectName = splitSepParams[0].Split('.');
+
+                            curAction.object2Action = splitObjectName[0];
+                            curAction.actionName = splitObjectName[1];
+
+                            int paramsEnd = splitSepParams[1].IndexOf(")");
+                            curAction.actionParams = splitSepParams[1].Substring(0, paramsEnd).Replace("\"", "");
+
+                            PrintOnDebug("- GameObject: "+curAction.object2Action+" - Nombre función: "+curAction.actionName+" -  "+(curAction.actionParams==""?"Sin parámetros":" Parámetros: ")+curAction.actionParams);
+
+                            actionsList.Add( curAction );
+                        }
+                        else
+                        {
+                            PrintError("NodeFormatError","En el nodo '"+titleNode+"' la acción "+curActionData+ " no tiene el formato esperado, verifique que los parámetros estén separados por ';' no por ',' ni por ' '(espacio en blanco) u otro separador \n Y recuerde que el formato es NombreGameObject.NombreFuncion(param1;...;paramn)");
+                        }
+                    } 
+                }
+                PrintOnDebug("---");
+            }
+
+            return actionsList;           
+        }
+
+        private void VerifyActionsReminderTimeout(Node curNode, string tipoNodo, string metodo1, string parametros)
+        {
+            if(curNode.userActions.Count==0 || curNode.userActions.Count==1 || curNode.userActions.Count>2)
+            {
+                PrintError("NodeFormatError","El nodo '"+curNode.title+"' de tipo "+tipoNodo+" debe tener exactamente dos acciones en el bloque {}, pero sólo tiene "+ curNode.userActions.Count +"\nLa primera debería ser el llamado al método "+metodo1+" con sus respectivos parámetros ("+parametros+"). Y la segunda debe ser la acción de usuario esperada (sólo una)");
+            }
+            else if(curNode.userActions.Count==2)
+            {
+                Action reminder = curNode.userActions[0];
+                string action1 = reminder.object2Action+"."+reminder.actionName;
+                string action2 = curNode.userActions[1].object2Action+"."+curNode.userActions[1].actionName;
+
+                if(!(action1.Equals(metodo1)) || (action2.Equals(metodo1)))
+                {
+                    PrintError("NodeFormatError","El nodo '"+curNode.title+"' de tipo "+tipoNodo+" debería tener como primera acción del bloque {...} a "+metodo1+" con sus respectivos parámetros ("+parametros+"). Sin embargo, se encontró "+action1+" en su lugar");
+                }
+            }       
+        }
+
+        private bool HaveTimeoutReponse(List<Response> responses, string pattern)
+        {
+            Regex rg = new Regex(pattern);
+            int c = 0;
+            for (int i = 0; i < responses.Count; i++)
+            {
+                if(rg.IsMatch(responses[i].displayText))
+                {
+                    c++;
+                }
+            }
+
+            return c==1 ? true : false;
+        }
+
+
         public void ParseTwineText( TextAsset twineText) {
             string text = twineText.text;
             string[] nodeData = text.Split(new string[] { "::" }, StringSplitOptions.None);
-            string patternSimpleText = @"[A-Za-z0-9À-ÿ\u00f1\u00d1?,¿!¡#$%&\/\\ ]+";
+            string patternSimpleText = @"[A-Za-z0-9À-ÿ\u00f1\u00d1?,-¿!¡#$%&\/\\ ]+";
+            string patternCompleteFormat = @"(\[\[[\u00f1\u00d1\w+:.;\(\)'\u0022'?,-¿!¡#$%&\/\\ ) ]+\]\](\r\n)+)+\{[\n\r\w+.\(\);'\u0022' ]*[\n\r]*\}[\n\r]+\<[\n\r\w+.\(\);'\u0022' ]*\>";
 
             const int kIndexOfContentStart = 4;
             PrintOnDebug("........................... EMPIEZA LA LECTURA Y PARSING DEL TEXTO ENTWEE .......................".Bold().Size(14));
@@ -267,9 +272,12 @@ public class SimulationObject {
                     : "";
                 tags = tags.ToLower();
 
-                if(!ContainsSpecialCharacter(title,currLineText.Substring(endOfFirstLine),'@',"dividir la parte _descriptiva_ de la de _scripting_","al finalizar la descripción y antes de la zona scripting")) return; 
+                if(!ContainsSpecialCharacter(title,currLineText.Substring(endOfFirstLine),'@',"dividir la parte "+"descriptiva".Italic()+" de la de "+"scripting".Italic(),"al finalizar la descripción y antes de la zona scripting")) return; 
                 // Extract Responses, Message Text user and simulator actions
                 string bodyNode = currLineText.Split('@')[1].Trim();
+
+                if(new Regex(patternCompleteFormat).IsMatch(bodyNode))
+                {
 
                 if(!ContainsSpecialCharacter(title,bodyNode,'{',"especificar la apertura de las acciones de usuario","debajo de los caminos o nodos hijo")) return; 
                 if(!ContainsSpecialCharacter(title,bodyNode,'}',"especificar el cierre de las acciones de usuario","al terminar de escribir sus acciones de usuario")) return; 
@@ -299,7 +307,7 @@ public class SimulationObject {
                 {
                     if(tag!="" && !IsValidTag(tag))
                     {
-                        Debug.LogError("NodeFormatError: En el nodo '"+title+"' el tag "+ tag + " no es un tipo de nodo válido, verifique su escritura, recuerde que los tags válidos son:\nstart, end, dialogue, random, reminder, multipleChoice y timeout");
+                        PrintError("NodeFormatError","En el nodo '"+title+"' el tag "+ tag + " no es un tipo de nodo válido, verifique su escritura, recuerde que los tags válidos son:\nstart, end, dialogue, random, reminder, multipleChoice y timeout");
                         return;
                     }
                 }
@@ -332,8 +340,31 @@ public class SimulationObject {
                     PrintOnDebug("El nodo no tiene acciones de usuario");
                 }
 
+                bool multipleChoiceType = curNode.tags.Contains("multiplechoice") && !curNode.tags.Contains("reminder") && !curNode.tags.Contains("timeout");
                 // Verificación en la estructura de acciones dependiendo del tipo de nodo
-                if(curNode.tags.Contains("multiplechoice"))
+                if(curNode.tags.Contains("reminder"))
+                {
+                    if (curNode.tags.Contains("multiplechoice")) 
+                    {
+                        PrintError("NodeFormatError","Hay un error en el formato del nodo '"+curNode.title+"', un nodo de tipo reminder no puede ser multiplechoice\nEs una funcionalidad no disponible por el momento.");
+                    }
+                    else
+                    {
+                        VerifyActionsReminderTimeout(curNode, "reminder", "Simulator.ShowReminder", "número de segundos a esperar; objeto del cual se espera la acción; un string vacío o con el nombre de un audio a reproducir");
+                    }
+                }
+                else if(curNode.tags.Contains("timeout"))
+                {
+                    if (curNode.tags.Contains("multiplechoice")) 
+                    {
+                        PrintError("NodeFormatError","Hay un error en el formato del nodo '"+curNode.title+"', un nodo de tipo timeout no puede ser multiplechoice\nEs una funcionalidad no disponible por el momento.");
+                    }
+                    else
+                    {
+                        VerifyActionsReminderTimeout(curNode, "timeout", "Simulator.Timeout", "número de segundos a esperar");
+                    }
+                }
+                else if(multipleChoiceType)
                 {
                     if(curNode.userActions.Count>1)
                     {
@@ -341,20 +372,12 @@ public class SimulationObject {
                     }
                     else
                     {
-                        Debug.LogError("NodeFormatError: El nodo '"+curNode.title+"' de tipo multipleChoice debe tener más de una acción de usuario, de lo contrario no debería tener dicho tipo");
+                        PrintError("NodeFormatError","El nodo '"+curNode.title+"' de tipo multipleChoice debe tener más de una acción de usuario, de lo contrario no debería tener dicho tipo");
                     }
-                }
-                else if(curNode.tags.Contains("reminder"))
-                {
-                    VerifyActionsReminderTimeout(curNode, "reminder", "Simulator.ShowReminder", "número de segundos a esperar; objeto del cual se espera la acción; un string vacío o con el nombre de un audio a reproducir");
-                }
-                else if(curNode.tags.Contains("timeout"))
-                {
-                    VerifyActionsReminderTimeout(curNode, "timeout", "Simulator.Timeout", "número de segundos a esperar");
                 }
                 else if(curNode.userActions.Count > 2)
                 {
-                    Debug.LogError("El nodo '"+curNode.title+"' tiene "+curNode.userActions.Count+" acciones de usuario, debería ser un multipleChoice");
+                    PrintError("IncorrectNodeType","El nodo '"+curNode.title+"' tiene "+curNode.userActions.Count+" acciones de usuario, debería ser un multipleChoice");
                 }
 
                 // simulator actions
@@ -413,30 +436,30 @@ public class SimulationObject {
                                 string error = "PathFormatError: Hay un error en el formato esperado para el camino '"+curResponse.displayText+"'\nComo el tipo de nodo es random, se espera el formato #:titulo nodo hijo o camino, dónde # es el número del camino. Ej: 1:Abrir la puerta";
                                 if(!(curResponse.displayText.Contains(':')))
                                 { 
-                                    Debug.LogError("NodeFormatError: En el camino '"+curResponse.displayText+"' del nodo '"+curNode.title+"' falta el caracter ':'\n"+error);
+                                    PrintError("NodeFormatError","En el camino '"+curResponse.displayText+"' del nodo '"+curNode.title+"' falta el caracter ':'\n"+error);
                                     return;
                                 }
                                 else
                                 {
-                                    Debug.LogError("NodeFormatError: En el camino '"+curResponse.displayText+"' del nodo '"+curNode.title+"' no se está siguiendo el formato, es posible que falte el número antes del caracter ':' o que no esté ordenado\n"+error);
+                                    PrintError("NodeFormatError","En el camino '"+curResponse.displayText+"' del nodo '"+curNode.title+"' no se está siguiendo el formato, es posible que falte el número antes del caracter ':' o que no esté ordenado\n"+error);
                                     return;
                                 }
                             }
                         }
-                        else if(curNode.tags.Contains("multiplechoice"))
+                        else if(multipleChoiceType)
                         {
                             pattern = @"^[A-Za-z]+\w+.[A-Za-z]+\w+\(['\u0022'?\w+.'\u0022'?; ]*\):"+patternSimpleText;
                             rg = new Regex(pattern);
                             if(!rg.IsMatch(curResponse.displayText))
                             {
-                                Debug.LogError("PathFormatError: Hay un error en el formato esperado para el camino '"+curResponse.displayText+"' del nodo '"+curNode.title+"'\nComo el tipo de nodo es multipleChoice, se espera el formato 'GameObject.NombreFuncion():titulo nodo hijo o camino', dónde GameObject.NombreFuncion() corresponde exáctamente a una de las acciones de usuario definidas en el bloque {...}.\nEj: Puerta.Abrir():Prender la luz");
+                                PrintError("PathFormatError","Hay un error en el formato esperado para el camino '"+curResponse.displayText+"' del nodo '"+curNode.title+"'\nComo el tipo de nodo es multipleChoice, se espera el formato 'GameObject.NombreFuncion():titulo nodo hijo o camino', dónde GameObject.NombreFuncion() corresponde exáctamente a una de las acciones de usuario definidas en el bloque {...}.\nEj: Puerta.Abrir():Prender la luz");
                             }
                             else
                             {
                                 string pathUA = curResponse.displayText.Split(':')[0];
                                 if(!userActionsText.Contains(curResponse.displayText.Split(':')[0]))
                                 {
-                                    Debug.LogError("PathFormatError: En el nodo '"+curNode.title+"', la acción de usuario "+pathUA+ " no es una de las acciones de usuario definidas en el bloque correspondiente, delimitado por '{}', es decir una de las siguientes: ---\n"+ userActionsText +"\n----\nVerifique que esté escrita exáctamente igual que cómo se definió en dicho bloque");
+                                    PrintError("PathFormatError","En el nodo '"+curNode.title+"', la acción de usuario "+pathUA+ " no es una de las acciones de usuario definidas en el bloque correspondiente, delimitado por '{}', es decir una de las siguientes:\n---\n"+ userActionsText +"\n----\nVerifique que esté escrita exáctamente igual que cómo se definió en dicho bloque");
                                 }
                             }
                         }
@@ -446,17 +469,22 @@ public class SimulationObject {
                     }
                     PrintOnDebug("En total el nodo tiene "+(curNode.responses.Count)+" camino (s).");
 
-                    if(curNode.tags.Contains("multiplechoice") && curNode.responses.Count!=curNode.userActions.Count)
+                    if(multipleChoiceType && curNode.responses.Count!=curNode.userActions.Count)
                     {
-                        Debug.LogError("NodeFormatError: El nodo '"+curNode.title+"' de tipo multiplechoice, debería tener la misma cantidad de acciones de usuario y caminos. Pero tiene "+curNode.userActions.Count+" acciones de usuario y "+curNode.responses.Count+" caminos posibles");
+                        PrintError("NodeFormatError","El nodo '"+curNode.title+"' de tipo multiplechoice, debería tener la misma cantidad de acciones de usuario y caminos. Pero tiene "+curNode.userActions.Count+" acciones de usuario y "+curNode.responses.Count+" caminos posibles");
                     }
                     if(curNode.tags.Contains("timeout"))
                     {
-                        if (!HaveTimeoutReponse(curNode.responses, @"^(timeout):"+patternSimpleText)) {Debug.LogError("PathFormatError: Hay un error en el formato del nodo '"+curNode.title+"'\nComo el tipo de nodo es timeout, se espera que haya un (1) camino con el siguiente formato 'timeout:titulo nodo hijo o camino' Pero se encontraron los siguientes\n----\n"+responseText+"\n---\nVerifique que esté bien dicho formato, incluyendo la palabra reservada 'timeout' seguida de ':' y el título del nodo\n");};
+                        if ((!(curNode.responses.Count==2)) && !HaveTimeoutReponse(curNode.responses, @"^(timeout):"+patternSimpleText)) {PrintError("PathFormatError","Hay un error en el formato del nodo '"+curNode.title+"'\nComo el tipo de nodo es timeout, se espera que hayan sólo dos caminos y que uno de ellos tenga el siguiente formato 'timeout:titulo nodo hijo o camino' Pero se encontraron los siguientes ("+curNode.responses.Count+")\n----\n"+responseText+"\n---\nVerifique que esté bien dicho formato, incluyendo la palabra reservada 'timeout' seguida de ':' y el título del nodo\n");};
                     }
                 //}
 
                 nodes [ curNode.title ] = curNode;
+                }
+                else
+                {
+                    PrintError("NodeFormatError","El nodo "+title+" no tiene la estructura esperada en la sección de scripting, recuerde que el orden de las secciones importa ([[]]{}<>) y debe ser:\n_________________\nMensaje diálogo (si es de dicho tipo)\n[[camino_1]]\n.\n.\n.\n[[camino_n]]\n{\nacciones de usuario \n}\n<\nacciones de simulador\n>\n_________________\nEl nodo leído tiene una estructura incorrecta: \n"+bodyNode);
+                }
             }
             PrintOnDebug("*************** TERMINA LA LECTURA Y PARSING DEL TEXTO ENTWEE ***************".Bold());
         }

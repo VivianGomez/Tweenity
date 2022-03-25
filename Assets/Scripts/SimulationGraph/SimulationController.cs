@@ -157,7 +157,7 @@ public class SimulationController : MonoBehaviour {
             else if(GetCurrentNode().tags.Contains("timeout"))
             {
                 print("Era timeout, pero realizó la acción antes -> Se pasa al siguiente nodo");
-                ChooseResponse(1);
+                ChooseResponse(GetActionResponse(curNode.responses,GetPositionOfResponse("timeout")));
             } 
         }
     }
@@ -281,6 +281,11 @@ public class SimulationController : MonoBehaviour {
             
             curSimulatorActions = newNode.simulatorActions;
         }
+    }
+
+    private int GetActionResponse(List<Response> responses, int posTimeout)
+    {
+        return responses.Count-1-posTimeout;
     }
 
     public int GetPositionOfResponse(string actionResponseText)

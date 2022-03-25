@@ -148,11 +148,11 @@ Cuando el usuario oprime el botón rojo, se desaparecen los dos botones y  se le
 Particles.ChangeParticleColor(red)
 >
 
-:: Ver ejemplo de timeout[timeOut]
+:: Ver ejemplo de timeout[timeout]
 En este nodo se quiere que el usuario oprima el botón verde. Si no lo hace después de un determinado tiempo se mostrará una pantalla de "GameOver"
 @
-[[Mostrar partículas verdes]]
 [[timeout: Ver pantalla GameOver]]
+[[Mostrar partículas verdes]]
 {
 Simulator.Timeout(5)
 BtnTutorial.Touched()
