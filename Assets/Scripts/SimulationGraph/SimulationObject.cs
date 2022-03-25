@@ -92,7 +92,7 @@ public class SimulationObject {
 
         private string SetColorByType(string str)
         {
-            string respuesta = "";
+            string respuesta = str;
             if(str.Contains("start"))
             {
                 respuesta = str.Color("green");
@@ -209,7 +209,7 @@ public class SimulationObject {
         {
             if(curNode.userActions.Count==0 || curNode.userActions.Count==1 || curNode.userActions.Count>2)
             {
-                PrintError("NodeFormatError","El nodo '"+curNode.title+"' de tipo "+tipoNodo+" debe tener exactamente dos acciones en el bloque {}, pero sólo tiene "+ curNode.userActions.Count +"\nLa primera debería ser el llamado al método "+metodo1+" con sus respectivos parámetros ("+parametros+"). Y la segunda debe ser la acción de usuario esperada (sólo una)");
+                PrintError("NodeFormatError","El nodo '"+curNode.title+"' de tipo "+SetColorByType(tipoNodo)+" debe tener exactamente dos acciones en el bloque {}, pero sólo tiene "+ curNode.userActions.Count +"\nLa primera debería ser el llamado al método "+metodo1+" con sus respectivos parámetros ("+parametros+"). Y la segunda debe ser la acción de usuario esperada (sólo una)");
             }
             else if(curNode.userActions.Count==2)
             {
@@ -219,7 +219,7 @@ public class SimulationObject {
 
                 if(!(action1.Equals(metodo1)) || (action2.Equals(metodo1)))
                 {
-                    PrintError("NodeFormatError","El nodo '"+curNode.title+"' de tipo "+tipoNodo+" debería tener como primera acción del bloque {...} a "+metodo1+" con sus respectivos parámetros ("+parametros+"). Sin embargo, se encontró "+action1+" en su lugar");
+                    PrintError("NodeFormatError","El nodo '"+curNode.title+"' de tipo "+SetColorByType(tipoNodo)+" debería tener como primera acción del bloque {...} a "+metodo1+" con sus respectivos parámetros ("+parametros+"). Sin embargo, se encontró "+action1+" en su lugar");
                 }
             }       
         }
@@ -346,7 +346,7 @@ public class SimulationObject {
                 {
                     if (curNode.tags.Contains("multiplechoice")) 
                     {
-                        PrintError("NodeFormatError","Hay un error en el formato del nodo '"+curNode.title+"', un nodo de tipo reminder no puede ser multiplechoice\nEs una funcionalidad no disponible por el momento.");
+                        PrintError("NodeFormatError","Hay un error en el formato del nodo '"+curNode.title+"', un nodo de tipo "+SetColorByType("reminder")+" no puede ser "+SetColorByType("multipleChoice")+"\nEs una funcionalidad no disponible por el momento.");
                     }
                     else
                     {
@@ -357,7 +357,7 @@ public class SimulationObject {
                 {
                     if (curNode.tags.Contains("multiplechoice")) 
                     {
-                        PrintError("NodeFormatError","Hay un error en el formato del nodo '"+curNode.title+"', un nodo de tipo timeout no puede ser multiplechoice\nEs una funcionalidad no disponible por el momento.");
+                        PrintError("NodeFormatError","Hay un error en el formato del nodo '"+curNode.title+"', un nodo de tipo "+SetColorByType("timeout")+" no puede ser "+SetColorByType("multipleChoice")+"\nEs una funcionalidad no disponible por el momento.");
                     }
                     else
                     {
@@ -372,12 +372,12 @@ public class SimulationObject {
                     }
                     else
                     {
-                        PrintError("NodeFormatError","El nodo '"+curNode.title+"' de tipo multipleChoice debe tener más de una acción de usuario, de lo contrario no debería tener dicho tipo");
+                        PrintError("NodeFormatError","El nodo '"+curNode.title+"' de tipo "+SetColorByType("multipleChoice")+" debe tener más de una acción de usuario, de lo contrario no debería tener dicho tipo");
                     }
                 }
                 else if(curNode.userActions.Count > 2)
                 {
-                    PrintError("IncorrectNodeType","El nodo '"+curNode.title+"' tiene "+curNode.userActions.Count+" acciones de usuario, debería ser un multipleChoice");
+                    PrintError("IncorrectNodeType","El nodo '"+curNode.title+"' tiene "+curNode.userActions.Count+" acciones de usuario, debería ser un "+SetColorByType("multipleChoice"));
                 }
 
                 // simulator actions
@@ -433,7 +433,7 @@ public class SimulationObject {
 
                             if(!rg.IsMatch(curResponse.displayText))
                             {
-                                string error = "PathFormatError: Hay un error en el formato esperado para el camino '"+curResponse.displayText+"'\nComo el tipo de nodo es random, se espera el formato #:titulo nodo hijo o camino, dónde # es el número del camino. Ej: 1:Abrir la puerta";
+                                string error = "PathFormatError: Hay un error en el formato esperado para el camino '"+curResponse.displayText+"'\nComo el tipo de nodo es "+SetColorByType("random")+", se espera el formato #:titulo nodo hijo o camino, dónde # es el número del camino. Ej: 1:Abrir la puerta";
                                 if(!(curResponse.displayText.Contains(':')))
                                 { 
                                     PrintError("NodeFormatError","En el camino '"+curResponse.displayText+"' del nodo '"+curNode.title+"' falta el caracter ':'\n"+error);
@@ -452,7 +452,7 @@ public class SimulationObject {
                             rg = new Regex(pattern);
                             if(!rg.IsMatch(curResponse.displayText))
                             {
-                                PrintError("PathFormatError","Hay un error en el formato esperado para el camino '"+curResponse.displayText+"' del nodo '"+curNode.title+"'\nComo el tipo de nodo es multipleChoice, se espera el formato 'GameObject.NombreFuncion():titulo nodo hijo o camino', dónde GameObject.NombreFuncion() corresponde exáctamente a una de las acciones de usuario definidas en el bloque {...}.\nEj: Puerta.Abrir():Prender la luz");
+                                PrintError("PathFormatError","Hay un error en el formato esperado para el camino '"+curResponse.displayText+"' del nodo '"+curNode.title+"'\nComo el tipo de nodo es "+SetColorByType("multipleChoice")+", se espera el formato 'GameObject.NombreFuncion():titulo nodo hijo o camino', dónde GameObject.NombreFuncion() corresponde exáctamente a una de las acciones de usuario definidas en el bloque {...}.\nEj: Puerta.Abrir():Prender la luz");
                             }
                             else
                             {
@@ -471,11 +471,11 @@ public class SimulationObject {
 
                     if(multipleChoiceType && curNode.responses.Count!=curNode.userActions.Count)
                     {
-                        PrintError("NodeFormatError","El nodo '"+curNode.title+"' de tipo multiplechoice, debería tener la misma cantidad de acciones de usuario y caminos. Pero tiene "+curNode.userActions.Count+" acciones de usuario y "+curNode.responses.Count+" caminos posibles");
+                        PrintError("NodeFormatError","El nodo '"+curNode.title+"' de tipo "+SetColorByType("multipleChoice")+", debería tener la misma cantidad de acciones de usuario y caminos. Pero tiene "+curNode.userActions.Count+" acciones de usuario y "+curNode.responses.Count+" caminos posibles");
                     }
                     if(curNode.tags.Contains("timeout"))
                     {
-                        if ((!(curNode.responses.Count==2)) && !HaveTimeoutReponse(curNode.responses, @"^(timeout):"+patternSimpleText)) {PrintError("PathFormatError","Hay un error en el formato del nodo '"+curNode.title+"'\nComo el tipo de nodo es timeout, se espera que hayan sólo dos caminos y que uno de ellos tenga el siguiente formato 'timeout:titulo nodo hijo o camino' Pero se encontraron los siguientes ("+curNode.responses.Count+")\n----\n"+responseText+"\n---\nVerifique que esté bien dicho formato, incluyendo la palabra reservada 'timeout' seguida de ':' y el título del nodo\n");};
+                        if ((!(curNode.responses.Count==2)) && !HaveTimeoutReponse(curNode.responses, @"^(timeout):"+patternSimpleText)) {PrintError("PathFormatError","Hay un error en el formato del nodo '"+curNode.title+"'\nComo el tipo de nodo es "+SetColorByType("timeout")+", se espera que hayan sólo dos caminos y que uno de ellos tenga el siguiente formato 'timeout:titulo nodo hijo o camino' Pero se encontraron los siguientes ("+curNode.responses.Count+")\n----\n"+responseText+"\n---\nVerifique que esté bien dicho formato, incluyendo la palabra reservada 'timeout' seguida de ':' y el título del nodo\n");};
                     }
                 //}
 
