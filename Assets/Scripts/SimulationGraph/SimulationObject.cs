@@ -11,6 +11,8 @@ using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using static StringExtension;
+
 public class SimulationObject {
     private const string kStart = "start";
     private const string kEnd = "end";
@@ -128,6 +130,7 @@ public class SimulationObject {
             List<Action> actionsList = new List<Action>();
             if(ActionData.Length>0)
             {
+                PrintOnDebug("Se cargaron las siguientes acciones "+msjeTipoAccion+": ");
                 for ( int k = 0; k < ActionData.Length; k++ ) 
                 {
                     string curActionData = ActionData[k].Trim();
@@ -148,7 +151,7 @@ public class SimulationObject {
                             int paramsEnd = splitSepParams[1].IndexOf(")");
                             curAction.actionParams = splitSepParams[1].Substring(0, paramsEnd).Replace("\"", "");
 
-                            PrintOnDebug("Se detectó la acción "+msjeTipoAccion+ ": \nGameObject: "+curAction.object2Action+" - Nombre función: "+curAction.actionName+" -  "+(curAction.actionParams==""?"Sin parámetros":" Parámetros: ")+curAction.actionParams);
+                            PrintOnDebug("- GameObject: "+curAction.object2Action+" - Nombre función: "+curAction.actionName+" -  "+(curAction.actionParams==""?"Sin parámetros":" Parámetros: ")+curAction.actionParams);
 
                             actionsList.Add( curAction );
                         }
@@ -158,6 +161,7 @@ public class SimulationObject {
                         }
                     } 
                 }
+                PrintOnDebug("---");
             }
 
             return actionsList;           
@@ -182,18 +186,34 @@ public class SimulationObject {
             }       
         }
 
+        private bool HaveTimeoutReponse(List<Response> responses, string pattern)
+        {
+            Regex rg = new Regex(pattern);
+            int c = 0;
+            for (int i = 0; i < responses.Count; i++)
+            {
+                if(rg.IsMatch(responses[i].displayText))
+                {
+                    c++;
+                }
+            }
+
+            return c==1 ? true : false;
+        }
+
         public void ParseTwineText( TextAsset twineText) {
             string text = twineText.text;
             string[] nodeData = text.Split(new string[] { "::" }, StringSplitOptions.None);
+            string patternSimpleText = @"[A-Za-z0-9À-ÿ\u00f1\u00d1?,¿!¡#$%&\/\\ ]+";
 
             const int kIndexOfContentStart = 4;
-            PrintOnDebug("*************** EMPIEZA LA LECTURA Y PARSING DEL TEXTO ENTWEE ***************");
+            PrintOnDebug("........................... EMPIEZA LA LECTURA Y PARSING DEL TEXTO ENTWEE .......................".Bold().Size(14));
 
             for ( int i = 0; i<nodeData.Length; i++ ) {
                 if ( i < kIndexOfContentStart )
                     continue;
 
-                PrintOnDebug("Parsing nodo "+(i-3)+"  .................................................");
+                PrintOnDebug(("......................................................................... Parsing nodo "+(i-3)+"  ..............................................................................").Bold());
                 string currLineText = nodeData[i];
                 bool tagsPresent = currLineText.IndexOf( "[" ) < currLineText.IndexOf( "\r\n" );
                 int endOfFirstLine = currLineText.IndexOf( "\r\n" );
@@ -249,7 +269,7 @@ public class SimulationObject {
                     }
                 }
 
-                if(tags!="") {PrintOnDebug("El nodo '"+curNode.title+"' es de tipo(s): "+tags);} else{PrintOnDebug("Es un nodo sin un tipo particular (sin tags)");}
+                if(tags!="") {PrintOnDebug("El nodo es de tipo(s): "+tags);} else{PrintOnDebug("Es un nodo sin un tipo particular (sin tags)");}
                 if (tags.Contains("dialogue")) PrintOnDebug("El mensaje del diálogo es:  "+message);
 
                 if ( curNode.tags.Contains( kStart ) ) {
@@ -261,13 +281,28 @@ public class SimulationObject {
                 Regex rg = new Regex(pattern);
 
                 // user actions
-                string[] ActionData = userActionsText.Trim().Split(new string [] { "\r\n" }, StringSplitOptions.None);
-                curNode.userActions = CreateActions(title, ActionData, rg, "de usuario");
+                if(userActionsText!="")
+                {
+                    string[] ActionData = userActionsText.Trim().Split(new string [] { "\r\n" }, StringSplitOptions.None);
+                    curNode.userActions = CreateActions(title, ActionData, rg, "de usuario");
+
+                    if(curNode.userActions.Count == 1)
+                    {
+                        PrintOnDebug("El nodo  tiene 1 acción de usuario");
+                    }
+                }
+                else
+                {
+                    curNode.userActions = new List<Action>();
+                    PrintOnDebug("El nodo no tiene acciones de usuario");
+                }
+
+                // Verificación en la estructura de acciones dependiendo del tipo de nodo
                 if(curNode.tags.Contains("multiplechoice"))
                 {
                     if(curNode.userActions.Count>1)
                     {
-                        PrintOnDebug("El nodo '"+curNode.title+"' tiene "+curNode.userActions.Count+" acciones de usuario");
+                        PrintOnDebug("El nodo tiene "+curNode.userActions.Count+" acciones de usuario");
                     }
                     else
                     {
@@ -282,17 +317,37 @@ public class SimulationObject {
                 {
                     VerifyActionsReminderTimeout(curNode, "timeout", "Simulator.Timeout", "número de segundos a esperar");
                 }
+                else if(curNode.userActions.Count > 2)
+                {
+                    Debug.LogError("El nodo '"+curNode.title+"' tiene "+curNode.userActions.Count+" acciones de usuario, debería ser un multipleChoice");
+                }
 
                 // simulator actions
-                string[] ActionDataSim = simulatorActionsText.Split(new string [] { "\r\n" }, StringSplitOptions.None);
-                curNode.simulatorActions = CreateActions(title, ActionDataSim, rg, "de simulador");
-                PrintOnDebug("El nodo '"+curNode.title+"' tiene "+curNode.simulatorActions.Count+" acciones de simulador");
+                if(simulatorActionsText!="")
+                {
+                    string[] ActionDataSim = simulatorActionsText.Split(new string [] { "\r\n" }, StringSplitOptions.None);
+                    curNode.simulatorActions = CreateActions(title, ActionDataSim, rg, "de simulador");
+
+                    if(curNode.simulatorActions.Count == 1)
+                    {
+                        PrintOnDebug("El nodo  tiene 1 acción de simulador");
+                    }
+                    else
+                    {
+                        PrintOnDebug("El nodo tiene "+curNode.simulatorActions.Count+" acciones de simulador");
+                    }
+                }
+                else
+                {
+                    curNode.simulatorActions = new List<Action>();
+                    PrintOnDebug("El nodo no tiene acciones de simulador");
+                }
 
                 // response messages
                 curNode.responses = new List<Response>();
                 //if ( !lastNode ) {
                     List<string> responseData = new List<string>(responseText.Split( new string [] { "\r\n" }, StringSplitOptions.None ));
-                    PrintOnDebug("El nodo '"+curNode.title+"' tiene "+(responseData.Count)+" camino (s).");
+                    PrintOnDebug("El nodo tiene "+(responseData.Count)+" camino (s).");
                     for ( int k = responseData.Count-1; k >= 0; k-- ) {
                         string curResponseData = responseData[k];
                         //PrintOnDebug("El camino:  "+k+ " es: "+ curResponseData);
@@ -312,8 +367,6 @@ public class SimulationObject {
                             curResponse.displayText = destination;
                         else
                             curResponse.displayText = curResponseData.Substring( 0, destinationStart );
-
-                        string patternSimpleText = @"[A-Za-z0-9À-ÿ\u00f1\u00d1?¿!¡# ]+";
 
                         if(curNode.tags.Contains("random"))
                         {
@@ -360,11 +413,15 @@ public class SimulationObject {
                     {
                         Debug.LogError("NodeFormatError: El nodo '"+curNode.title+"' de tipo multiplechoice, debería tener la misma cantidad de acciones de usuario y caminos. Pero tiene "+curNode.userActions.Count+" acciones de usuario y "+curNode.responses.Count+" caminos posibles");
                     }
+                    if(curNode.tags.Contains("timeout"))
+                    {
+                        if (!HaveTimeoutReponse(curNode.responses, @"^(timeout):"+patternSimpleText)) {Debug.LogError("PathFormatError: Hay un error en el formato del nodo '"+curNode.title+"'\nComo el tipo de nodo es timeout, se espera que haya un (1) camino con el siguiente formato 'timeout:titulo nodo hijo o camino' Pero se encontraron los siguientes\n----\n"+responseText+"\n---\nVerifique que esté bien dicho formato, incluyendo la palabra reservada 'timeout' seguida de ':' y el título del nodo\n");};
+                    }
                 //}
 
                 nodes [ curNode.title ] = curNode;
             }
-            PrintOnDebug("*************** TERMINA LA LECTURA Y PARSING DEL TEXTO ENTWEE ***************");
+            PrintOnDebug("*************** TERMINA LA LECTURA Y PARSING DEL TEXTO ENTWEE ***************".Bold());
         }
     }
 }
