@@ -20,7 +20,7 @@ public class SimulatorController : MonoBehaviour
         if(audioName.ToString() != ""){VoiceController.PlayVoice(audioName.ToString());}
     }
 
-    public void TimeOut(object countdown)
+    public void Timeout(object countdown)
     {
         //Acá se puede incluir una implementación personalizada del timeout
     }

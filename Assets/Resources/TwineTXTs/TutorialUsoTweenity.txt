@@ -154,7 +154,7 @@ En este nodo se quiere que el usuario oprima el botón verde. Si no lo hace desp
 [[Mostrar partículas verdes]]
 [[timeout: Ver pantalla GameOver]]
 {
-Simulator.TimeOut(5)
+Simulator.Timeout(5)
 BtnTutorial.Touched()
 }
 <

@@ -195,7 +195,7 @@ public class SimulationController : MonoBehaviour {
         }
     }
 
-    public void TimeOut()
+    public void Timeout()
     {
         if(timeout)
         {
@@ -259,7 +259,7 @@ public class SimulationController : MonoBehaviour {
                 curReminder = newNode.userActions[0];
                 // Invocar el recordatorio despues de x tiempo
                 remember = true;
-                Invoke("ActivarRecordatorio", float.Parse(Regex.Replace(curReminder.actionParams, @"\s", "").Split(';')[0]));
+                Invoke("ActivarRecordatorio", float.Parse(curReminder.actionParams.Split(';')[0]));
                 curExpectedUserAction = newNode.userActions[1];
             }
             else if(newNode.userActions.Count == 1)
@@ -271,7 +271,7 @@ public class SimulationController : MonoBehaviour {
             {
                 // Invocar el timeout despues de x tiempo
                 remember = true;
-                Invoke("TimeOut", float.Parse(newNode.userActions[0].actionParams));
+                Invoke("Timeout", float.Parse(newNode.userActions[0].actionParams));
                 curExpectedUserAction = newNode.userActions[1];
             }
             else if(newNode.userActions.Count == 1)
