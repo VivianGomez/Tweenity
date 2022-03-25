@@ -243,7 +243,7 @@ public class SimulationObject {
         public void ParseTwineText( TextAsset twineText) {
             string text = twineText.text;
             string[] nodeData = text.Split(new string[] { "::" }, StringSplitOptions.None);
-            string patternSimpleText = @"[A-Za-z0-9À-ÿ\u00f1\u00d1?,-¿!¡#$%&\/\\ ]+";
+            string patternSimpleText = @"[A-Za-z0-9À-ÿ\u00f1\u00d1\(\)?,-¿!¡#$%&\/\\ ]+";
             string patternCompleteFormat = @"(\[\[[\u00f1\u00d1\w+:.;\(\)'\u0022'?,-¿!¡#$%&\/\\ ) ]+\]\](\r\n)+)+\{[\n\r\w+.\(\);'\u0022' ]*[\n\r]*\}[\n\r]+\<[\n\r\w+.\(\);'\u0022' ]*\>";
 
             const int kIndexOfContentStart = 4;
