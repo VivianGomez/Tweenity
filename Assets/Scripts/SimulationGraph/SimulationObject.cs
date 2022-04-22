@@ -1,4 +1,5 @@
-﻿//
+using System.Net;
+//
 //  SimulationObject.cs
 //  Tweenity
 //
@@ -73,7 +74,7 @@ public class SimulationObject {
         }
 
         public Node GetNode( string nodeTitle ) {
-            Debug.Log(nodeTitle);
+            PrintOnDebug(nodeTitle);
             return nodes [ nodeTitle ];
         }
 
@@ -125,9 +126,9 @@ public class SimulationObject {
             return respuesta;
         }
 
-        private void PrintError(string error, string msj)
+        private void PrintError(string error, string msj, string link="https://www.youtube.com/watch?v=1zJVxYkMtjM")
         {
-            Debug.LogError((error+": ").Bold().Color("red")+ msj+"\n");
+            Debug.LogError((error+": ").Bold().Color("red")+ msj+"\n"+"Para más información consulte el "+"video de creación de grafos de simulación en Twine ".Link(link)+", o escriba en el "+"foro de la etapa de desarrollo ".Link("https://github.com/VivianGomez/Tweenity/discussions/17"));
         }
 
         private void PrintOnDebug(string msj)
@@ -247,7 +248,7 @@ public class SimulationObject {
             string patternCompleteFormat = @"(\[\[[\u00f1\u00d1\w+:.;\(\)'\u0022'?,-¿!¡#$%&\/\\ ) ]+\]\](\r\n)+)+\{[\n\r\w+.\(\);'\u0022' ]*[\n\r]*\}[\n\r]+\<[\n\r\w+.\(\);'\u0022' ]*\>";
 
             const int kIndexOfContentStart = 4;
-            PrintOnDebug("........................... EMPIEZA LA LECTURA Y PARSING DEL TEXTO ENTWEE .......................".Bold().Size(14));
+            PrintOnDebug("........................... EMPIEZA LA CARGA Y PARSING DEL GRAFO EN TEXTO ENTWEE .......................".Bold().Size(14));
 
             for ( int i = 0; i<nodeData.Length; i++ ) {
                 if ( i < kIndexOfContentStart )
@@ -486,7 +487,7 @@ public class SimulationObject {
                     PrintError("NodeFormatError","El nodo "+title+" no tiene la estructura esperada en la sección de scripting, recuerde que el orden de las secciones importa ([[]]{}<>) y debe ser:\n_________________\nMensaje diálogo (si es de dicho tipo)\n[[camino_1]]\n.\n.\n.\n[[camino_n]]\n{\nacciones de usuario \n}\n<\nacciones de simulador\n>\n_________________\nEl nodo leído tiene una estructura incorrecta: \n"+bodyNode);
                 }
             }
-            PrintOnDebug("*************** TERMINA LA LECTURA Y PARSING DEL TEXTO ENTWEE ***************".Bold());
+            PrintOnDebug("*************** TERMINA LA CARGA Y PARSING DEL GRAFO EN TEXTO ENTWEE ***************".Bold());
         }
     }
 }

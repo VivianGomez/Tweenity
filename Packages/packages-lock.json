@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.needle.console-hyperlinks": {
+      "version": "https://github.com/needle-tools/console-hyperlinks.git?path=/package",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "882e5a7dd1f866b11a41e7468efb92fe94667295"
+    },
     "com.unity.collab-proxy": {
       "version": "1.5.7",
       "depth": 0,

@@ -52,7 +52,7 @@ public class DialogueViewer : MonoBehaviour
 
     public async void OnNodeSelected(int indexChosen)
     {
-        Debug.Log("Chose: " + indexChosen);
+        //Debug.Log("Chose: " + indexChosen);
         MethodInfo taskObject = null;
         Node curNode = controller.GetCurrentNode();
 
@@ -60,7 +60,7 @@ public class DialogueViewer : MonoBehaviour
 
         foreach (var action in controller.GetCurrentNode().simulatorActions)
         {
-            print("Executing ... "+action.actionName+" - "+action.actionParams);
+            //print("Executing ... "+action.actionName+" - "+action.actionParams);
             GameObject objectF =  GameObject.Find(action.object2Action);
             taskObject = await objectF.GetComponent<ObjectController>().MethodAccess(action.actionName, action.actionParams);
 

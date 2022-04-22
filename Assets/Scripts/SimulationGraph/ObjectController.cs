@@ -30,11 +30,16 @@ public class ObjectController : MonoBehaviour
         tokenSource.Cancel();
     }
 
+    private void PrintOnDebug(string msj)
+    {
+        if (GameObject.Find("SimulationController").GetComponent<SimulationController>().debugLectura) Debug.Log(msj);
+    }
+
     // Busca el método en el objeto modelObject, que tenga el mismo nombre y parámetos dados
     // Si lo encuentra, lo invoca con los parámetros dados (si es que tiene)
     public async Task<MethodInfo> MethodAccess(string methodName, string args, int delay=200)
     {
-        Debug.Log("Se está buscando el método llamado "+methodName+" con los parámetros "+ args);
+        PrintOnDebug("Se está buscando el método llamado "+methodName+" con los parámetros "+ args);
         var modelObjectScript = modelObject.GetType();
         var loadingMethod = modelObjectScript.GetMethod(methodName);
 
@@ -60,10 +65,10 @@ public class ObjectController : MonoBehaviour
         }
         else
         {
-            Debug.Log("No existe un método llamado "+ methodName + ", en el objeto "+ modelObject);
+            PrintOnDebug("No existe un método llamado "+ methodName + ", en el objeto "+ modelObject);
         }
         
-        Debug.Log("Esperando ... "+ delay);
+        PrintOnDebug("Esperando ... "+ delay);
 
         await Task.Delay(delay, tokenSource.Token);
 

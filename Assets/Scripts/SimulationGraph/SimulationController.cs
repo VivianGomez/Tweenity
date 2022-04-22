@@ -20,7 +20,8 @@ public class SimulationController : MonoBehaviour {
 
     //Este es el archivo de Twine en FORMATO ENTWEE 1.1.1 o ENTWEEDLE 1.0.1
     [SerializeField] public TextAsset twineText;
-    public bool debugging = false;
+    public bool debugCarga = false;
+    public bool debugLectura = false;
 
     //Guión de simulación actual
     SimulationScript currSim;
@@ -53,10 +54,16 @@ public class SimulationController : MonoBehaviour {
     public Node GetCurrentNode() {
         return curNode;
     }
+
+    private void PrintOnDebug(string msj)
+    {
+        if (debugLectura) Debug.Log(msj);
+    }
     
     //Al empezar la aplicación se empieza la lectura del grafo (guión de simulación)
      void Start()
     {
+        GameObject.Find("CanvasLogs").SetActive(debugLectura);
         tokenSource = new CancellationTokenSource();
         onEnteredNode += OnNodeEntered;
         InitializeDialogue();
@@ -64,7 +71,7 @@ public class SimulationController : MonoBehaviour {
 
     //Se crea un objeto SimulationScript que modela el contenido del guión de simulación a partir del grafo
     public void InitializeDialogue() {
-        currSim = new SimulationScript( twineText, debugging );
+        currSim = new SimulationScript( twineText, debugCarga );
         curNode = currSim.GetStartNode();
         onEnteredNode( curNode );
     }
@@ -76,9 +83,9 @@ public class SimulationController : MonoBehaviour {
     public void ChooseResponse( int responseIndex ) {
         if(!curNode.tags.Contains("end"))
         {
-            print("responseIndex "+responseIndex);
+            PrintOnDebug("responseIndex "+responseIndex);
             string nextNodeID = curNode.responses[responseIndex].destinationNode;
-            print("nextNodeID "+nextNodeID);
+            PrintOnDebug("nextNodeID "+nextNodeID);
             Node nextNode = currSim.GetNode(nextNodeID);
             curNode = nextNode;
             onEnteredNode( nextNode );
@@ -89,16 +96,16 @@ public class SimulationController : MonoBehaviour {
     //En dicho caso se selecciona el siguiente nodo
     public async void VerifyUserAction(Action actRecibida, int responseIndex=0)
     {
-        print("Se esperaba el objeto "+curExpectedUserAction.object2Action+" y se recibió "+actRecibida.object2Action);
-        print("Se esperaba la acción (método/función) "+curExpectedUserAction.actionName+" y se recibió "+actRecibida.actionName);
-        print("Se esperaban los parámetros "+curExpectedUserAction.actionParams+" y se recibieron "+actRecibida.actionParams);
+        PrintOnDebug("Se esperaba el objeto "+curExpectedUserAction.object2Action+" y se recibió "+actRecibida.object2Action);
+        PrintOnDebug("Se esperaba la acción (método/función) "+curExpectedUserAction.actionName+" y se recibió "+actRecibida.actionName);
+        PrintOnDebug("Se esperaban los parámetros "+curExpectedUserAction.actionParams+" y se recibieron "+actRecibida.actionParams);
 
         if(actRecibida.Equals(curExpectedUserAction) || curNode.userActions.Contains(actRecibida))
         {
             remember = false;
             timeout = false;
             ReminderController.HideReminder();
-            print("La función recibida es la esperada en el nodo actual");
+            PrintOnDebug("La función recibida es la esperada en el nodo actual");
 
             if(curSimulatorActions.Count>0)
             {
@@ -114,7 +121,7 @@ public class SimulationController : MonoBehaviour {
                 }
                 catch(System.OperationCanceledException)
                 {
-                    Debug.Log("Se canceló la tarea");
+                    PrintOnDebug("Se canceló la tarea");
                 } 
 
             }
@@ -125,7 +132,7 @@ public class SimulationController : MonoBehaviour {
         }
         else
         {
-            print("Esta no es la acción de usuario esperada");
+            PrintOnDebug("Esta no es la acción de usuario esperada");
         }
     }
 
@@ -138,12 +145,12 @@ public class SimulationController : MonoBehaviour {
         // si tiene etiqueta random ==> se hace un random en el tamaño de responses
         if(GetCurrentNode().tags.Contains("random"))
         {
-            print("Se detecta que se realizó la acción esperada y se selecciona el nodo consecuencia de manera aleatoria");
+            PrintOnDebug("Se detecta que se realizó la acción esperada y se selecciona el nodo consecuencia de manera aleatoria");
             ChooseResponse(Random.Range(0,GetCurrentNode().responses.Count));
         }
         else if(GetCurrentNode().tags.Contains("multiplechoice"))
         {
-            print("Es MULTIPLE CHOICE");
+            PrintOnDebug("Es MULTIPLE CHOICE");
             ChooseResponse(GetPositionOfResponse(actRecibida.object2Action+"."+actRecibida.actionName));
         }
         // sino se selecciona la 0
@@ -151,12 +158,12 @@ public class SimulationController : MonoBehaviour {
         {
             if(curNode.responses.Count == 1)
             {
-                print("Se pasa al siguiente nodo");
+                PrintOnDebug("Se pasa al siguiente nodo");
                 ChooseResponse(0);
             } 
             else if(GetCurrentNode().tags.Contains("timeout"))
             {
-                print("Era timeout, pero realizó la acción antes -> Se pasa al siguiente nodo");
+                PrintOnDebug("Era timeout, pero realizó la acción antes -> Se pasa al siguiente nodo");
                 ChooseResponse(GetActionResponse(curNode.responses,GetPositionOfResponse("timeout")));
             } 
         }
@@ -166,11 +173,11 @@ public class SimulationController : MonoBehaviour {
     // (en el caso que tengan delay, como todos los métodos que empiezan con Play o el método Wait)
     public async Task<MethodInfo> ExecuteSimulatorActions(List<Action> simulatorActions)
     {
-        print("Empieza a ejecutar acciones de simulador actuales...");
+        PrintOnDebug("Empieza a ejecutar acciones de simulador actuales...");
         MethodInfo taskObject = null;
         foreach (var action in simulatorActions)
         {
-            print("Executing ... "+action.actionName+" - "+action.actionParams);
+            PrintOnDebug("Executing ... "+action.actionName+" - "+action.actionParams);
             GameObject objectF =  GameObject.Find(action.object2Action);
             if(objectF!=null)
             {
@@ -178,10 +185,10 @@ public class SimulationController : MonoBehaviour {
             }
             else
             {
-                Debug.Log("ERROR: No existe un objeto con el nombre "+action.object2Action);
+                PrintOnDebug("ERROR: No existe un objeto con el nombre "+action.object2Action);
             }
         }
-        print("Terminó acciones de simulador actuales...");
+        PrintOnDebug("Terminó acciones de simulador actuales...");
 
         return taskObject;
     }
@@ -211,7 +218,7 @@ public class SimulationController : MonoBehaviour {
 
     private async void OnNodeEntered(Node newNode)
     {
-        Debug.Log("CONTROLLER - Entering node: " + newNode.title);
+        PrintOnDebug("CONTROLLER - Entering node: " + newNode.title);
         curExpectedUserAction = new Action();
         curSimulatorActions = null;
         MethodInfo taskObject = null;
@@ -225,7 +232,7 @@ public class SimulationController : MonoBehaviour {
             }
             catch(System.OperationCanceledException)
             {
-                Debug.Log("Se canceló la tarea");
+                PrintOnDebug("Se canceló la tarea");
                 return;
             } 
         }
@@ -249,7 +256,7 @@ public class SimulationController : MonoBehaviour {
             }
             catch(System.OperationCanceledException)
             {
-                Debug.Log("Se canceló la tarea");
+                PrintOnDebug("Se canceló la tarea");
                 return;
             }         
         }
