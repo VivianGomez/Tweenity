@@ -128,7 +128,7 @@ public class SimulationObject {
 
         private void PrintError(string error, string msj, string link="https://www.youtube.com/watch?v=1zJVxYkMtjM")
         {
-            Debug.LogError((error+": ").Bold().Color("red")+ msj+"\n"+"Para más información consulte el "+"video de creación de grafos de simulación en Twine ".Link(link)+", o escriba en el "+"foro de la etapa de desarrollo ".Link("https://github.com/VivianGomez/Tweenity/discussions/17"));
+            Debug.LogError((error+": ").Bold().Color("red")+ msj+"\n"+"Para más información sobre los formatos consulte el "+"video de creación de grafos de simulación en Twine ".Link(link)+", o escriba en el "+"foro de la etapa de desarrollo ".Link("https://github.com/VivianGomez/Tweenity/discussions/17"));
         }
 
         private void PrintOnDebug(string msj)
