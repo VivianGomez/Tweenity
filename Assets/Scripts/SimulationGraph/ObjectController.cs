@@ -20,7 +20,7 @@ public class ObjectController : MonoBehaviour
     CancellationTokenSource tokenSource;
 
 
-    private void Start() {
+    private void Awake() {
         tokenSource = new CancellationTokenSource();
     }
 
@@ -30,16 +30,11 @@ public class ObjectController : MonoBehaviour
         tokenSource.Cancel();
     }
 
-    private void PrintOnDebug(string msj)
-    {
-        if (GameObject.Find("SimulationController").GetComponent<SimulationController>().debugLectura) Debug.Log(msj);
-    }
-
     // Busca el método en el objeto modelObject, que tenga el mismo nombre y parámetos dados
     // Si lo encuentra, lo invoca con los parámetros dados (si es que tiene)
     public async Task<MethodInfo> MethodAccess(string methodName, string args, int delay=200)
     {
-        PrintOnDebug("Se está buscando el método llamado "+methodName+" con los parámetros "+ args);
+        Debug.Log("Se está buscando el método llamado "+methodName+" con los parámetros "+ args);
         var modelObjectScript = modelObject.GetType();
         var loadingMethod = modelObjectScript.GetMethod(methodName);
 
@@ -65,10 +60,10 @@ public class ObjectController : MonoBehaviour
         }
         else
         {
-            PrintOnDebug("No existe un método llamado "+ methodName + ", en el objeto "+ modelObject);
+            Debug.Log("No existe un método llamado "+ methodName + ", en el objeto "+ modelObject);
         }
         
-        PrintOnDebug("Esperando ... "+ delay);
+        Debug.Log("Esperando ... "+ delay);
 
         await Task.Delay(delay, tokenSource.Token);
 

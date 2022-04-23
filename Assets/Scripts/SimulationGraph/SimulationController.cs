@@ -248,6 +248,7 @@ public class SimulationController : MonoBehaviour {
                 }
                 else
                 {
+                    print("entra");
                     if(newNode.responses.Count == 1 && taskObject!=null && !newNode.tags.Contains("dialogue"))
                     {
                         ChooseResponse(0);

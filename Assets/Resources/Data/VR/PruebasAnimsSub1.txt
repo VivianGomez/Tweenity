@@ -1,0 +1,32 @@
+:: StoryTitle
+MOB-E-005-SF Fuga mayor de combustible en un propulsor - V2
+
+:: UserScript[script]
+
+
+:: UserStylesheet[stylesheet]
+
+
+:: Recibir condiciones iniciales del escenario[START random]
+EXPLICACIÓN:
+Pruebas anim sub1
+@
+[[Recibir condiciones iniciales del escenario]]
+{}
+<
+Sub1Esq.MirarJugador(true)
+Simulator.Esperar(2)
+Sub1Esq.MirarJugador(false)
+Simulator.MoverSuboficial("Suboficial1";"PathIrArmarios")
+Simulator.Esperar(3)
+Sub1Esq.PlayAnimation("TomarTelefono")
+Sub1Esq.PlayAnimation("Idle")
+Simulator.MoverSuboficial("Suboficial1";"PathVolver")
+Sub1Esq.MirarJugador(true)
+Simulator.Esperar(2)
+Sub1Esq.PlayAnimation("PonerseTelCabeza")
+Sub1Esq.UsarTelCabeza()
+Sub1Esq.PlayAnimation("Idle")
+Sub1Esq.PlayAnimation("HablarTelefono")
+Sub1Esq.PlayAnimation("Idle")
+>

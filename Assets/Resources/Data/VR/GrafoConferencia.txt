@@ -1,0 +1,750 @@
+:: StoryTitle
+Grafo conferencia
+
+:: UserScript[script]
+
+
+:: UserStylesheet[stylesheet]
+
+
+:: Recibir condiciones iniciales del escenario[START random]
+EXPLICACIÓN:
+En este nodo se definen las condiciones iniciales de la unidad (Buque).
+Para mostrar las condiciones iniciales , se deben mover las palancas de velocidad y manómetros al valor 13 (nudos) y se debe activar la alarma de MainbridgeInControlMpe que indica que el control de la maquinaria lo tiene el puente.
+
+Dichas condiciones se indican al usuario mediante un audio en el que se dice:
+"Unidad navegando en el area de operaciones a 13 nudos con rumbo 1,7,0
+Motor propulsor #1 y #2 en servicio 
+Motor generador #2 y #3, en servicio en línea
+Alineadas la bomba #1 para achique, bomba #2 para lastre y bomba #3 para contraincendio"
+
+<img src="https://drive.google.com/uc?id=1mr_TFg_7MpLCAB_X9A1mEQ51YWyHmMRf">
+@
+[[1:Ver sintomas de baja presión de combustible en la consola]]
+[[2:Recibir información del tripulante que está pasando ronda]]
+{}
+<
+Simulator.InicializarConstantes("MOB1")
+PlcVelMpb.MoveToVal(13)
+PlcVelMpe.MoveToVal(13)
+ManPitchMpe.MoverHasta(13)
+ManPitchMpb.MoverHasta(13)
+Sub3Esq.MirarJugador(false)
+HandMenu.DesactivarBtn()
+AlmMainbridgeInControlMpe.ActivateAlarm()
+Simulator.Play("recepcionGuardia1")
+>
+
+
+:: Atención personal de guardia, se presenta baja presión en uno de los motores propulsores
+EXPLICACIÓN: 
+Automáticamente un tripulante de la guardia (Suboficial de guardia) entrega los telefonos de cabeza (para las comunicaciones entre el cuarto de máquinas y el CCI) al tripulante del rol de comunicaciones asignado  para el cuarto de máquinas (Sub. electricidad y refrigeración) y el otro telefono lo asume él.
+
+(Sub. de propulsión)sale del CCI hacia el cuarto de máquinas a verificar la novedad
+(Sub. electricidad y refrigeración) sale del CCI hacia el cuarto de máquinas a tripular su puesto de comunicaciones
+
+<img height="350" src="https://drive.google.com/uc?id=1WUOZUe9ibwRfgZvyhIO8wKr54lKHWrs9">
+@
+[[Empezar conversación desde el teléfono]]
+{}
+<
+HandMenu.CerrarPantalla()
+HandMenu.DesactivarBtn()
+PlayerController.Play("ATGOlorCombustible")
+Simulator.Play("S1-EntendidoDosSub")
+Sub1Esq.MirarJugador(false)
+Simulator.MoverSuboficial("Suboficial1";"PathIrArmarios")
+Simulator.Esperar(1)
+Sub1Esq.PlayAnimation("TomarTelefono")
+Sub1Esq.TomarTelefonos()
+Sub1Esq.PlayAnimation("BajarAgarrar")
+Sub1Esq.PlayAnimation("Idle")
+Sub3Esq.PlayAnimation("Idle")
+PuertaCCI.PlayAnimation("open")
+Simulator.MoverSuboficial("Suboficial3";"PathSalirCCI")
+Simulator.MoverSuboficial("Suboficial1";"PathVolver")
+Sub2Esq.MirarJugador(false)
+Sub2Esq.PlayAnimation("Idle")
+Simulator.MoverSuboficial("Suboficial2";"PatchSalirCCIOficina")
+Simulator.Esperar(3)
+PuertaCCI.PlayAnimation("close")
+Simulator.Esperar(1)
+>
+
+:: Empezar conversación desde el teléfono[dialogo]
+EXPLICACIÓN
+Cuando los dos tripulantes llegan al CM se comunican con el encargado de comunicaciones del CCI y este le reporta al oficial de guardia (jugador).
+"Mi Teniente, reporto fuerte olor a combustible en los cuartos de máquinas" y el jugador responde "Recibido. verificar si hay presencia de combustible en las sentinas" 
+
+<img height="350" src="https://drive.google.com/uc?id=1hQkpguuUWH-KDf60JTvmkdi1GD0hK7pF">
+@
+Mi Teniente, reporto fuerte olor a combustible en los cuartos de máquinas
+[[Recibido. verificar si hay presencia de combustible en las sentinas]]
+[[Recibido, puede volver al cuarto de ingeniería]]
+{}
+<
+Sub1Esq.MirarJugador(true)
+Simulator.Esperar(2)
+Sub1Esq.MostrarTelefono(false)
+Sub1Esq.PlayAnimation("PonerseTelCabeza")
+Sub1Esq.UsarTelCabeza()
+Sub1Esq.PlayAnimation("Idle")
+Simulator.Play("olorCombustibleCM")
+HandMenu.CambiarFuncionalidad("hablarConSuboficial")
+HandMenu.ShowInstructionAnim(true)
+>
+
+
+:: Tomar el Control de la maquinaria
+EXPLICACIÓN:
+Para llevar a cabo el procedimiento de 'Desembragar el motor', el usuario debe seguir una serie de pasos extrictos. Empezando por oprimir el botón "BtnTransferInControl", lo cual quita el control al Puente (Mainbridge) y se lo da al Cuarto de Ingeniería (ECS, Engine Control System).
+<img height="350" src="https://drive.google.com/uc?id=1fINoRbtwXGKAAc_a3Rz-0UdBsF4VXfUb">
+@
+[[Pasar a cero la palanca del paso de hélice del motor]]
+{
+Simulator.MostrarRecordatorio(""; 0; BtnTransferMpe)
+BtnTransferMpe.Touched()
+}
+<
+GrabbableHandlerMpe.SetExpectedValue(0)
+Simulator.Esperar(2)
+Simulator.Play("S1-PasarACeroPEstribor")
+>
+
+
+
+:: Pasar a cero la palanca del paso de hélice del motor
+EXPLICACIÓN:
+El siguiente paso después de tomar el control del puente, es mover la palanca del paso de elice del motor estribor hasta 0.
+<img height="350" src="https://drive.google.com/uc?id=1EB_0anU2QjSwUEs-bncWeb6SSwJKUdk_">
+<img height="350" src="https://drive.google.com/uc?id=1eGUXmEkvNo_gAqCBisdKIKrozRyU6dMK">
+@
+[[Desembragar el motor]]
+{
+Simulator.MostrarRecordatorio(""; 0; HandlerPlcVelMpe)
+PlcVelMpe.ConfirmarNudos(0)
+}
+<
+Simulator.Esperar(2)
+Simulator.Play("S1-OprimaClutchOut")
+>
+
+
+:: Oprimir el botón "Stop Engine" para ASEGURAR EL MOTOR
+EXPLICACIÓN:
+Tras visualizar dicha disminución en la temperatura, se podrá asegurar (apagar) el motor, oprimiendo el botón "Stop Engine"
+
+<img height="350" src="https://drive.google.com/uc?id=15k2Xe4wdYnsDtPc1PTnbVuzlOFcZ2LaK">
+
+En caso de que el camino por el cual se llegó a este nodo sea "4:Mi Teniente, se detecta combustible pulverizado o chorro producido por rotura de una tubería.", no se debe esperar, sino que se asegura de inmediato.
+
+@
+[[Asegurar ventilacion 1]]
+{
+Simulator.MostrarRecordatorio(""; 0; BtnStopEngineMpe)
+BtnStopEngineMpe.Touched()
+}
+<
+ManEngineRpmMpe.MoverHasta(0)
+Simulator.Esperar(2)
+Simulator.Play("S1-AsegurarVentilacioens")
+>
+
+:: 1:Ver sintomas de baja presión de combustible en la consola
+EXPLICACIÓN:
+
+Se empiezan a mostrar indicadores o "síntomas" del ejercicio. En este caso, indicadores de Fuga de combustible, como son:
+
+Una alarma en el monitor del sistema de alarmas, indicando que hay baja presión en uno de los motores propulsores y el movimiento del manómetro que indica RPM de el motor estribor, cambiando al valor 5.
+
+<img src="https://drive.google.com/uc?id=1wSAtc9AjfDhoCkRZRQG4ZPftNIZyqPot">
+@
+[[Diseminar información al personal de guardia, tras ver el estado de los indicadores de la consola]]
+{}
+<
+AMS.ActivarAlama("baja presion"; "motor propulsor estribor")
+ManEngineRpmMpe.MoverIntervalo(5;6)
+HandMenu.ShowInstructionAnim(true)
+HandMenu.CambiarFuncionalidad("instruirAVivaVoz")
+>
+
+:: Desembragar el motor
+EXPLICACIÓN
+El siguiente paso es oprimir el botón "BtnClutchOut", este botón va a desembragar el motor y por ello el manómetro que indica RPM de la propela (Propeller RPM) llegará a 0
+Una vez RMP propeller está en cero, automáticamente se enciende el botón/alarma "Clutch Ready". Esto finalmente desembraga el motor
+
+<img height="350" src="https://drive.google.com/uc?id=1SzsenB1kUZQ6npg6l3KUV0SNL2vb48Ci">
+
+Se debe dejar rodar el motor unos minutos. Para ello, se esperará un tiempo hasta que se muestre en el monitor del sistema de alarmas, la disminución de la temperatura de agua y aceite hasta 40 y 60 grados (respectivamente)
+
+<img height="350" src="https://drive.google.com/uc?id=15ENtldaPLgdESE4-gEzKuUZiNukSbHm-">
+
+@
+[[Oprimir el botón "Stop Engine" para ASEGURAR EL MOTOR]]
+{
+Simulator.MostrarRecordatorio(""; 0; BtnClutchOutMpe)
+BtnClutchOutMpe.Touched()
+}
+<
+AlmClutchReadyMpe.ActivateAlarm()
+Simulator.Esperar(3)
+Simulator.Play("S1-QueBajelaTemp")
+Simulator.Esperar(8)
+Simulator.MostrarRecordatorio(""; 1; PPanelMonitoreo)
+PanelMonitoreo.ActualizarValorSensor("temperatura_aceite"; 40)
+PanelMonitoreo.ActualizarValorSensor("temperatura_agua"; 60)
+Simulator.Esperar(2)
+Simulator.Play("S1-AsegurarConStopEngine")
+>
+
+
+:: Poner en servicio la bomba de incendio del cuarto no afectado
+EXPLICACIÓN:
+Tras asegurar la ventilación, se debe alinear la bomba de contraincendio del cuarto de maquinas opuesto. 
+Para ello, oprimir "Control remoto bomba #2" (verde)
+
+<img height="250" src="https://drive.google.com/uc?id=1DvDTpDzpyYqXlceTxR3ycTKwvK_Q32b7">
+@
+[[Solicitar al suboficial de comunicaciones que de orden de aislar el origen de la fuga]]
+{
+Simulator.MostrarRecordatorio(""; 0; BtnStartBombaCtrlNR2)
+BtnStartBombaCtrlNR2.Touched()
+}
+<
+HandMenu.CambiarFuncionalidad("hablarConSuboficial")
+HandMenu.ShowInstructionAnim(true)
+>
+
+:: 1:Mi Teniente, se detecta acumulación de combustible en las sentinas[dialogo]
+EXPLICACIÓN:Se detecta acumulación excesiva de combustible en las sentinas
+Se detecta acumulación de combustible en las sentinas
+El suboficial de guardia que está pasando la ronda por el cuarto de maquinas, se comunica por radio con el Sub de comunicaciones y le informa  que se detecta acumulación de combustible en las sentinas
+<img height="350" src="https://drive.google.com/uc?id=1hQkpguuUWH-KDf60JTvmkdi1GD0hK7pF">
+@
+Mi Teniente, se detecta acumulación de combustible en las sentinas
+[[Atención personal, se está presentando novedad en el cuarto de máquinas consistente en detección de combustible en las sentinas]]
+[[Atención personal de guardia, lleven extinguidores al cuarto de máquinas]]
+{}
+<
+Sub1Esq.MirarJugador(true)
+Simulator.Esperar(2)
+Sub1Esq.MostrarTelefono(false)
+Sub1Esq.PlayAnimation("PonerseTelCabeza")
+Sub1Esq.UsarTelCabeza()
+Sub1Esq.PlayAnimation("Idle")
+Simulator.Play("acumulacionCombustible")
+HandMenu.CambiarFuncionalidad("hablarConSuboficial")
+HandMenu.ShowInstructionAnim(true)
+>
+
+:: 2:Mi Teniente, se evidencia baja presión de combustible leída en indicadores ubicados en cuartos de máquinas.[dialogo]
+EXPLICACIÓN:Baja presión de combustible leída en indicadores ubicados en cuartos de máquinas
+El suboficial de guardia que está pasando la ronda por el cuarto de maquinas, se comunica por radio con el Sub de comunicaciones y le informa que evidencia baja presión de combustible leída en indicadores ubicados en cuartos de máquinas.
+<img height="350" src="https://drive.google.com/uc?id=1hQkpguuUWH-KDf60JTvmkdi1GD0hK7pF">
+@
+Mi Teniente, se evidencia baja presión de combustible leída en indicadores ubicados en cuartos de máquinas.
+[[Atención personal, se está presentando novedad en el cuarto de máquinas consistente en baja presión de combustible leída en indicadores ubicados en cuartos de máquinas]]
+[[Recibido. Envíe de vuelta al cuarto de ingeniería al suboficial de propulsión]]
+{}
+<
+Sub1Esq.MirarJugador(true)
+Simulator.Esperar(2)
+Sub1Esq.MostrarTelefono(false)
+Sub1Esq.PlayAnimation("PonerseTelCabeza")
+Sub1Esq.UsarTelCabeza()
+Sub1Esq.PlayAnimation("Idle")
+Simulator.Play("bajaPresion")
+HandMenu.CambiarFuncionalidad("hablarConSuboficial")
+HandMenu.ShowInstructionAnim(true)
+>
+
+:: 3:Mi Teniente, se detectan tapas sueltas de filtros.[dialogo]
+EXPLICACIÓN:Se detecta tapa suelta de los filtros
+
+El suboficial de guardia que está pasando la ronda por el cuarto de maquinas, vuelve a abrir la puerta e indica que detecta tapas sueltas de filtros.
+<img height="350" src="https://drive.google.com/uc?id=1hQkpguuUWH-KDf60JTvmkdi1GD0hK7pF">
+@
+Mi Teniente, se detectan tapas sueltas de filtros.
+[[Atención personal, se está presentando novedad en el cuarto de máquinas consistente en tapa suelta de los filtros]]
+[[Recibido. No haga nada]]
+{}
+<
+Sub1Esq.MirarJugador(true)
+Simulator.Esperar(2)
+Sub1Esq.MostrarTelefono(false)
+Sub1Esq.PlayAnimation("PonerseTelCabeza")
+Sub1Esq.UsarTelCabeza()
+Sub1Esq.PlayAnimation("Idle")
+Simulator.Play("tapasSueltas")
+HandMenu.CambiarFuncionalidad("hablarConSuboficial")
+HandMenu.ShowInstructionAnim(true)
+>
+
+:: Atención personal, se está presentando novedad en el cuarto de máquinas consistente en combustible pulverizado o chorro producido por rotura de una tubería del motor propulsor estribor
+El Oficial de guardia disemina la información al personal de la guardia.
+"Atención personal, se está presentando novedad en el cuarto de máquinas consistente en combustible pulverizado o chorro producido por rotura de una tubería del motor propulsor estribor"
+@
+[[Tomar el Control de la maquinaria]]
+{}
+<
+HandMenu.CerrarPantalla()
+HandMenu.DesactivarBtn()
+PlayerController.Play("ATGcombustiblePulverizado")
+Simulator.Esperar(2)
+Simulator.Play("S1-DebemosTomarControlM")
+>
+
+:: Atención personal, se está presentando novedad en el cuarto de máquinas consistente en tapa suelta de los filtros
+El Oficial de guardia disemina la información al personal de la guardia.
+"Atención personal de la guardia de ingeniería, en el momento se está presentando novedad en el cuarto de máquinas consistente en tapa suelta de los filtros"
+@
+[[Tomar el Control de la maquinaria]]
+{}
+<
+HandMenu.CerrarPantalla()
+HandMenu.DesactivarBtn()
+PlayerController.Play("ATGTapaSueltaFiltros")
+Simulator.Esperar(2)
+Simulator.Play("S1-DebemosTomarControlM")
+>
+
+:: Atención personal, se está presentando novedad en el cuarto de máquinas consistente en detección de combustible en las sentinas
+El Oficial de guardia disemina la información al personal de la guardia.
+"Atención personal, se está presentando novedad en el cuarto de máquinas consistente en detección de combustible en las sentinas"
+@
+[[Tomar el Control de la maquinaria]]
+{}
+<
+HandMenu.CerrarPantalla()
+HandMenu.DesactivarBtn()
+PlayerController.Play("ATGCombustibleSentinas")
+Simulator.Esperar(2)
+Simulator.Play("S1-DebemosTomarControlM")
+>
+
+:: 4:Mi Teniente, se detecta combustible pulverizado o chorro producido por rotura de una tubería.[dialogo]
+EXPLICACION: Se detecta combustible pulverizado o chorro producido por rotura de una tuberia
+El suboficial de guardia que está pasando la ronda por el cuarto de maquinas, se comunica por radio con el Sub de comunicaciones y le informa que se detecta combustible pulverizado o chorro producido por rotura de una tubería.
+<img height="350" src="https://drive.google.com/uc?id=1hQkpguuUWH-KDf60JTvmkdi1GD0hK7pF">
+@
+Mi Teniente, se detecta combustible pulverizado o chorro producido por rotura de una tubería.
+[[Atención personal, se está presentando novedad en el cuarto de máquinas consistente en combustible pulverizado o chorro producido por rotura de una tubería del motor propulsor estribor]]
+[[Recibido, todos vuelvan a sus actividades normales]]
+{}
+<
+Sub1Esq.MirarJugador(true)
+Simulator.Esperar(2)
+Sub1Esq.MostrarTelefono(false)
+Sub1Esq.PlayAnimation("PonerseTelCabeza")
+Sub1Esq.UsarTelCabeza()
+Sub1Esq.PlayAnimation("Idle")
+Simulator.Play("combustiblePulverizado")
+HandMenu.CambiarFuncionalidad("hablarConSuboficial")
+HandMenu.ShowInstructionAnim(true)
+>
+
+:: 2:Recibir información del tripulante que está pasando ronda[dialogo]
+Alguien abre la puerta de CCI e informa: "Mi Teniente, se detecta fuerte olor a combustible en los cuartos de máquinas."
+<img height="350" src="https://drive.google.com/uc?id=1xuZ3QzbRr9ixLlPAkTqu--Jxu_OwIcFx">
+@
+Este menú le permite dar una instrucción a viva voz al personal del CCI.
+¿Cuál instrucción quiere dar?
+[[Atención personal de guardia, se presenta olor a combustible en los cuartos de máquinas]]
+[[Atención, se presenta un incendio en el cuarto de máquinas]]
+{}
+<
+Simulator.Reubicar("Suboficial2";"-2,15";"-0,184";"-0,73")
+PuertaCCI.PlayAnimation("open")
+SonidoAmbientePuerta.SubirVolumen("0,4")
+Simulator.MoverSuboficial("Suboficial2";"PathEntrarACCI")
+Sub2Esq.MirarJugador(true)
+Sub2Esq.PlayAnimation("SaludoOficial")
+Sub2Head.PlayVoice("S2-OlorCombustible")
+Sub2Esq.PlayAnimation("SaludoOficial")
+HandMenu.ShowInstructionAnim(true)
+HandMenu.CambiarFuncionalidad("instruirAVivaVoz")
+>
+
+:: Recibido. verificar si hay presencia de combustible en las sentinas
+EXPLICACION: El suboficial de comunicaciones replica que se presenta fuga de combustible en el propulsor #1, costado de estribor, parte inferior. Se detectan aproximadamente 5 galones de combustible derramados 
+Dice "Mi Teniente, se presenta fuga de combustible en el propulsor #1, costado de estribor, parte inferior, a la altura de los filtros de combustible y se detectan aproximadamente 5 galones de combustible derramados"
+<img height="350" src="https://drive.google.com/uc?id=1hQkpguuUWH-KDf60JTvmkdi1GD0hK7pF">
+@
+[[Reportar al puente unidad restringida en máquinas motor propulsor #1, fuga de combustible.]] 
+{}
+<
+HandMenu.CerrarPantalla()
+HandMenu.DesactivarBtn()
+PlayerController.Play("RecibidoVerSentinas")
+Simulator.Play("presenciaCombustible")
+Simulator.Play("S1-DebemosReportarAlPuente")
+>
+
+:: Reportar al puente unidad restringida en máquinas motor propulsor #1, fuga de combustible.[reminder]
+Para reportar al puente el usuario deberá llamar por medio del teléfono de la consola y decir "Mi Capitán, al momento reporto unidad restringida en maquinaria, fuga de combustible motor propulsor #1". Me contestan "Recibido"
+<img height="350" src="https://drive.google.com/uc?id=1cGg_6kmK9VArnSYzUP_QibgXGDmq88bB">
+@
+[[Tomar el Control de la maquinaria]]
+{
+Simulator.MostrarRecordatorio(""; 1; PntTel)
+BtnLlamarPuente.Touched()
+}
+<
+PlayerController.Play("PuenteFugaCombustible")
+TelefonoAut.AudioRespuestaTelefono("RecibidoCyF")
+Simulator.Esperar(3)
+Simulator.Play("S1-DebemosTomarControlM")
+>
+
+:: Atención personal, se está presentando novedad en el cuarto de máquinas consistente en baja presión de combustible leída en indicadores ubicados en cuartos de máquinas
+El Oficial de guardia disemina la información al personal de la guardia.
+"Atención personal, se está presentando novedad en el cuarto de máquinas consistente en baja presión de combustible leída en indicadores ubicados en cuartos de máquinas"
+@
+[[Tomar el Control de la maquinaria]]
+{}
+<
+HandMenu.CerrarPantalla()
+HandMenu.DesactivarBtn()
+PlayerController.Play("ATGBajaPresionCM")
+Simulator.Esperar(2)
+Simulator.Play("S1-DebemosTomarControlM")
+>
+
+:: Atención personal de guardia, se presenta olor a combustible en los cuartos de máquinas[random]
+El jugador a viva voz indica "Atención personal de guardia, se presenta olor a combustible en los cuartos de máquinas"
+
+Automáticamente un tripulante de la guardia (Suboficial de guardia) entrega los telefonos de cabeza (para las comunicaciones entre el cuarto de máquinas y el CCI) al tripulante del rol de comunicaciones asignado  para el cuarto de máquinas (Sub. electricidad y refrigeración) y el otro telefono lo asume él.
+
+(Sub. de propulsión, que es el mismo que estaba de ronda) sale del CCI hacia el cuarto de máquinas a verificar la novedad
+(Sub. electricidad y refrigeración) sale del CCI hacia el cuarto de máquinas a tripular su puesto de comunicaciones
+
+<img height="350" src="https://drive.google.com/uc?id=1WUOZUe9ibwRfgZvyhIO8wKr54lKHWrs9">
+@
+[[1:Mi Teniente, se detecta acumulación de combustible en las sentinas]]
+[[2:Mi Teniente, se evidencia baja presión de combustible leída en indicadores ubicados en cuartos de máquinas.]]
+[[3:Mi Teniente, se detectan tapas sueltas de filtros.]]
+[[4:Mi Teniente, se detecta combustible pulverizado o chorro producido por rotura de una tubería.]]
+{}
+<
+HandMenu.CerrarPantalla()
+HandMenu.DesactivarBtn()
+PlayerController.Play("ATGOlorCombustible")
+Simulator.Play("S1-EntendidoDosSub")
+Sub1Esq.MirarJugador(false)
+Simulator.MoverSuboficial("Suboficial1";"PathIrArmarios")
+Simulator.Esperar(1)
+Sub1Esq.PlayAnimation("TomarTelefono")
+Sub1Esq.TomarTelefonos()
+Sub1Esq.PlayAnimation("BajarAgarrar")
+Sub1Esq.PlayAnimation("Idle")
+Sub3Esq.PlayAnimation("Idle")
+PuertaCCI.PlayAnimation("open")
+Simulator.MoverSuboficial("Suboficial3";"PathSalirCCI")
+Simulator.MoverSuboficial("Suboficial1";"PathVolver")
+Sub2Esq.MirarJugador(false)
+Sub2Esq.PlayAnimation("Idle")
+Simulator.MoverSuboficial("Suboficial2";"PathSalirCCISub2")
+Simulator.Esperar(3)
+PuertaCCI.PlayAnimation("close")
+Simulator.Esperar(1)
+>
+
+:: Solicitar al suboficial de comunicaciones que de orden de aislar el origen de la fuga[dialogo]
+Se le indica al suboficial de comunicaciones
+"Ordene aislar el origen de la fuga"
+El dice "Recibido. Aislar el origen de la fuga"
+<img height="350" src="https://drive.google.com/uc?id=1hQkpguuUWH-KDf60JTvmkdi1GD0hK7pF">
+@
+Ha seleccionado hablar con su Suboficial. 
+¿Qué instrucción desea darle?
+[[Ordene que el personal vuelva al cuarto de ingeniería]]
+[[Ordene aislar el origen de la fuga]]
+[[Ordene pitar zafarrancho de incendio]]
+{
+Simulator.MostrarRecordatorio(""; 3; Sub1HeadTop)
+}
+<>
+
+:: Recibido. Ordene cerrar la válvula de cierre rápido[dialogo]
+Se le indica al suboficial de comunicaciones
+"Ordene cerrar la válvula de cierre rápido"
+
+<img height="350" src="https://drive.google.com/uc?id=1hQkpguuUWH-KDf60JTvmkdi1GD0hK7pF">
+@
+Mi Teniente, confirmo que la válvula fue cerrada
+[[Reportar la cantidad de combustible en las sentinas]]
+[[Terminamos el procedimiento, vuelvan a sus tareas normales]]
+{}
+<
+HandMenu.CerrarPantalla()
+HandMenu.DesactivarBtn()
+PlayerController.Play("OFGCerrarValvula")
+Simulator.Esperar(3)
+Simulator.Play("S1-ValvulaCRCerrada")
+HandMenu.CambiarFuncionalidad("hablarConSuboficial")
+HandMenu.ShowInstructionAnim(true)
+>
+
+:: Poner en servicio uno de los motores generadores que se encuentra en el auxiliar de popa
+-
+@
+[[X]]
+{}
+<>
+
+:: Reportar la cantidad de combustible en las sentinas
+Se le indica al suboficial de comunicaciones
+"Reportar la cantidad de combustible en las sentinas"
+El dice "Recibido. Reportar la cantidad de combustible en las sentinas"
+
+<img height="350" src="https://drive.google.com/uc?id=1hQkpguuUWH-KDf60JTvmkdi1GD0hK7pF">
+@
+[[La cantidad es mayor a 10 galones]]
+{}
+<
+HandMenu.CerrarPantalla()
+HandMenu.DesactivarBtn()
+PlayerController.Play("OFGReportarCombustibleSentinas")
+>
+
+:: La cantidad es mayor a 10 galones
+-
+@
+[[Pitar zafarrancho de incendio]]
+{}
+<
+TelefonoAut.CambiarEstadoDescolgado(false);
+Simulator.Play("S1-CantidadMayor10G")
+Simulator.Esperar(1)
+Simulator.Play("S1-DebemosPitarZafarrancho")
+>
+
+:: Pitar zafarrancho de incendio
+Para pitar zafarrancho el jugador debe tomar el teléfono de la consola y solicitar al puente "Mi Capitán, al momento reporto fuga de combustible mayor a 10 galones, solicito pitar zafarrancho de incendio"
+
+Después de unos segundos, suena en el sistema de parlantes "Atención al personal, esto no es un ejercicio, zafarrancho de incendio en el cuarto de máquinas de la unidad"
+
+<img height="350" src="https://drive.google.com/uc?id=1cGg_6kmK9VArnSYzUP_QibgXGDmq88bB">
+@
+[[Finalizar ejercio]]
+{
+Simulator.MostrarRecordatorio(""; 0; PntTel)
+BtnLlamarPuente.Touched()
+}
+<
+PlayerController.Play("OFGPitarZafarranchoIncendio")
+TelefonoAut.AudioRespuestaTelefono("RecibidoCyF")
+>
+
+:: Finalizar ejercio[END]
+-
+@
+[[X]]
+{}
+<
+CenterEyeAnchor.FadeOut()
+Simulator.Esperar(4)
+Simulator.FinalizarDemo()
+>
+
+:: Asegurar ventilacion 1
+EXPLICACIÓN:
+Una vez apagado el motor, se debe asegurar la ventilación. Esto se hace apagando todos los botones de "Control remoto de ventilación"
+
+<img height="250" src="https://drive.google.com/uc?id=1sFMg6MwYN4-h-XYz33KkfNpgEGMuEV1k">
+
+@
+[[Apagar ventilacion 2]]
+{
+Simulator.MostrarRecordatorio(""; 0; BtnStopCtrlS21)
+BtnStopCtrlS21.Touched()
+}
+<>
+
+
+:: Apagar ventilacion 2
+EXPLICACIÓN:
+Una vez apagado el motor, se debe asegurar la ventilación. Esto se hace apagando todos los botones de "Control remoto de ventilación"
+
+<img height="250" src="https://drive.google.com/uc?id=1OXsuWrf2RK6s6oFeTQQQUVtWV_PIdfc0">
+@
+[[Apagar ventilacion 3]]
+{
+Simulator.MostrarRecordatorio(""; 0; BtnStopCtrlS20)
+BtnStopCtrlS20.Touched()
+}
+<>
+
+
+:: Apagar ventilacion 3
+EXPLICACIÓN:
+Una vez apagado el motor, se debe asegurar la ventilación. Esto se hace apagando todos los botones de "Control remoto de ventilación"
+
+<img height="250" src="https://drive.google.com/uc?id=1dv8fjuA747qUnkR_QUrwRr-dq9LuVgxA">
+@
+[[Apagar ventilacion 4]]
+{
+Simulator.MostrarRecordatorio(""; 0; BtnStopCtrlE51)
+BtnStopCtrlE51.Touched()
+}
+<>
+
+
+:: Apagar ventilacion 4
+EXPLICACIÓN:
+Una vez apagado el motor, se debe asegurar la ventilación. Esto se hace apagando todos los botones de "Control remoto de ventilación"
+
+<img height="250" src="https://drive.google.com/uc?id=1gPg4cNsTRO-y0Ykt_J9fcbDHMuW6uCSb">
+
+@
+[[Poner en servicio la bomba de incendio del cuarto no afectado]]
+{
+Simulator.MostrarRecordatorio(""; 0; BtnStopCtrlE50)
+BtnStopCtrlE50.Touched()
+}
+<
+Simulator.Esperar(2)
+Simulator.Play("S1-PonerBombaCI")
+>
+
+
+:: Atención, se presenta un incendio en el cuarto de máquinas[dialogo]
+Esta es una opción incorrecta, se le explica al usuario por qué lo es y se le da la correcta
+@
+¡INCORRECTO!
+Hasta el momento sólo se sabe que hay olor a combustible en el cuarto de máquinas, no se sabe si ya hay un incendio. Usted debe informar al personal sobre la situación que se está presentando. Por esto, la opción correcta es:
+[[Atención personal de guardia, se presenta olor a combustible en los cuartos de máquinas]]
+{}
+<>
+
+
+:: Diseminar información al personal de guardia, tras ver el estado de los indicadores de la consola[dialogo]
+Una vez se muestran los indicadores, el oficial de guardia ordena tripular las comunicaciones (o suministrar radios de EMERGENCIA). 
+Dice a viva voz "Atención personal de guardia, se presenta baja presión en uno de los motores propulsores"
+@
+Este menú le permite dar una instrucción a viva voz al personal del CCI.
+¿Cuál instrucción quiere dar?
+[[Atención personal de guardia, se presenta baja presión en uno de los motores propulsores]]
+[[Atención personal de guardia, se presenta un incendio en el cuarto de máquinas]]
+{}
+<>
+
+:: Atención personal de guardia, se presenta un incendio en el cuarto de máquinas[dialogo]
+Esta es una opción incorrecta, hasta el momento solo se sabe que hay baja presión en el motor de estribor, no se sabe si hay riesgo de incendio
+@
+¡INCORRECTO!
+Hasta el momento sólo se sabe que hay baja presión en el motor de estribor, no se sabe si hay riesgo de incendio. Usted debe informar al personal sobre la situación que se está presentando. Por esto, la opción correcta es:
+[[Atención personal de guardia, se presenta baja presión en uno de los motores propulsores]]
+{}
+<>
+
+:: Atención personal de guardia, lleven extinguidores al cuarto de máquinas[dialogo]
+Esta es una opción incorrecta, se le explica al usuario por qué lo es y se le da la correcta
+@
+¡INCORRECTO!
+Usted debe informar al personal sobre la situación que se está presentando, para que ellos sigan su protocolo. Por esto, la opción correcta es:
+[[Atención personal, se está presentando novedad en el cuarto de máquinas consistente en detección de combustible en las sentinas]]
+{}
+<>
+
+:: Recibido. Envíe de vuelta al cuarto de ingeniería al suboficial de propulsión[dialogo]
+Esta es una opción incorrecta, se le explica al usuario por qué lo es y se le da la correcta
+@
+¡INCORRECTO!
+Usted debe informar al personal sobre la situación que se está presentando, para que ellos sigan su protocolo. Por esto, la opción correcta es:
+[[Atención personal, se está presentando novedad en el cuarto de máquinas consistente en baja presión de combustible leída en indicadores ubicados en cuartos de máquinas]]
+{}
+<>
+
+:: Recibido. No haga nada[dialogo]
+Esta es una opción incorrecta, se le explica al usuario por qué lo es y se le da la correcta
+@
+¡INCORRECTO!
+Usted debe informar al personal sobre la situación que se está presentando. Por esto, la opción correcta es:
+[[Atención personal, se está presentando novedad en el cuarto de máquinas consistente en tapa suelta de los filtros]]
+{}
+<>
+
+:: Recibido, todos vuelvan a sus actividades normales[dialogo]
+Esta es una opción incorrecta, se le explica al usuario por qué lo es y se le da la correcta
+@
+¡INCORRECTO!
+Usted debe informar al personal sobre la situación que se está presentando. Por esto, la opción correcta es:
+[[Atención personal, se está presentando novedad en el cuarto de máquinas consistente en combustible pulverizado o chorro producido por rotura de una tubería del motor propulsor estribor]]
+{}
+<>
+
+:: Recibido, puede volver al cuarto de ingeniería[dialogo]
+Esta es una opción incorrecta, se le explica al usuario por qué lo es y se le da la correcta
+@
+¡INCORRECTO!
+Los suboficiales deben seguir en el cuarto de máquinas para verificar la causa de baja presión de combustible. Por esto, la opción correcta es:
+[[Recibido. verificar si hay presencia de combustible en las sentinas]]
+{}
+<>
+
+:: Ordene que el personal vuelva al cuarto de ingeniería[dialogo]
+Esta es una opción incorrecta, se le explica al usuario por qué lo es y se le da la correcta
+@
+¡INCORRECTO!
+El ejercicio aún no ha terminado. Usted debe solicitarle a la Suboficial que ordene aislar el origen de la fuga. Por esto, la opción correcta es:
+[[Ordene aislar el origen de la fuga]]
+{}
+<>
+
+:: Ordene aislar el origen de la fuga
+Se le indica al suboficial de comunicaciones
+"Ordene aislar el origen de la fuga"
+El dice "Recibido. Aislar el origen de la fuga"
+<img height="350" src="https://drive.google.com/uc?id=1hQkpguuUWH-KDf60JTvmkdi1GD0hK7pF">
+@
+[[Origen de la fuga aislado, Señor.]]
+{}
+<
+HandMenu.CerrarPantalla()
+HandMenu.DesactivarBtn()
+PlayerController.Play("OFGAislarOrigenFuga")
+Simulator.Esperar(2)
+Simulator.Play("S1-OrigenFugaAislado")
+>
+
+
+:: Ordene pitar zafarrancho de incendio[dialogo]
+Esta es una opción incorrecta, se le explica al usuario por qué lo es y se le da la correcta
+@
+¡INCORRECTO!
+El ejercicio aún no ha terminado. Ustede debe solicitarle a la Suboficial que ordene aislar el origen de la fuga. Por esto, la opción correcta es:
+[[Ordene aislar el origen de la fuga]]
+{}
+<>
+
+:: Origen de la fuga aislado, Señor.[dialogo]
+-
+@
+Origen de la fuga aislado, Señor.
+[[Recibido. Ordene cerrar la válvula de cierre rápido]]
+[[Recibido. Terminamos el procedimiento]]
+{}
+<
+HandMenu.CambiarFuncionalidad("hablarConSuboficial")
+HandMenu.ShowInstructionAnim(true)
+>
+
+
+:: Recibido. Terminamos el procedimiento[dialogo]
+Esta es una opción incorrecta, se le explica al usuario por qué lo es y se le da la correcta
+@
+¡INCORRECTO!
+El ejercicio aún no ha terminado. Usted debe solicitarle a la Suboficial que ordene cerrar la válvula de cierre rápido. Por esto, la opción correcta es:
+[[Recibido. Ordene cerrar la válvula de cierre rápido]]
+{}
+<>
+
+:: Terminamos el procedimiento, vuelvan a sus tareas normales[dialogo]
+Esta es una opción incorrecta, se le explica al usuario por qué lo es y se le da la correcta
+@
+¡INCORRECTO!
+El ejercicio aún no ha terminado. Usted debe solicitarle a la Suboficial que reporte la cantidad de combustible en las sentinas. Por esto, la opción correcta es:
+[[Reportar la cantidad de combustible en las sentinas]]
+{}
+<>

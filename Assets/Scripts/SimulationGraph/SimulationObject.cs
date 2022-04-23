@@ -91,6 +91,11 @@ public class SimulationObject {
             return nodes [ titleOfStartNode ];
         }
 
+        string ChangeDot(string parameters)
+        {
+            return parameters.Replace(".",",");
+        }
+
         private string SetColorByType(string str)
         {
             string respuesta = str;
@@ -188,7 +193,8 @@ public class SimulationObject {
                             curAction.actionName = splitObjectName[1];
 
                             int paramsEnd = splitSepParams[1].IndexOf(")");
-                            curAction.actionParams = splitSepParams[1].Substring(0, paramsEnd).Replace("\"", "");
+                            curAction.actionParams = ChangeDot(splitSepParams[1].Substring(0, paramsEnd).Replace("\"", ""));
+                            
 
                             PrintOnDebug("- GameObject: "+curAction.object2Action+" - Nombre función: "+curAction.actionName+" -  "+(curAction.actionParams==""?"Sin parámetros":" Parámetros: ")+curAction.actionParams);
 
@@ -196,7 +202,7 @@ public class SimulationObject {
                         }
                         else
                         {
-                            PrintError("NodeFormatError","En el nodo '"+titleNode+"' la acción "+curActionData+ " no tiene el formato esperado, verifique que los parámetros estén separados por ';' no por ',' ni por ' '(espacio en blanco) u otro separador \n Y recuerde que el formato es NombreGameObject.NombreFuncion(param1;...;paramn)");
+                            PrintError("NodeFormatError","En el nodo '"+titleNode+"' la acción "+curActionData+ " no tiene el formato esperado, verifique que los parámetros estén separados por ';' no por ',' ni por ' '(espacio en blanco) u otro separador \n Y recuerde que el formato es NombreGameObject.NombreFuncion(param1;...;paramn). Si ese no es el error,verifique que para números decimales esé usando '.' y no ','");
                         }
                     } 
                 }
@@ -245,7 +251,7 @@ public class SimulationObject {
             string text = twineText.text;
             string[] nodeData = text.Split(new string[] { "::" }, StringSplitOptions.None);
             string patternSimpleText = @"[A-Za-z0-9À-ÿ\u00f1\u00d1\(\)?,-¿!¡#$%&\/\\ ]+";
-            string patternCompleteFormat = @"(\[\[[\u00f1\u00d1\w+:.;\(\)'\u0022'?,-¿!¡#$%&\/\\ ) ]+\]\](\r\n)+)+\{[\n\r\w+.\(\);'\u0022' ]*[\n\r]*\}[\n\r]+\<[\n\r\w+.\(\);'\u0022' ]*\>";
+            //string patternCompleteFormat = @"(\[\[[\u00f1\u00d1\w+:.,;\(\)'\u0022'?,-¿!¡#$%&\/\\ ) ]+\]\](\r\n)+)+\{[\n\r\w+.\(\);,'\u0022' ]*[\n\r]*\}[\n\r]+\<[\n\r\w+.\(\),;'\u0022' ]*\>";
 
             const int kIndexOfContentStart = 4;
             PrintOnDebug("........................... EMPIEZA LA CARGA Y PARSING DEL GRAFO EN TEXTO ENTWEE .......................".Bold().Size(14));
@@ -277,8 +283,8 @@ public class SimulationObject {
                 // Extract Responses, Message Text user and simulator actions
                 string bodyNode = currLineText.Split('@')[1].Trim();
 
-                if(new Regex(patternCompleteFormat).IsMatch(bodyNode))
-                {
+                //if(new Regex(patternCompleteFormat).IsMatch(bodyNode))
+                //{
 
                 if(!ContainsSpecialCharacter(title,bodyNode,'{',"especificar la apertura de las acciones de usuario","debajo de los caminos o nodos hijo")) return; 
                 if(!ContainsSpecialCharacter(title,bodyNode,'}',"especificar el cierre de las acciones de usuario","al terminar de escribir sus acciones de usuario")) return; 
@@ -321,7 +327,7 @@ public class SimulationObject {
                     titleOfStartNode = curNode.title;
                 }
 
-                string pattern = @"^[A-Za-z]+\w+.[A-Za-z]+\w+\(['\u0022'?\w+.'\u0022'?;]*\)$";  
+                string pattern = @"^[A-Za-z]+\w+.[A-Za-z]+\w+\(['\u0022'?\w+. \-'\u0022'?;]*\)$";  
                 Regex rg = new Regex(pattern);
 
                 // user actions
@@ -481,11 +487,11 @@ public class SimulationObject {
                 //}
 
                 nodes [ curNode.title ] = curNode;
-                }
-                else
-                {
-                    PrintError("NodeFormatError","El nodo "+title+" no tiene la estructura esperada en la sección de scripting, recuerde que el orden de las secciones importa ([[]]{}<>) y debe ser:\n_________________\nMensaje diálogo (si es de dicho tipo)\n[[camino_1]]\n.\n.\n.\n[[camino_n]]\n{\nacciones de usuario \n}\n<\nacciones de simulador\n>\n_________________\nEl nodo leído tiene una estructura incorrecta: \n"+bodyNode);
-                }
+                //}
+                //else
+                //{
+                //    PrintError("NodeFormatError","El nodo "+title+" no tiene la estructura esperada en la sección de scripting, recuerde que el orden de las secciones importa ([[]]{}<>) y debe ser:\n_________________\nMensaje diálogo (si es de dicho tipo)\n[[camino_1]]\n.\n.\n.\n[[camino_n]]\n{\nacciones de usuario \n}\n<\nacciones de simulador\n>\n_________________\nEl nodo leído tiene una estructura incorrecta: \n"+bodyNode);
+                //}
             }
             PrintOnDebug("*************** TERMINA LA CARGA Y PARSING DEL GRAFO EN TEXTO ENTWEE ***************".Bold());
         }

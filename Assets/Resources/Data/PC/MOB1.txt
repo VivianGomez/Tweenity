@@ -1,0 +1,429 @@
+:: StoryTitle
+MOB-E-005-SF Fuga mayor de combustible en un propulsor - NO RIESGO INCENDIO
+
+:: UserScript[script]
+
+
+:: UserStylesheet[stylesheet]
+
+
+:: Recibir la guardia[START]
+EXPLICACIÓN:
+En este nodo se define la recepción de la guardia, se debe reproducir un audio para indicar cómo se está entregando la guardia al usuario.
+En el audio se dice:
+Tenemos el motor propulsor #1 y #2 en servicio 
+Las palancas al 30%
+Tenemos alineadas la bomba #1 para achique, bomba #2 para lastre y bomba #3 para contraincendio
+Tenermos motor generador 2 y 3, en servicio en línea
+La unidad navegando a 13 nudos
+@
+[[Mostrar alarma de Baja presión de combustible]]
+{}
+<
+AlmMainbridgeInControlMpe.ActivateAlarm()
+Simulator.Play("recepcionGuardia1")
+>
+
+
+
+:: Mandar a una persona del cuarto de ingeniería con un radio hacia el Cuarto de máquinas
+EXPLICACIÓN: 
+Una vez se muestran los indicadores, se espera que el usuario mande a un suboficial de guardia al cuarto de máquinas para que le informe el estado del motor propulsor del cual se evidenciaron las dos alarmas anteriores.
+
+Si después de 50 segundos no ha realizado la tarea, se muestra un recordatorio mediante la reproducción de un audio que da la instrucción y muestra una flecha sobre el suboficial
+@
+[[Empezar conversación desde el radio]]
+{
+Simulator.MostrarRecordatorio(""; 5; Sub3)
+MenuSuboficial.SeleccionarOpcion("IrACuartoMaquinas")
+}
+<
+Radio.PlaySound("llamando");
+>
+
+
+:: Empezar conversación desde el radio[START_dialog]
+EXPLICACIÓN:
+Al contestar se empieza a tener una conversación. Se le presentan tres opciones de respuesta y el debería seleccionar la primera "Vaya a las planchas y sentinas para evaluar si hay presencia de combustible. Cambio"
+@
+Mi Capitán, se detecta fuerte olor a combustible en los cuartos de máquinas. Cambio
+[[Vaya a las planchas y sentinas para evaluar si hay presencia de combustible. Cambio]]
+[[No haga nada. Cambio y fuera]]
+{
+Simulator.MostrarRecordatorio(""; 5; Radio)
+Radio.Touched()
+}
+<
+Radio.PlayVoice("olorCombustible")
+Radio.StopTalking()
+Radio.MostrarOpciones()
+>
+
+
+:: Vaya a las planchas y sentinas para evaluar si hay presencia de combustible. Cambio
+EXPLICACIÓN:
+Esta es la opción que se espera que seleccione el usuario "Vaya a las planchas y sentinas para evaluar si hay presencia de combustible. Cambio".
+Al hacerlo, el suboficial revisa las planchas y sentinas e indica que si hay combustible. Se le presentan tres opciones de respuesta y el debería seleccionar la primera "¿La fuga es en una línea de alta de combustible que pueda ocasionar un incendio?. Cambio"
+@
+Se detecta presencia de combustible en planchas y sentinas del cuarto de máquinas, atento a sus órdenes
+[[¿La fuga es en una línea de alta de combustible que pueda ocasionar un incendio?. Cambio]]
+[[Pite zafarrancho de incendio. Cambio y fuera]]
+{
+PantallaDialogos.MenuOpc("Vaya a las planchas y sentinas para evaluar si hay presencia de combustible. Cambio")
+}
+<
+Radio.PlayVoice("seDetectaEnPlanchas")
+Radio.StopTalking()
+Radio.MostrarOpciones()
+>
+
+
+:: Llame directamente al puente. Cambio y fuera[END]
+EXPLICACIÓN:
+Esta no es la opción que se espera que seleccione el usuario. Por lo cual, simplemente el suboficial acepta la orden y cuelga.
+@
+[[x]]
+{
+
+PantallaDialogos.MenuOpc("Llame directamente al puente. Cambio y fuera")
+}
+<
+Radio.PlayVoice("RecibidoCyF")
+Radio.StopTalking()
+Radio.MostrarOpciones()
+>
+
+
+:: No haga nada. Cambio y fuera[END]
+EXPLICACIÓN:
+Esta no es la opción que se espera que seleccione el usuario. Por lo cual, simplemente el suboficial acepta la orden y cuelga.
+@
+[[x]]
+{
+
+PantallaDialogos.MenuOpc("No haga nada. Cambio y fuera")
+}
+<
+Radio.PlayVoice("RecibidoCyF")
+>
+
+
+:: ¿La fuga es en una línea de alta de combustible que pueda ocasionar un incendio?. Cambio
+EXPLICACIÓN:
+Tras recibir la información de que hay combustible en las planchas y sentinas, el usuario debería seleccionar la opción "¿La fuga es en una línea de alta de combustible que pueda ocasionar un incendio?. Cambio".
+De esta manera, confirma si hay un estado de emergencia o no, para decidir que procedimiento seguir. 
+En este nodo se tiene el caso en el que no hay riesgo de incendio, en el cual el usuario puede llevar a cabo un procedimiento con la consola. 
+Se le presentan tres opciones de respuesta y el debería seleccionar la primera "Debo colgar para proceder a desembragar el motor. Lo llamo al terminar con el procedimiento. Cambio y fuera"
+@
+Señor, la fuga no está en un área de riesgo de incendio
+[[Debo colgar para proceder a desembragar el motor. Lo llamo al terminar con el procedimiento. Cambio y fuera]]
+[[No se que hacer]]
+{
+PantallaDialogos.MenuOpc("¿La fuga es en una línea de alta de combustible que pueda ocasionar un incendio?. Cambio")
+}
+<
+Radio.PlayVoice("FugaFueraDeRiesgoIncendio")
+Radio.StopTalking()
+Radio.MostrarOpciones()
+>
+
+
+
+:: Limpie inmediatamente el combustible derramado. Cambio y fuera[END]
+EXPLICACIÓN:
+Esta no es la opción que se espera que seleccione el usuario. Por lo cual, simplemente el suboficial acepta la orden y cuelga.
+@
+[[x]]
+{
+
+PantallaDialogos.MenuOpc("Limpie inmediatamente el combustible derramado. Cambio y fuera")
+}
+<
+Radio.PlayVoice("RecibidoCyF")
+>
+
+:: Tomar el Control de la maquinaria
+EXPLICACIÓN:
+Para llevar a cabo el procedimiento de 'Desembragar el motor', el usuario debe seguir una serie de pasos extrictos. Empezando por oprimir el botón "BtnTransferInControl", lo cual quita el control al Puente (Mainbridge) y se lo da al Cuarto de Ingeniería (ECS: Engine Control System).
+@
+[[Pasar a cero la palanca del paso de hélice del motor]]
+{
+Simulator.MostrarRecordatorio(""; 8; BtnTransferMpe)
+BtnTransferMpe.Touched()
+}
+<>
+
+
+
+:: Pasar a cero la palanca del paso de hélice del motor
+EXPLICACIÓN:
+El siguiente paso después de tomar el control del puente, es mover la palanca del paso de elice del motor hasta 0.
+@
+[[Desembragar el motor]]
+{
+Simulator.MostrarRecordatorio(""; 8; PlcVelMpe)
+PPlcVelMpe.MoverHasta(0)
+}
+<
+ManPitchMpe.MoverHasta(0)
+PPlcVelMpe.ConfirmarValorNudos(0)
+>
+
+
+:: Oprimir el boton "Stop Engine" para APAGAR EL MOTOR
+EXPLICACIÓN:
+Finalmente, tras visualizar dicha disminución en la temperatura, se podrá apagar el motor, oprimiendo el botón "Stop Engine"
+@
+[[Apagar ventilacion 1]]
+{
+Simulator.MostrarRecordatorio(""; 5; BtnEmergStopMpe)
+BtnEmergStopMpe.Touched()
+}
+<
+ManEngineRpmMpe.MoverHasta(0)
+>
+
+
+:: Mostrar alarma de Baja presión de combustible
+EXPLICACIÓN:
+Una vez entregada la guardia, se empiezan a mostrar indicadores o "síntomas" del ejercicio. En este caso, indicadores de Fuga de combustible, como son: una alarma en el monitor del sistema de alarmas, indicando que hay baja presión en uno de los motores propulsores y el movimiento del manómetro que indica RPM de el motor, cambiando al valor 5.
+@
+[[Mandar a una persona del cuarto de ingeniería con un radio hacia el Cuarto de máquinas]]
+{}
+<
+AMS.ActivarAlama("baja_presion"; "mp_babor")
+ManEngineRpmMpe.MoverIntervalo(5;6)
+MenuSuboficial.ActivarMenu()
+>
+
+:: Debo colgar para proceder a desembragar el motor. Lo llamo al terminar con el procedimiento. Cambio y fuera[END]
+EXPLICACIÓN:
+Después de seleccionar la opción "Debo colgar para proceder a desembragar el motor. Lo llamo al terminar con el procedimiento. Cambio y fuera" El suboficial en el cuarto responde "Entendido Señor" y la conversación por radio termina. Se espera que el usuario lleve a cabo el procedimiento de 'Desembragar el motor'
+@
+[[Tomar el Control de la maquinaria]]
+{
+PantallaDialogos.MenuOpc("Debo colgar para proceder a desembragar el motor. Lo llamo al terminar con el procedimiento. Cambio y fuera")
+}
+<
+Radio.PlayVoice("RecibidoQAP")
+>
+
+
+:: Limpie el líquido y llámeme si ocurre alguna anomalía. Cambio y fuera[END]
+EXPLICACIÓN:
+Esta no es la opción que se espera que seleccione el usuario. Por lo cual, simplemente el suboficial acepta la orden y cuelga.
+@
+[[x]]
+{
+
+PantallaDialogos.MenuOpc("Limpie el líquido y llámeme si ocurre alguna anomalía. Cambio y fuera")
+}
+<
+Radio.PlayVoice("RecibidoCyF")
+>
+
+:: No se que hacer[END]
+EXPLICACIÓN:
+Esta no es la opción que se espera que seleccione el usuario. Por lo cual, simplemente el suboficial acepta la orden y cuelga.
+@
+[[x]]
+{
+
+PantallaDialogos.MenuOpc("No se que hacer")
+}
+<
+Radio.PlayVoice("RecibidoCyF")
+>
+
+
+:: Desembragar el motor
+EXPLICACIÓN:
+El siguiente paso es oprimir el botón "BtnClutchOut", este botón va a desembragar el motor y esto tendrá como consecuencia que el motor se desconectará de la propela y por ello el manómetro que indica RPM de la propela (Propeller RPM) llegará a 0
+@
+[[Oprimir el boton "Stop Engine" para APAGAR EL MOTOR]]
+{
+Simulator.MostrarRecordatorio(""; 8; BtnClutchOutMpe)
+BtnClutchOutMpe.Touched()
+}
+<
+AlmClutchReadyMpe.ActivateAlarm()
+Simulator.Esperar(3)
+Simulator.MostrarRecordatorio(""; 8; PPanelMonitoreo)
+PanelMonitoreo.ActualizarValorSensor("temperatura_aceite"; 40)
+PanelMonitoreo.ActualizarValorSensor("temperatura_agua"; 60)
+>
+
+
+:: Apagar ventilacion 1
+EXPLICACIÓN:
+Una vez apagado el motor, se debe asegurar la ventilación. Esto se hace papagando todos los botones de "Control remoto de ventilación"
+@
+[[Apagar ventilacion 2]]
+{
+Simulator.MostrarRecordatorio(""; 2; BtnStopCtrlS21)
+BtnStopCtrlS21.Touched()
+}
+<>
+
+
+:: Apagar ventilacion 2
+EXPLICACIÓN:
+Una vez apagado el motor, se debe asegurar la ventilación. Esto se hace papagando todos los botones de "Control remoto de ventilación"
+@
+[[Apagar ventilacion 3]]
+{
+Simulator.MostrarRecordatorio(""; 2; BtnStopCtrlS20)
+BtnStopCtrlS20.Touched()
+}
+<>
+
+
+:: Apagar ventilacion 3
+EXPLICACIÓN:
+Una vez apagado el motor, se debe asegurar la ventilación. Esto se hace papagando todos los botones de "Control remoto de ventilación"
+@
+[[Apagar ventilacion 4]]
+{
+Simulator.MostrarRecordatorio(""; 2; BtnStopCtrlE51)
+BtnStopCtrlE51.Touched()
+}
+<>
+
+
+:: Apagar ventilacion 4
+EXPLICACIÓN:
+Una vez apagado el motor, se debe asegurar la ventilación. Esto se hace papagando todos los botones de "Control remoto de ventilación"
+@
+[[Alinear bomba de contraincendio]]
+{
+Simulator.MostrarRecordatorio(""; 2; BtnStopCtrlE50)
+BtnStopCtrlE50.Touched()
+}
+<>
+
+
+
+:: Recibir llamada por radio desde el cuarto de máquinas[START_dialog]
+EXPLICACIÓN:
+Al terminar el procedimeinto de desembrague del motor y al asegurar las ventilaciones. Se recibirá una llamada del suboficial en el cuarto de máquinas, por el radio. 
+De esta manera, empieza a entablarse una conversación, en la cual se solicita confirmación del proedimeinto de desembrague del motor, para proceder con el protocolo en el cuarto de máquinas.
+Se muestran tres opciones de respuesta y el usuario debe seleccionar "Confirmado. Aísle el origen la fuga y desvíe la pulverización de combustible de superficie caliente con un trapo"
+@
+Mi Capitán, para confirmar desembrague del motor y proceder con el protocolo en el cuarto de máquinas. Cambio
+[[Confirmado. Aísle el origen la fuga y desvíe la pulverización de combustible de superficie caliente con un trapo]]
+[[Use el extintor de ___. Cambio y fuera" (alguno de los que puede ocasionar incendio)]]
+[[No haga nada, ya terminó el protocolo. Cambio y fuera]]
+{
+
+Radio.Touched()
+}
+<
+Radio.Descolgar()
+Radio.PlayVoice("confirmar desembrague del motor")
+>
+
+
+:: Confirmado. Aísle el origen la fuga y desvíe la pulverización de combustible de superficie caliente con un trapo
+EXPLICACIÓN:
+Después de realizado el procedimiento de desembrague del motor, el suboficial en el cuarto de máquinas puede "aislar el origen de la fuga y desviar la pulverización de combustible de superficie caliente con un trapo".
+Se le presentan dos opciones, el usuario debe seleccionar la del motor afectado, que en este caso es el de babor.
+@
+Realizado Señor, sigo atento a sus ódernes
+[[Cierre la válvula de cierre rápido de alimentación del motor de babor]]
+{
+
+PantallaDialogos.MenuOpc("Confirmado. Aísle el origen de la fuga y desvíe la pulverización de combustible de superficie caliente con un trapo")
+}
+<
+Radio.PlayVoice("RealizadoSenor")
+>
+
+
+:: No haga nada, ya terminó el protocolo. Cambio y fuera
+EXPLICACIÓN:
+Esta no es la opción que se espera que seleccione el usuario. Por lo cual, simplemente el suboficial acepta la orden y cuelga.
+@
+[[x]]
+{
+PantallaDialogos.MenuOpc("No haga nada, ya terminó el protocolo. Cambio y fuera)}
+<
+Radio.PlayVoice("EntendidoSenor")
+>
+
+
+:: Cierre la válvula de cierre rápido de alimentación del motor de babor[random]
+EXPLICACIÓN:
+Con el procedimiento realizado hasta el momento, se entiende que posteriormente el suoficial debería "determinar y reportar la cantidad de combustible en las sentinas" al usuario
+@
+Realizado, señor. Cambio
+[[1_Determine y reporteme la cantidad de combustible en las sentinas. Cambio]]
+[[2_Determine y reporteme la cantidad de combustible en las sentinas. Cambio]]
+{
+
+PantallaDialogos.MenuOpc("Cierre la válvula de cierre rápido de alimentación del motor de babor")
+}
+<
+Radio.PlayVoice("RelizadoSenor")
+>
+
+:: 1_Determine y reporteme la cantidad de combustible en las sentinas. Cambio
+EXPL
+@
+La cantidad es menor a 10 galones (40 litros)
+[[Debo colgar para solicitar al puente pitar zafarrancho de incendio. Activen protocolo ____.]]
+[[Gracias, es todo desde el cuarto de máquinas, limpie el combustible derramado y vuelvame a llamar si detectan alguna anomalía.]]
+{
+
+PantallaDialogos.MenuOpc("Determine y reporteme la cantidad de combustible en las sentinas. Cambio")
+}
+<
+Radio.PlayVoice("CantidadMenorA10Galones")
+>
+
+
+:: Debo colgar para solicitar al puente pitar zafarrancho de incendio. Activen protocolo ____.[END]
+EXPL
+@
+[[x]]
+{
+
+PantallaDialogos.MenuOpc("Debo colgar para solicitar al puente pitar zafarrancho de incendio. Activen protocolo ____.")
+}
+<
+Radio.PlayVoice("EntendidoSenor")
+>
+
+
+:: Gracias, es todo desde el cuarto de máquinas, limpie el combustible derramado y vuelvame a llamar si detectan alguna anomalía.[END]
+EXPL
+@
+[[x]]
+{
+
+PantallaDialogos.MenuOpc("Gracias, es todo desde el cuarto de máquinas. Vuelvame a llamar si detectan alguna anomalía.")
+}
+<
+Radio.PlayVoice("EntendidoSenor")
+>
+
+:: Alinear bomba de contraincendio
+EXPLICACIÓN:
+Tras asegurar la ventilación, se debe alinear la bomba de contraincendio. 
+Para ello, se oprime el botón que enciende la "BombaContraincendio"
+@
+[[Finalizar ejercicio]]
+{
+Simulator.MostrarRecordatorio(""; 3; BtnStartBombaCtrlNR2)
+BtnStartBombaCtrlNR2.Touched()
+}
+<>
+
+:: Finalizar ejercicio[END]
+EXPLICACIÓN:
+Finalizar ejercicio
+@
+[[]]
+{}
+<
+Simulator.MostrarFin()
+>

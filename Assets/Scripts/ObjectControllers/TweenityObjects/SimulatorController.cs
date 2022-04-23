@@ -40,6 +40,24 @@ public class SimulatorController : MonoBehaviour
         return VoiceController.PlayVoice(audioName.ToString());
     }
 
+    public int PlayLipsyncAvatar(object audioName)
+    {
+        return GuardiaVoice.PlayVoice(audioName.ToString());
+    }
+
+    public void RelocateCharacter(string nombrePersonaje, object x, object y, object z)
+    {
+        print(x);
+        GameObject.Find(nombrePersonaje).transform.position= new Vector3(float.Parse(""+x), float.Parse(""+y), float.Parse(""+z));
+    }
+
+    public async void MoveCharacter(string nombrePersonaje, string nombrePath)
+    {
+        MoveCharWithAnimation moveChar = GameObject.Find(nombrePersonaje).transform.GetChild(0).gameObject.GetComponent<MoveCharWithAnimation>();
+        moveChar.setPathBase(GameObject.Find(nombrePath));
+        await moveChar.StartMove();
+    }
+
     public void OpenDialogueViewer()
     {
         dialogueViewer.OpenDialogue();

@@ -1,0 +1,214 @@
+:: StoryTitle
+MiniTutorial_PV2
+
+:: UserScript[script]
+
+
+:: UserStylesheet[stylesheet]
+
+
+:: Recibir saludo e instrucción para rotar cámara[START]
+Te damos la bienvenida a nuestro simulador, antes de ir al cuarto de ingeniería, quiero enseñarte a interactuar en realidad virtual.
+
+Como puedes ver en la pantalla que tengo al lado, si mueves la palanca análoga del controlador que sostienes con tu mano derecha, podrás rotar tu cámara a la derecha o a la izquierda
+
+Vamos a intentarlo!
+@
+[[Seguir instrucción para rotar la cámara]]
+{}
+<
+Simulator.InicializarConstantes("MINITUTORIAL")
+Simulator.Esperar(2)
+TutorialScreen.ShowScreen(true)
+TutorialScreen.ShowInstruction("CameraRotation")
+Sub1Esq.PlayAnimation("SaludoOficial")
+Simulator.Play("Bienvenida")
+>
+
+
+:: Seguir instrucción para rotar la cámara
+El usuario debe interactuar con la palanca del control derecho
+@
+[[Recibir instrucción para hacer TPs]]
+{
+RightControllerPf.TouchedThumbstick()
+}
+<>
+
+
+:: Recibir instrucción para hacer TPs
+Cuando lo hace, se le da la instrucción 
+"Muy bien!
+También puedes teletransportarte a los puntos azules, para esto oprime el botón B y observarás un rayo rojo para señalar el punto al que quieres ir
+@
+[[Ir a uno de los puntos azules]]
+{}
+<
+PB.ChangeVal(0,16)
+LeftControllerPf.SetCameraRotationActive()
+RightControllerPf.SetCameraRotationActive()
+TutorialScreen.ShowInstruction("TPMovement")
+Simulator.Play("instruccionMoverConTP")
+TutorialScreen.ActivarTP1()
+TutorialScreen.ActivarTP2()
+PlayerController.DisableCollisionsTutorialTPS()
+>
+
+
+:: Ir al punto medio con TP
+Repite la teletransportación volviento al punto que está en frente de mi
+@
+[[Recibir instrucción de hacer gestos mano]]
+{
+TPPointCenter.CompleteTPPoint()
+}
+<
+TPPointCenter.DisableTPPoint()
+TPPointCenter.SetActiveState(false)
+PB.ChangeVal(0,48)
+>
+
+:: Recibir instrucción de hacer gestos mano
+Vamos muy bien!
+Ahora observa en la pantalla todos los gestos que puedes hacer con tu manos virtuales e intenta replicarlos
+
+Usa el gesto de apuntar para oprimir el botón rojo a tu derecha.
+@
+[[Oprimir un botón]]
+{}
+<
+TutorialScreen.ShowInstruction("handGestures")
+Simulator.Play("handGestures")
+Simulator.Esperar(3)
+TutorialScreen.ShowInstruction("PressRedButton")
+Simulator.Play("PressRedButton")
+TutorialScreen.ActivarBtnTutorial()
+>
+
+:: Ir a uno de los puntos azules
+El usuario debe ir a uno de los puntos azules
+@
+[[Recibir instrucción para hacer TP centro]]
+{
+TPPoint.CompleteTPPoint()
+}
+<
+TPPoint.DisableTPPoint()
+TPPoint.SetActiveState(false)
+TPPointCenter.SetActiveState(false)
+PB.ChangeVal(0,32)
+>
+
+
+:: Recibir instrucción para hacer TP centro
+Cuando lo hace, se le da la instrucción 
+Perfecto!
+Vuelve al punto que está en frente de mi
+@
+[[Ir al punto medio con TP]]
+{}
+<
+Simulator.Play("irTPCentro")
+TutorialScreen.ActivarTP3()
+>
+
+
+:: Oprimir un botón
+El usuario debe oprimirel btn rojo.
+@
+[[Recibir instrucción palanca estribor]]
+{
+BtnTutorial.Touched()
+}
+<
+TPPoint.DisableTPPoint()
+TPPoint.SetActiveState(false)
+PB.ChangeVal(0,64)
+>
+
+:: Recibir instrucción palanca estribor
+Perfecto!
+Ahora vamos a interactuar con las palancas.
+Para empezar, mueve la palanca de velocidad de estribor (derecha) al valor 0, Para ello, haz el gesto de agarrar como se muestra en la pantalla
+@
+[[Mover a 0 la palanca estribor]]
+{}
+<
+TutorialScreen.DesactivarBtnTutorial()
+TutorialScreen.ShowInstruction("Palancas")
+TutorialScreen.ActivarPalancas()
+GrabbableHandlerMpe.SetExpectedValue(0)
+GrabbableHandlerMpb.SetExpectedValue(0)
+PlcVelMpb.MoveToVal(-50);
+PlcVelMpe.MoveToVal(-50);
+Simulator.Play("instruccionPalancasVelocidad")
+TutorialScreen.ActivarMeshPalancas()
+>
+
+:: Mover a 0 la palanca estribor
+Muy bien!
+Para terminar ¿estás listo para ir al cuarto de ingeniería?
+Para contestarme oprime el botón de tu mano izquierda
+@
+[[Usar menu mano]]
+{
+Simulator.MostrarRecordatorio(""; 0; HandlerPlcVelMpe)
+PlcVelMpe.EsVerde()
+}
+<
+PB.ChangeVal(0,80)
+Simulator.Esperar(2)
+TutorialScreen.DesactivarPalancas()
+TutorialScreen.ShowInstruction("handMenu")
+Simulator.Play("handMenu")
+>	
+
+:: Finalizar[END]
+fin
+@
+[[X]]
+{}
+<
+Progressbar.ChangeVal(1)
+TutorialScreen.ShowScreen(false)
+CenterEyeAnchor.FadeOut()
+Simulator.Esperar(4)
+TutorialScreen.FinishTutorial()
+>
+
+:: Usar menu mano[dialogo]
+ll
+@
+Para terminar ¿estás listo para ir al cuarto de ingeniería?
+[[Sí, estoy listo]]
+[[No, no estoy listo]]
+{}
+<
+HandMenu.CambiarFuncionalidad("instruirAVivaVoz")
+>
+
+:: Sí, estoy listo
+fin
+@
+[[Finalizar]]
+{}
+<
+HandMenu.CerrarPantalla()
+HandMenu.DesactivarBtn()
+PlayerController.Play("SiEstoyListo")
+Simulator.Play("Fin")
+PB.ChangeVal(1)
+>
+
+:: No, no estoy listo
+fin
+@
+[[Finalizar]]
+{}
+<
+HandMenu.CerrarPantalla()
+HandMenu.DesactivarBtn()
+PlayerController.Play("NoEstoyListo")
+Simulator.Play("SiEstasListo")
+PB.ChangeVal(1)
+>
