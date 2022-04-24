@@ -11,6 +11,7 @@ public class IncendioCtrl : MonoBehaviour
     {
         fire1 = transform.GetChild(0).GetComponent<ParticleSystem>();
         fire2 = transform.GetChild(1).GetComponent<ParticleSystem>();
+        fire2.gameObject.GetComponent<AudioSource>().Stop();
         fire1.Stop();
         fire2.Stop();
     }
@@ -19,5 +20,7 @@ public class IncendioCtrl : MonoBehaviour
     {
         fire1.Play();
         fire2.Play();
+        fire2.gameObject.GetComponent<AudioSource>().Play();
+        GameObject.Find("SonidoAlarmaCM").GetComponent<AudioSource>().Play();
     }
 }
