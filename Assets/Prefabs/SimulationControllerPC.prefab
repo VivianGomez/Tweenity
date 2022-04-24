@@ -1,5 +1,24 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!95 &6464524753849819288
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5188572170040349964}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e26dc2559eb116e48b2f02a63652be14, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6464524752354279396
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,6 +221,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   twineText: {fileID: 4900000, guid: 49915cea65ea61c4d82497a1f9ceb1e4, type: 3}
+  debugCarga: 0
+  debugLectura: 0
 --- !u!1 &6464524753075893382
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,25 +281,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modelObject: {fileID: 6464524753075893380}
---- !u!95 &6464524753849819288
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5188572170040349964}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e26dc2559eb116e48b2f02a63652be14, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &6464524754244433341
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -389,7 +391,7 @@ PrefabInstance:
     - target: {fileID: 1276517497378365621, guid: 2aae8d4dde8ea3649855d685e732713d,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.9764711
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1276517497378365621, guid: 2aae8d4dde8ea3649855d685e732713d,
         type: 3}

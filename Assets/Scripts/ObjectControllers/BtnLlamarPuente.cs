@@ -20,7 +20,7 @@ public class BtnLlamarPuente : MonoBehaviour
             phoneController.Llamar();
             animator.SetBool("hide", true);
             llamo = true;
-            GameObject.Find("MOBController").GetComponent<SimulationController>().VerifyUserAction(new SimulationObject.Action(gameObject.name, "Touched",""));
+            GameObject.Find("SimulationController").GetComponent<SimulationController>().VerifyUserAction(new SimulationObject.Action(gameObject.name, "Touched",""));
         }
     }
 

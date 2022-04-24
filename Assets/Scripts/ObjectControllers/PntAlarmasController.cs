@@ -46,6 +46,12 @@ public class PntAlarmasController : MonoBehaviour
         GameObject.Find("ItemAlarma").GetComponent<Animator>().SetBool("activarAlarma", true);
     }
 
+    public void MostrarAlarmas()
+    {
+        pantallaAlarmas.SetActive(true);
+        pantallaHome.SetActive(false);
+    }
+
     public void AceptarAlarma()
     {
         GameObject.Find("SonidoAlarmaCM").GetComponent<AudioSource>().Stop();
