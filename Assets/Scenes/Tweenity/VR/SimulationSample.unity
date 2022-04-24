@@ -17465,6 +17465,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: IncendioCuartoZ
       objectReference: {fileID: 0}
+    - target: {fileID: 7607560918003897969, guid: 8602b6f7b7ecb544f87bc6efc3910395,
+        type: 3}
+      propertyPath: NoiseModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8602b6f7b7ecb544f87bc6efc3910395, type: 3}
 --- !u!23 &7619987047365422723

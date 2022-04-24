@@ -204,6 +204,7 @@ public class SimulationController : MonoBehaviour {
 
     public void Timeout()
     {
+        print("Holaa");
         if(timeout)
         {
             ChooseResponse(GetPositionOfResponse("timeout"));
@@ -278,7 +279,7 @@ public class SimulationController : MonoBehaviour {
             if(newNode.userActions.Count > 1 && curNode.tags.Contains("timeout"))
             {
                 // Invocar el timeout despues de x tiempo
-                remember = true;
+                timeout = true;
                 Invoke("Timeout", float.Parse(newNode.userActions[0].actionParams));
                 curExpectedUserAction = newNode.userActions[1];
             }
