@@ -99,11 +99,12 @@ PuertaPivote.PlayAnimation("open")
 Simulator.MoveCharacter("Personaje2";"PathEntrarPersonaje2")
 Personaje2Controller.MirarJugador(true)
 Personaje2Controller.PlayAnimation("Saludar")
+Personaje2Controller.PlayAnimation("Idle")
 P2Head.PlayVoice("P2-RiesgoIncendio")
 SistemaABC.MostrarAlarmas()
 Personaje2Controller.MirarJugador(false)
-Simulator.MoveCharacter("Personaje2";"PathSalirCCI")
-Simulator.Wait(2)
+Simulator.MoveCharacter("Personaje2";"PathSalirCortoPersonaje2")
+Simulator.Wait(1)
 >
 
 :: Finalizar la simulación con estado de error[end]
@@ -133,8 +134,9 @@ Se obverva fuego entrando por las ventanas que conectan el cuarto Z con el cuart
 {}
 <
 IncendioCuartoZ.ActivarFuego()
+PuertaPivote.PlayAnimation("open")
 Personaje1Controller.MirarJugador(false)
-Simulator.MoveCharacter("Personaje1Controller";"PathSalirPersonaje1")
+Simulator.MoveCharacter("PersonajeLipsync";"PathSalirPersonaje1")
 Simulator.Wait(2)
 Personaje1Controller.PlayAnimation("Idle")
 >
