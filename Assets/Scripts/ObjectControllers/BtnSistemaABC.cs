@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BtnAceptarAMSCtrl : MonoBehaviour
+public class BtnSistemaABC : MonoBehaviour
 {
     bool pTouched = false;
     public Material matPressed;

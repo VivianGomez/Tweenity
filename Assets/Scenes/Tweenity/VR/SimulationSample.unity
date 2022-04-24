@@ -14267,6 +14267,7 @@ GameObject:
   - component: {fileID: 7619987047365422723}
   - component: {fileID: 2233600128540607145}
   - component: {fileID: 5053751581238800290}
+  - component: {fileID: 162488963310327957}
   m_Layer: 0
   m_Name: BtnIgnorar
   m_TagString: Untagged
@@ -14274,6 +14275,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &162488963310327957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 162488963310327956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31945d610b189974b9782d02e4dfd8e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  matPressed: {fileID: 2100000, guid: 4e5feb04d31979f499b6c5d520b4d96f, type: 2}
+  matActive: {fileID: 2100000, guid: 7ba99076837924c4caca5b2259f266b9, type: 2}
 --- !u!224 &188440095980610760
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17588,7 +17603,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 7ba99076837924c4caca5b2259f266b9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
