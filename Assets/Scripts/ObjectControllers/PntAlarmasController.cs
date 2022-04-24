@@ -19,7 +19,6 @@ public class PntAlarmasController : MonoBehaviour
 
     private void Start()
     {
-        txtNombreAlarma.text = "...";
         if(avisoAlarma!=null)
         {
             avisoAlarma.SetActive(false);
@@ -44,6 +43,7 @@ public class PntAlarmasController : MonoBehaviour
         pantallaAlarmas.SetActive(true);
         pantallaHome.SetActive(false);
         GameObject.Find("ItemAlarma").GetComponent<Animator>().SetBool("activarAlarma", true);
+        MostrarAlarmas();
     }
 
     public void MostrarAlarmas()
@@ -67,6 +67,14 @@ public class PntAlarmasController : MonoBehaviour
         GameObject.Find("BtnIgnorar").SetActive(false);
         txtRespuesta.text = "Se ha enviado una alerta al personal de emergencias. Pero aún hay riesgo de incendio, debe llamar al oficial encargado.";
 
+    }
+
+    public void MostrarMensajeIgnorar()
+    {
+        GameObject.Find("ItemAlarma").SetActive(false);
+        GameObject.Find("BtnAceptar").SetActive(false);
+        GameObject.Find("BtnIgnorar").SetActive(false);
+        txtRespuesta.text = "Ignorar esta alarma puede tener consecuencias fatales";
     }
     
 }

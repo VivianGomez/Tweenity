@@ -70,7 +70,9 @@ En las ventanas que dan al cuarto Z, se van a observar luces color naranja que t
 @
 [[Finalizar la simulación con estado de error]]
 {}
-<>
+<
+SistemaABC.MostrarMensajeIgnorar()
+>
 
 :: Seleccionar una de las opciones de la pantalla del sistema de monitoreo[multipleChoice]
 En este paso, el usuario debe dirigirse a la pantalla del sistema ABC y decidir si oprime el botón "Accept" o el botón "Ignore".
@@ -99,6 +101,9 @@ Personaje2Controller.MirarJugador(true)
 Personaje2Controller.PlayAnimation("Saludar")
 P2Head.PlayVoice("P2-RiesgoIncendio")
 SistemaABC.MostrarAlarmas()
+Personaje2Controller.MirarJugador(false)
+Simulator.MoveCharacter("Personaje2";"PathSalirCCI")
+Simulator.Wait(2)
 >
 
 :: Finalizar la simulación con estado de error[end]
@@ -128,6 +133,10 @@ Se obverva fuego entrando por las ventanas que conectan el cuarto Z con el cuart
 {}
 <
 IncendioCuartoZ.ActivarFuego()
+Personaje1Controller.MirarJugador(false)
+Simulator.MoveCharacter("Personaje1Controller";"PathSalirPersonaje1")
+Simulator.Wait(2)
+Personaje1Controller.PlayAnimation("Idle")
 >
 
 :: Ponerse el traje contraincendios[reminder]
@@ -136,7 +145,7 @@ Después de 5 segundos si el usuario no ha realizado la acción, se mostrará un
 @
 [[Finalizar la simulación con estado de error]]
 {
-Simulator.ShowReminder(1; TrajeIncendios;"")
+Simulator.ShowReminder(1; TrajeContraincendios;"")
 TrajeIncendios.Usar()
 }
 <>
@@ -153,7 +162,7 @@ Simulator.CloseDialogueViewer()
 El simulador le especifica al usuario "Esta no es la opción correcta, se equivocó de cuarto. Vuelva a intentarlo"
 Se muestre en color rojo el cuadro de diálogo y se escuche un sonido de error.
 @
-¡INCORRECTO!
+¡INCORRECTO! La opción correcta es:
 [[Se esta presentando una alarma en el cuarto Z, riesgo de incendio]]
 {}
 <

@@ -33,7 +33,7 @@ public class ReminderController : MonoBehaviour
             OutlineManager outline = objeto.GetComponent<OutlineManager>();
             outline.ShowObjectiveColor();
         }
-        else if(GetParentObject(objeto).GetComponent<OutlineManager>()!=null)
+        else if(transform.parent != null && GetParentObject(objeto).GetComponent<OutlineManager>()!=null)
         {
             print("El padre tiene el componente OutlineManager");
             OutlineManager outline = GetParentObject(objeto).GetComponent<OutlineManager>();

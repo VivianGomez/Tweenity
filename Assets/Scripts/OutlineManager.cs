@@ -11,7 +11,7 @@ public class OutlineManager : MonoBehaviour
 	protected Color ActivatingColor = Color.green;
 
 	[SerializeField]
-	protected Color ObjectiveColor;
+	protected Color ObjectiveColor = Color.blue;
 
     [SerializeField]
     protected Outline Outline = null;
