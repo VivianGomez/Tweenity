@@ -24,10 +24,22 @@ public class DialogueViewer : MonoBehaviour
     {
         controller.onEnteredNode += OnNodeEnteredDV;
         //controller.InitializeDialogue();
+        SetNormalState();
 
         // Start the dialogue
         var curNode = controller.GetCurrentNode();
         anim = GetComponent<Animator>();
+    }
+
+    public void SetNormalState()
+    {
+        gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().color = new Vector4(0f, 0.2438478f, 0.5f, 0.7803922f);
+    }
+
+    public void WrongAnswer()
+    {
+        gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().color = new Vector4(1f, 0f, 0f, 0.7803922f);
+        SoundManager.PlaySound("wrongAnswer");
     }
 
     public void OpenDialogue()
@@ -77,6 +89,10 @@ public class DialogueViewer : MonoBehaviour
         txtNodeDisplay.text = newNode.text.Trim();
 
         //Debug.Log("TEXTO "+txtNodeDisplay.text);
+        if(!gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().color.Equals(new Vector4(1f, 1f, 1f, 0.7803922f)))
+        {
+            SetNormalState();
+        }
 
         KillAllChildren(parentOfResponses);
         
