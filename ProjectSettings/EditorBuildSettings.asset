@@ -5,21 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/Tweenity/VR/SimulationSample.unity
+    guid: 4b1925172ca0b754d9476525abf32add
+  - enabled: 1
+    path: Assets/Scenes/Tweenity/VR/FinCorrecto.unity
+    guid: a4a6314647cd99a4b8e16665442cd7bb
+  - enabled: 1
+    path: Assets/Scenes/Tweenity/VR/FinIncorrecto.unity
+    guid: f09652cf15893ee44bde8542db4b8bfe
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 4c7f7b2c4ee5a3240aaa2c1bd707de0e,
       type: 2}

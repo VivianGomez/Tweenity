@@ -12,6 +12,7 @@ permissions and limitations under the License.
 
 using UnityEngine;
 using System.Collections; // required for Coroutines
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Fades the screen from black after a new scene is loaded. Fade can also be controlled mid-scene using SetUIFade and SetFadeLevel
@@ -225,4 +226,9 @@ public class OVRScreenFade : MonoBehaviour
 			fadeRenderer.enabled = isFading;
 		}
 	}
+
+	public void LoadScene(string name)
+    {
+        SceneManager.LoadScene(name);
+    }
 }

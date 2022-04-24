@@ -204,7 +204,6 @@ public class SimulationController : MonoBehaviour {
 
     public void Timeout()
     {
-        print("Holaa");
         if(timeout)
         {
             ChooseResponse(GetPositionOfResponse("timeout"));
@@ -249,7 +248,6 @@ public class SimulationController : MonoBehaviour {
                 }
                 else
                 {
-                    print("entra");
                     if(newNode.responses.Count == 1 && taskObject!=null && !newNode.tags.Contains("dialogue"))
                     {
                         ChooseResponse(0);

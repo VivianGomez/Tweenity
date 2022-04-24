@@ -32,7 +32,6 @@ Una vez recibidas las instrucciones, enseguida en la pantalla del sistema ABC se
 [[Seleccionar una de las opciones de la pantalla del sistema de monitoreo]]
 {}
 <
-Simulator.Esperar(2)
 SistemaABC.ActivarAlarmaABC("RIESGO DE INCENDIO CUARTO Z")
 >
 
@@ -99,8 +98,9 @@ PuertaPivote.PlayAnimation("open")
 Simulator.MoveCharacter("Personaje2";"PathEntrarPersonaje2")
 Personaje2Controller.MirarJugador(true)
 Personaje2Controller.PlayAnimation("Saludar")
-Personaje2Controller.PlayAnimation("Idle")
+Simulator.Wait(2)
 P2Head.PlayVoice("P2-RiesgoIncendio")
+Personaje2Controller.PlayAnimation("Idle")
 SistemaABC.MostrarAlarmas()
 Personaje2Controller.MirarJugador(false)
 Simulator.MoveCharacter("Personaje2";"PathSalirCortoPersonaje2")
@@ -114,7 +114,11 @@ El mensaje será:
 @
 [[X]]
 {}
-<>
+<
+CenterEyeAnchor.FadeOut()
+Simulator.Wait(6)
+CenterEyeAnchor.LoadScene("FinIncorrecto")
+>
 
 :: Especificar la falla al oficial a cargo[dialogue]
 En este paso el usuario va a conversar con el oficial encargado.
@@ -152,7 +156,8 @@ TrajeIncendios.Usar()
 }
 <>
 
-:: Se esta presentando una alarma en el cuarto Z, riesgo de incendio[dialogue]
+:: Se esta presentando una alarma en el cuarto Z, riesgo de incendio
+El usuario selecciona la opción correcta y se cierra el cuadro de diálogo
 @
 [[Finalizar la simulación, se realizó correctamente el procedimiento]]
 {}
@@ -183,5 +188,9 @@ Simulator.CloseDialogueViewer()
 @
 [[X]]
 {}
-<>
+<
+CenterEyeAnchor.FadeOut()
+Simulator.Wait(6)
+CenterEyeAnchor.LoadScene("FinCorrecto")
+>
 
