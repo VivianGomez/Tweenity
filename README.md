@@ -109,23 +109,23 @@ Additionally, Tweenity allows for some extra features in sample scenes, such as 
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+You can use this plugin by importing it into your Unity project or by cloning this code repository.
 
 ### Prerequisites
 
-Make sure you have Unity installed, and you can open the project using Unity version 2021.1.13f1 or any higher version.
+Make sure you have Unity (and/or Unity Hub) installed, and you can open the project using Unity version 2021.1.13f1 or any higher version.
 
 ### Installation
 
 #### Using unity package
 
-1. Download Tweenity plugin as unity package
+1. Download Tweenity plugin as [unity package](https://github.com/VivianGomez/Tweenity/releases/download/latest/TweenityVR_v2.0.unitypackage)
 2. Open your Unity project
 4. Go to Assets > Import package > Custom package
+   
 ![image](https://github.com/VivianGomez/Tweenity/assets/30846540/88f6ba52-6da2-4e2e-a116-cdcaa5ed7e2a)
 
-5. Open the package previously downloaded.
+6. Open the package previously downloaded.
 
 
 #### Cloning repository
