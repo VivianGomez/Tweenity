@@ -96,7 +96,7 @@ Additionally, Tweenity allows for some extra features in sample scenes, such as 
 
 
 
-### Built With
+### Technologies
 
 * [![Unity3D][Unity3D]][Unity-url]
 * [![Twine][Twine]][Twine-url]
