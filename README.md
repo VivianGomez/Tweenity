@@ -60,7 +60,7 @@
     <li>
       <a href="#about-the-project">About The Project</a>
       <ul>
-        <li><a href="#technologies">Tecnologies</a></li>
+        <li><a href="#built-with">Tecnologies</a></li>
       </ul>
     </li>
     <li>
