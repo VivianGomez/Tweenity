@@ -72,7 +72,7 @@
     </li>
     <li><a href="#roadmap">Features</a></li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#usage">VR projects builded with Tweenity</a></li>
+    <li><a href="#samples">VR projects builded with Tweenity</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -145,7 +145,36 @@ cd path/to/your/directory
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+<!-- Features -->
+## Features
 
+#### Node types
+To enhance the utilization of the graph in the creation of VR simulators, a series of node types have been defined, derived from the requirements identified in real multidisciplinary projects. Each node type offers specific functionality for the simulation, and it is possible to combine up to two node types in a single step.
+
+![image](https://github.com/VivianGomez/Tweenity/assets/30846540/143f92e6-8fdf-4984-85bb-768d3b8c6f25)
+![image](https://github.com/VivianGomez/Tweenity/assets/30846540/ebfdb39d-3d26-404a-a275-08b8843961cd)
+
+- **START Node:** This type of node allows modeling the initial step of the simulation. Therefore, there should only be one per graph.
+
+- **END Node:** This type of node allows modeling the final step of the simulation. Multiple END nodes can exist because several endings could be modeled in a simulation.
+
+- **RANDOM Node:** It allows modeling the scenario in which we want to randomly select the next path. This makes simulations more dynamic, and the story is not the same all the time. Thus, after the player performs the current node action, the next path will be randomly selected.
+
+- **MultipleChoice Node:** Allows modeling the scenario in which the user can take one of several actions, but each one has a different consequence.
+
+- **REMINDER Node:** With this type of node, a reminder (blue arrow) will be placed above the specified interactive object in the current step.
+
+- **TIMEOUT Node:** Allows modeling the case in which there is a time limit to perform a step. If the user’s action has not been performed after a certain amount of time, it automatically advances to another step of the simulation (specified in the body of this node).
+
+- **DIALOGUE Node:** It models the scenario in which creators wish to include a dialogue allowing the player to choose from several response options, each with different consequences.
+
+- **Typeless Node:** The Tweenity plugin also includes the possibility of having a node without a type in case a step doesn’t fit into the previous types.
+
+ 
+#### Additional features
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
 ## Usage
@@ -157,20 +186,8 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-
-<!-- ROADMAP -->
-## Features
-
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
-
-See the [open issues](https://github.com/VivianGomez/Tweenity/issues) for a full list of proposed features (and known issues).
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 ## VR projects builded with Tweenity
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->
 ## Contributing
