@@ -85,7 +85,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+![image](https://github.com/VivianGomez/Tweenity/assets/30846540/fd0d0c00-0c13-42e0-b98b-b45f2b37ec27)
 
 The Tweenity plugin streamlines the connection between Twine and Unity3D tools by reading and interpreting Twine graphs in Unity. Specifically, this plugin was designed to support a methodology aimed at enabling the rapid prototyping of simulators in Virtual Reality.
 
