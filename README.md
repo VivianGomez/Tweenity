@@ -194,15 +194,16 @@ Tweenity originated as a result of developing two virtual reality training simul
 
 [![Video 1](https://img.youtube.com/vi/FQgroO2jkbw/maxresdefault.jpg)](https://youtu.be/FQgroO2jkbw)
 
-**Video 1 Title**
-A generic description for Video 1.
+**Video 1 - Navy Simulator**
+A simulator of the ship’s control room in our Navy. The purpose of this simulator is to facilitate training in both normal and emergency situations that
+an Engineering Officer could encounter. In this project, we had a team composed of six Navy officials, two designers, and two developers.
 
 ---
 
 [![Video 2](https://img.youtube.com/vi/ScdDqaJFiPg/maxresdefault.jpg)](https://youtu.be/ScdDqaJFiPg)
 
-**Video 2 Title**
-A generic description for Video 2.
+**Video 2 - Birth simulator**
+A simulator to provide a training environment for physicians in which they can make decisions about the first minute of a baby’s life after delivery. In this project, we had a team composed of two physicians, two developers, and one designer.
 
 ### Some begginers projects builded in a Jam called JamVR:
 Here are the three standout projects from our JamVR event. These simulators were built within a one-month timeframe, with the collaboration of multidisciplinary teams that included designers, developers, and experts in the specific domain of each simulator.
