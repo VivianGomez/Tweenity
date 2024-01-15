@@ -137,16 +137,15 @@ Make sure you have Unity installed, and you can open the project using Unity ver
 1. Open your terminal or command prompt.
 
 2. Navigate to the directory where you want to clone the repository.
-
 ```bash
 cd path/to/your/directory
 ```
-2. Run the following command in your terminal to clone the repository:
+3. Run the following command in your terminal to clone the repository:
    ```bash
    git clone https://github.com/VivianGomez/Tweenity.git
    ```
-3. Open the project in Unity Editor or Unity Hub (Open > Add project from disk)
-4. Select the folder called Tweenity 
+4. Open the project in Unity Editor or Unity Hub (Open > Add project from disk)
+5. Select the folder called Tweenity 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
