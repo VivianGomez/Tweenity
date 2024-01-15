@@ -100,7 +100,7 @@ Additionally, Tweenity allows for some extra features in sample scenes, such as 
 
 * [![Twine][Twine]][Twine-url]
 * [![Unity3D][Unity3D]][Unity-url]
-
+* [![Entwee][Entwee]][Entwee-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -236,8 +236,9 @@ Project Link: [https://github.com/VivianGomez/Tweenity](https://github.com/Vivia
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
 [product-screenshot]: images/screenshot.png
-[Twine]: https://img.shields.io/badge/Twine-000000?style=for-the-badge&logo=&logoColor=green
+[Twine]: https://img.shields.io/badge/Twine-000000?style=for-the-badge&logo=&logoColor=129A76
 [Twine-url]: https://twinery.org/
 [Unity3D]: https://img.shields.io/badge/Unity3D-20232A?style=for-the-badge&logo=&logoColor=61DAFB
 [Unity-url]: https://reactjs.org/
-
+[Entwee]: https://img.shields.io/badge/Entwee-20232A?style=for-the-badge&logo=&logoColor=1370D8
+[Entwee-url]: https://www.maximumverbosity.net/twine/Entweedle/
