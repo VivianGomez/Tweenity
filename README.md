@@ -38,10 +38,6 @@
 
   <p align="center">
     The Tweenity plugin streamlines the connection between Twine and Unity3D tools by reading and interpreting Twine graphs in Unity. Specifically, this plugin was designed to support a methodology aimed at enabling the rapid prototyping of simulators in Virtual Reality.
-
-To facilitate creation, this plugin allows the loading of a simulation using Twine graphs, where each node can have special behavior or functionality depending on the Node Type (selecting options from dialogues with different consequences, reproducing random events in the simulation, defining specific consequences based on user interactions, defining simulator responses when the user does not execute an expected action, or reminding them of the expected action in the simulation).
-
-Additionally, Tweenity allows for some extra features in sample scenes, such as the execution of sample graphs, sample dialogues, simulator reactions (e.g., animations), movement of Mixamo characters along predefined paths, and the playback of audio instructions with a human guide (also from Mixamo).
     <br />
     <a href="https://github.com/VivianGomez/Tweenity/wiki"><strong>Explore the docs »</strong></a>
     <br />
@@ -63,7 +59,7 @@ Additionally, Tweenity allows for some extra features in sample scenes, such as 
     <li>
       <a href="#about-the-project">About The Project</a>
       <ul>
-        <li><a href="#built-with">Built With</a></li>
+        <li><a href="#built-with">Tecnologies</a></li>
       </ul>
     </li>
     <li>
@@ -90,8 +86,11 @@ Additionally, Tweenity allows for some extra features in sample scenes, such as 
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `VivianGomez`, `Tweenity`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
+The Tweenity plugin streamlines the connection between Twine and Unity3D tools by reading and interpreting Twine graphs in Unity. Specifically, this plugin was designed to support a methodology aimed at enabling the rapid prototyping of simulators in Virtual Reality.
 
+To facilitate creation, this plugin allows the loading of a simulation using Twine graphs, where each node can have special behavior or functionality depending on the Node Type (selecting options from dialogues with different consequences, reproducing random events in the simulation, defining specific consequences based on user interactions, defining simulator responses when the user does not execute an expected action, or reminding them of the expected action in the simulation).
+
+Additionally, Tweenity allows for some extra features in sample scenes, such as the execution of sample graphs, sample dialogues, simulator reactions (e.g., animations), movement of Mixamo characters along predefined paths, and the playback of audio instructions with a human guide (also from Mixamo).
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -119,27 +118,35 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+Make sure you have Unity installed, and you can open the project using Unity version 2021.1.13f1 or any higher version.
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
+#### Using unity package
+
+1. Download Tweenity plugin as unity package
+2. Open your Unity project
+4. Go to Assets > Import package > Custom package
+![image](https://github.com/VivianGomez/Tweenity/assets/30846540/88f6ba52-6da2-4e2e-a116-cdcaa5ed7e2a)
+
+5. Open the package previously downloaded.
+
+
+#### Cloning repository
+
+1. Open your terminal or command prompt.
+
+2. Navigate to the directory where you want to clone the repository.
+
+```bash
+cd path/to/your/directory
+```
+2. Run the following command in your terminal to clone the repository:
+   ```bash
    git clone https://github.com/VivianGomez/Tweenity.git
    ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
+3. Open the project in Unity Editor or Unity Hub (Open > Add project from disk)
+4. Select the folder called Tweenity 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
