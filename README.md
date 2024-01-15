@@ -207,7 +207,7 @@ A generic description for Video 2.
 ### Some begginers projects builded in a Jam called JamVR:
 Here are the three standout projects from our JamVR event. These simulators were built within a one-month timeframe, with the collaboration of multidisciplinary teams that included designers, developers, and experts in the specific domain of each simulator.
 
-All samples can be reviewed on the Padlet of Created Simulators: [Padlet Link](https://padlet.com/vn_gomez1/curso-jam-vr-los-simuladores-construidos-ajzvnzgrhx9dgy7x)
+All samples can be reviewed on the Padlet of Created Simulators (including videos, descriptions ans source code): [Padlet Link](https://padlet.com/vn_gomez1/curso-jam-vr-los-simuladores-construidos-ajzvnzgrhx9dgy7x)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
