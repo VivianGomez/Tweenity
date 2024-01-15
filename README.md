@@ -210,6 +210,12 @@ Here are the three standout projects from our JamVR event. These simulators were
 
 All samples can be reviewed on the Padlet of Created Simulators (including videos, descriptions ans source code): [Padlet Link](https://padlet.com/vn_gomez1/curso-jam-vr-los-simuladores-construidos-ajzvnzgrhx9dgy7x)
 
+![image](https://github.com/VivianGomez/Tweenity/assets/30846540/1f4b255f-d9a9-47a4-bf47-8339fa79a686)
+
+1. A human rights simulator prototype in a war context for personnel in the Colombian Navy. ([Video](https://www.youtube.com/watch?v=Q7iF5_rI6X8&ab_channel=MOLEINTERACTIVE)), ([Final submission](https://drive.google.com/drive/folders/1z4MfRGilbKBVyE1raca5VEbydpC8hlEz?usp=drive_link)))
+2. A risk simulator prototype for workers in the cement sector. ([Video](https://padlet.com/redirect?url=https%3A%2F%2Fyoutu.be%2FBFuFu-pA1lE)), ([Final Submission](https://drive.google.com/file/d/1-kP5B8_RErcdU7b1gRIkAD7cqp7o0SN8/view))
+3. A simulator prototype for diagnosing heart failure in a virtual patient. ([Video](https://youtu.be/YvazfQ4JNuc)), ([Final Submission](https://github.com/baperezg/SimFallaCardiacaVRjam)))
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->
