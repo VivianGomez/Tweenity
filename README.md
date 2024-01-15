@@ -159,7 +159,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 
 <!-- ROADMAP -->
-## Roadmap
+## Features
 
 - [ ] Feature 1
 - [ ] Feature 2
@@ -170,7 +170,7 @@ See the [open issues](https://github.com/VivianGomez/Tweenity/issues) for a full
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
+## VR projects builded with Tweenity
 
 <!-- CONTRIBUTING -->
 ## Contributing
