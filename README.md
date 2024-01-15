@@ -133,9 +133,9 @@ Make sure you have Unity (and/or Unity Hub) installed, and you can open the proj
 1. Open your terminal or command prompt.
 
 2. Navigate to the directory where you want to clone the repository.
-```bash
-cd path/to/your/directory
-```
+    ```bash
+    cd path/to/your/directory
+    ```
 3. Run the following command in your terminal to clone the repository:
    ```bash
    git clone https://github.com/VivianGomez/Tweenity.git
@@ -187,6 +187,27 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 
 ## VR projects builded with Tweenity
+
+Tweenity originated as a result of developing two virtual reality training simulators. These simulators aimed to replicate a procedure involving a series of steps with varying sequences, hence the proposal to use graphs for defining simulations. Below, we showcase the projects created with Tweenity.
+
+### Videos Showcase
+
+[![Video 1](https://img.youtube.com/vi/FQgroO2jkbw/maxresdefault.jpg)](https://youtu.be/FQgroO2jkbw)
+
+**Video 1 Title**
+A generic description for Video 1.
+
+---
+
+[![Video 2](https://img.youtube.com/vi/ScdDqaJFiPg/maxresdefault.jpg)](https://youtu.be/ScdDqaJFiPg)
+
+**Video 2 Title**
+A generic description for Video 2.
+
+### Some begginers projects builded in a Jam called JamVR:
+
+
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->
