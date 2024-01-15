@@ -43,7 +43,7 @@ To facilitate creation, this plugin allows the loading of a simulation using Twi
 
 Additionally, Tweenity allows for some extra features in sample scenes, such as the execution of sample graphs, sample dialogues, simulator reactions (e.g., animations), movement of Mixamo characters along predefined paths, and the playback of audio instructions with a human guide (also from Mixamo).
     <br />
-    <a href="https://github.com/VivianGomez/Tweenity"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/VivianGomez/Tweenity/wiki"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/VivianGomez/Tweenity">View Demo</a>
@@ -73,8 +73,9 @@ Additionally, Tweenity allows for some extra features in sample scenes, such as 
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
+    <li><a href="#roadmap">Features</a></li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#usage">VR projects builded with Tweenity</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
