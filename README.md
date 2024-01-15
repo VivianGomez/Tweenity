@@ -238,6 +238,6 @@ Project Link: [https://github.com/VivianGomez/Tweenity](https://github.com/Vivia
 [product-screenshot]: images/screenshot.png
 [Twine]: https://img.shields.io/badge/Twine-000000?style=for-the-badge&logo=&logoColor=green
 [Twine-url]: https://twinery.org/
-[Unity3D]: https://img.shields.io/badge/Unity3D-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[Unity3D]: https://img.shields.io/badge/Unity3D-20232A?style=for-the-badge&logo=&logoColor=61DAFB
 [Unity-url]: https://reactjs.org/
 
