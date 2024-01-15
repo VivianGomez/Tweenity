@@ -98,8 +98,8 @@ Additionally, Tweenity allows for some extra features in sample scenes, such as 
 
 ### Built With
 
-* [![Twine][Twine]][Twine-url]
 * [![Unity3D][Unity3D]][Unity-url]
+* [![Twine][Twine]][Twine-url]
 * [![Entwee][Entwee]][Entwee-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
