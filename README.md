@@ -293,7 +293,7 @@ Distributed under the CC BY-NC-ND 4.0 DEED License. See [`LICENSE.md`](https://g
 [license-shield]: https://img.shields.io/github/license/VivianGomez/Tweenity.svg?style=for-the-badge
 [license-url]: https://github.com/VivianGomez/Tweenity/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/linkedin_username
+[linkedin-url]: https://www.linkedin.com/in/vivian-g%C3%B3mez-cubillos-79499b18a/
 [product-screenshot]: images/screenshot.png
 [Twine]: https://img.shields.io/badge/Twine-000000?style=for-the-badge&logo=&logoColor=129A76
 [Twine-url]: https://twinery.org/
