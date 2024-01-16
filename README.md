@@ -265,7 +265,7 @@ Don't forget to give the project a star! Thanks again!
 <!-- LICENSE -->
 ## License
 
-Distributed under the CC BY-NC-ND 4.0 DEED License. See [`LICENSE`](https://github.com/VivianGomez/Tweenity/blob/main/LICENSE) for more information.
+Distributed under the GPLv3 License. See [`LICENSE`](https://github.com/VivianGomez/Tweenity/blob/main/LICENSE) for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
