@@ -21,6 +21,7 @@
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
+[![MIT License][license-shield]][license-url]
 [![Issues][issues-shield]][issues-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
@@ -264,7 +265,7 @@ Don't forget to give the project a star! Thanks again!
 <!-- LICENSE -->
 ## License
 
-Distributed under the CC BY-NC-ND 4.0 DEED License. See [`LICENSE.md`](https://github.com/VivianGomez/Tweenity/blob/main/LICENSE.md) for more information.
+Distributed under the CC BY-NC-ND 4.0 DEED License. See [`LICENSE`](https://github.com/VivianGomez/Tweenity/blob/main/LICENSE) for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
