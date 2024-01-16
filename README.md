@@ -291,7 +291,7 @@ Distributed under the CC BY-NC-ND 4.0 DEED License. See [`LICENSE.md`](https://g
 [issues-shield]: https://img.shields.io/github/issues/VivianGomez/Tweenity.svg?style=for-the-badge
 [issues-url]: https://github.com/VivianGomez/Tweenity/issues
 [license-shield]: https://img.shields.io/github/license/VivianGomez/Tweenity.svg?style=for-the-badge
-[license-url]: https://github.com/VivianGomez/Tweenity/blob/master/LICENSE.txt
+[license-url]: https://github.com/VivianGomez/Tweenity/blob/master/LICENSE.md
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/vivian-g%C3%B3mez-cubillos-79499b18a/
 [product-screenshot]: images/screenshot.png
