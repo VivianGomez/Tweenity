@@ -172,6 +172,8 @@ To enhance the utilization of the graph in the creation of VR simulators, a seri
 
  
 #### Additional features
+a) Dialogue boxes associated with graph reading and response options available at each node.
+![image](https://github.com/VivianGomez/Tweenity/assets/30846540/daa06c7e-fd4e-4fde-96a5-8ce2a49fc079)
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -212,8 +214,8 @@ All samples can be reviewed on the Padlet of Created Simulators (including video
 
 ![image](https://github.com/VivianGomez/Tweenity/assets/30846540/1f4b255f-d9a9-47a4-bf47-8339fa79a686)
 
-1. A human rights simulator prototype in a war context for personnel in the Colombian Navy. ([Video](https://www.youtube.com/watch?v=Q7iF5_rI6X8&ab_channel=MOLEINTERACTIVE), [Final submission](https://drive.google.com/drive/folders/1z4MfRGilbKBVyE1raca5VEbydpC8hlEz?usp=drive_link))
-2. A risk simulator prototype for workers in the cement sector. ([Video](https://padlet.com/redirect?url=https%3A%2F%2Fyoutu.be%2FBFuFu-pA1lE), [Final Submission](https://drive.google.com/file/d/1-kP5B8_RErcdU7b1gRIkAD7cqp7o0SN8/view))
+1. A human rights simulator prototype in a war context for personnel in the Colombian Navy. ([Video](https://www.youtube.com/watch?v=Q7iF5_rI6X8&ab_channel=MOLEINTERACTIVE), [Final submission](https://drive.google.com/drive/folders/1z4MfRGilbKBVyE1raca5VEbydpC8hlEz?usp=drive_link), [Grafo](https://docs.google.com/document/d/1uKPAiTecDcWt8_ckSldLW-m14QkbJ_gn/edit?usp=drive_link&ouid=111987359593681185749&rtpof=true&sd=true))
+2. A risk simulator prototype for workers in the cement sector. ([Video](https://padlet.com/redirect?url=https%3A%2F%2Fyoutu.be%2FBFuFu-pA1lE), [Final Submission](https://drive.google.com/file/d/1-kP5B8_RErcdU7b1gRIkAD7cqp7o0SN8/view), [Grafo](https://drive.google.com/file/d/1-kP5B8_RErcdU7b1gRIkAD7cqp7o0SN8/view?usp=sharing))
 3. A simulator prototype for diagnosing heart failure in a virtual patient. ([Video](https://youtu.be/YvazfQ4JNuc), [Final Submission](https://github.com/baperezg/SimFallaCardiacaVRjam))
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
