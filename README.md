@@ -175,6 +175,10 @@ To enhance the utilization of the graph in the creation of VR simulators, a seri
 ![image](https://github.com/VivianGomez/Tweenity/assets/30846540/daa06c7e-fd4e-4fde-96a5-8ce2a49fc079)
 a) Dialogue boxes associated with graph reading and response options available at each node.
 
+
+https://github.com/VivianGomez/Tweenity/assets/30846540/8cac8b41-071f-497c-960b-3ffbd1b988bd
+
+
 b) A Human guide, combining Mixamo rigging and Oculus LipSync, to facilitate audio instructions in the simulation.
 c) The movement of NPCs with Mixamo skeletons along predefined paths.
 d) The possibility of use a blue arrow to remind the user which object to interact with during training.
