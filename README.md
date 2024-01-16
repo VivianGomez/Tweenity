@@ -189,7 +189,33 @@ d. The possibility of use a blue arrow to remind the user which object to intera
 
 To understand how to use Tweenity, the plugin provides a couple of example scenes—one for PC and one for VR. These scenes are located in [Assets > Scenes > Tweenity](https://github.com/VivianGomez/Tweenity/tree/main/Assets/Scenes/Tweenity)
 
-The VR example scene loads a [sample graph](https://drive.google.com/file/d/1GoW0AMhCHp8nUwxPM9_aQFV-ILBpV8Vm/view) and allows to visualize all the different types of nodes, user event waiting, and simulator response actions.
+The VR example scene loads a [sample graph](https://drive.google.com/file/d/1GoW0AMhCHp8nUwxPM9_aQFV-ILBpV8Vm/view) and allows to visualize all the different types of nodes, user event waiting, visual debugger, and simulator response actions.
+
+![image](https://github.com/VivianGomez/Tweenity/assets/30846540/f182c8ee-fc3c-45b9-a743-544024c97856)
+
+
+### Visualize sample graph on Twine
+
+To visualize the example graph in the Twine editor:
+
+1. (recommended) Download and use [Twine](https://twinery.org/) locally as a desktop application.
+   *Note: This option keeps the files locally, ensuring information privacy.*
+
+2. Download the [sample graph](https://drive.google.com/file/d/1GoW0AMhCHp8nUwxPM9_aQFV-ILBpV8Vm/view).
+
+3. Open the Twine application.
+
+4. Go to the `Library > Import` option.<br>
+   ![image](https://github.com/VivianGomez/Tweenity/assets/30846540/f08e1536-da85-4d7b-84a0-829d7610aadb)
+
+5. Select the downloaded file and make sure to check the box with the graph's name.
+   ![image](https://github.com/VivianGomez/Tweenity/assets/30846540/09836e1b-6aec-4957-a951-2e5acf3847e2)
+
+6. Click on `Import Selected Files`.
+   ![image](https://github.com/VivianGomez/Tweenity/assets/30846540/816e900f-78ae-47a6-a893-d1a8a76b13fa)
+
+*Note: Twine may encounter issues with imports. If you receive any error messages in step 6, simply restart the application.*
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
