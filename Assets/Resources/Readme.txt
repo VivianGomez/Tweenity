@@ -1,0 +1,1 @@
+In this folder you can find all resources loaded by scripting or procedural ways

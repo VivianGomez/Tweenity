@@ -2,7 +2,6 @@
 //  ObjectController.cs
 //  Tweenity
 //
-//  Created by Vivian Gómez.
 //  Copyright © 2021 Vivian Gómez - Pablo Figueroa - Universidad de los Andes
 //
 
