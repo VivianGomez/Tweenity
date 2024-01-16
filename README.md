@@ -187,9 +187,9 @@ d. The possibility of use a blue arrow to remind the user which object to intera
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+To understand how to use Tweenity, the plugin provides a couple of example scenes—one for PC and one for VR. These scenes are located in [Assets > Scenes > Tweenity](https://github.com/VivianGomez/Tweenity/tree/main/Assets/Scenes/Tweenity)
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+The VR example scene loads a [sample graph](https://drive.google.com/file/d/1GoW0AMhCHp8nUwxPM9_aQFV-ILBpV8Vm/view) and allows to visualize all the different types of nodes, user event waiting, and simulator response actions.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
