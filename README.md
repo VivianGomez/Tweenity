@@ -173,15 +173,14 @@ To enhance the utilization of the graph in the creation of VR simulators, a seri
  
 #### Additional features
 ![image](https://github.com/VivianGomez/Tweenity/assets/30846540/daa06c7e-fd4e-4fde-96a5-8ce2a49fc079)
-a) Dialogue boxes associated with graph reading and response options available at each node.
-
+a. Dialogue boxes associated with graph reading and response options available at each node.
 
 https://github.com/VivianGomez/Tweenity/assets/30846540/8cac8b41-071f-497c-960b-3ffbd1b988bd
 
 
-b) A Human guide, combining Mixamo rigging and Oculus LipSync, to facilitate audio instructions in the simulation.
-c) The movement of NPCs with Mixamo skeletons along predefined paths.
-d) The possibility of use a blue arrow to remind the user which object to interact with during training.
+b. A Human guide, combining Mixamo rigging and Oculus LipSync, to facilitate audio instructions in the simulation.<br>
+c. The movement of NPCs with Mixamo skeletons along predefined paths.<br>
+d. The possibility of use a blue arrow to remind the user which object to interact with during training.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -200,24 +199,20 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 Tweenity originated as a result of developing two virtual reality training simulators. These simulators aimed to replicate a procedure involving a series of steps with varying sequences, hence the proposal to use graphs for defining simulations. Below, we showcase the projects created with Tweenity.
 
 ### Videos Showcase
+[<img src="https://github.com/VivianGomez/Tweenity/assets/30846540/abe41807-2f04-423c-8f30-eb2259ab309d" width="550" height="350">](https://youtu.be/FQgroO2jkbw)
 
-[![Video 1](https://img.youtube.com/vi/FQgroO2jkbw/maxresdefault.jpg)](https://youtu.be/FQgroO2jkbw)
-
-**Video 1 - Navy Simulator**
+**P1 - Navy Simulator**
 A simulator of the ship’s control room in our Navy. The purpose of this simulator is to facilitate training in both normal and emergency situations that
-an Engineering Officer could encounter. In this project, we had a team composed of six Navy officials, two designers, and two developers.
+an Engineering Officer could encounter. In this project, we had a team composed of six Navy officials, two designers, and two developers. ([Video](https://youtu.be/FQgroO2jkbw))
 
 ---
+[<img src="https://github.com/VivianGomez/Tweenity/assets/30846540/42542a58-06de-497d-9cad-53dd51814b93" width="550" height="350">](https://youtu.be/ScdDqaJFiPg)
 
-[![Video 2](https://img.youtube.com/vi/ScdDqaJFiPg/maxresdefault.jpg)](https://youtu.be/ScdDqaJFiPg)
-
-**Video 2 - Birth simulator**
-A simulator to provide a training environment for physicians in which they can make decisions about the first minute of a baby’s life after delivery. In this project, we had a team composed of two physicians, two developers, and one designer.
+**P2 - Birth simulator**
+A simulator to provide a training environment for physicians in which they can make decisions about the first minute of a baby’s life after delivery. In this project, we had a team composed of two physicians, two developers, and one designer. ([Video](https://youtu.be/ScdDqaJFiPg))
 
 ### Some begginers projects builded in a Jam called JamVR:
-Here are the three standout projects from our JamVR event. These simulators were built within a one-month timeframe, with the collaboration of multidisciplinary teams that included designers, developers, and experts in the specific domain of each simulator.
-
-All samples can be reviewed on the Padlet of Created Simulators (including videos, descriptions ans source code): [Padlet Link](https://padlet.com/vn_gomez1/curso-jam-vr-los-simuladores-construidos-ajzvnzgrhx9dgy7x)
+Here are the three standout projects from our JamVR event. These simulators were built within a one-month timeframe, with the collaboration of multidisciplinary teams that included designers, developers, and experts in the specific domain of each simulator. All samples can be reviewed on the Padlet of Created Simulators (including videos, descriptions ans source code): [Padlet Link](https://padlet.com/vn_gomez1/curso-jam-vr-los-simuladores-construidos-ajzvnzgrhx9dgy7x)
 
 ![image](https://github.com/VivianGomez/Tweenity/assets/30846540/1f4b255f-d9a9-47a4-bf47-8339fa79a686)
 
