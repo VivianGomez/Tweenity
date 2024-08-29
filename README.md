@@ -94,9 +94,9 @@ Additionally, Tweenity allows for some extra features in sample scenes, such as 
 
 ### Technologies
 
-* [![Unity3D][Unity3D]][Unity-url]
-* [![Twine][Twine]][Twine-url]
-* [![Entwee][Entwee]][Entwee-url]
+* [![Unity3D][Unity3D]][Unity-url] (Unity version 2021.1.13f)
+* [![Twine][Twine]][Twine-url] (Twine version 2)
+* [![Entwee][Entwee]][Entwee-url] (version 2021)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
