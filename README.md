@@ -193,6 +193,21 @@ The VR example scene loads a [sample graph](https://drive.google.com/file/d/1GoW
 
 ### Visualize sample graph on Twine
 
+First, you need to import the Entwee format, which is the syntax used and interpreted within Unity by the Tweenity plugin. To do this, follow the steps:
+1. Go to Twine editor and select the opction Twine > Story Formats
+![image](https://github.com/user-attachments/assets/5a5753cf-79ae-4c8e-98a3-9b7800bcae70)
+
+2. Then, press the 'Add' button to import the Entwee format.
+
+![image](https://github.com/user-attachments/assets/7e000026-15df-4be6-8d64-c59d4706bfec)
+
+3.That option will open a small input field where you need to paste the following link [[url](https://mcdemarco.net/tools/entwee/format.js)](https://mcdemarco.net/tools/entwee/format.js), and then click the 'Add' button.
+
+![image](https://github.com/user-attachments/assets/96dbb95e-144e-464d-86fd-c75e5e84d679)
+
+4. This action will add the Entwee format and yo will see it as your "Proofing format"
+![image](https://github.com/user-attachments/assets/15d91fe9-ec0b-490c-808b-c3167a98c588)
+
 To visualize the example graph in the Twine editor:
 
 1. (recommended) Download and use [Twine](https://twinery.org/) locally as a desktop application.
@@ -213,6 +228,26 @@ To visualize the example graph in the Twine editor:
 
 *Note: Twine may encounter issues with imports. If you receive any error messages in step 6, simply restart the application.*
 
+### Create your own graph on Twine
+When building your own simulations or games, you will need to create your own graphs. Follow these steps to do so:  
+1.   Open Twimne editor, and click on "New" option (this create a new graph)
+![image](https://github.com/user-attachments/assets/695f8f19-c436-4f27-8d58-1cf4a59de64a)
+
+2.   That will open a small input field, write there the name of your graph, then click on "Create"
+![image](https://github.com/user-attachments/assets/85d8a836-83a5-4be7-94c3-4a5c79e45ec4)
+
+
+3.   Then this will open the graph editor
+![image](https://github.com/user-attachments/assets/d3c3094c-45df-46f4-b8da-b4d541587111)
+
+
+4.   There you can create your story/simulation script using format described on paper of [Tweenity and ProcoColVR methodology](https://ieeexplore.ieee.org/document/10458365) or using same format of [sample graph](url)
+
+
+### Export Twine graph and import into Unity
+
+Once you've finished your graph, you can export it for use in Unity. Follow these steps to do so:
+1. 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -277,6 +312,7 @@ Distributed under the GPLv3 License. See [`LICENSE`](https://github.com/VivianGo
 
 * Vivian Gómez  - vn.gomez@uniandes.edu.co
 * Pablo Figueroa - pfiguero@uniandes.edu.co
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
