@@ -220,10 +220,10 @@ To visualize the example graph in the Twine editor:
 4. Go to the `Library > Import` option.<br>
    ![image](https://github.com/VivianGomez/Tweenity/assets/30846540/f08e1536-da85-4d7b-84a0-829d7610aadb)
 
-5. Select the downloaded file and make sure to check the box with the graph's name.
+5. Select the downloaded file and make sure to check the box with the graph's name. Then, Click on `Import Selected Files`.
    ![image](https://github.com/VivianGomez/Tweenity/assets/30846540/09836e1b-6aec-4957-a951-2e5acf3847e2)
 
-6. Click on `Import Selected Files`.
+6. This wiil open the complete graph
    ![image](https://github.com/VivianGomez/Tweenity/assets/30846540/816e900f-78ae-47a6-a893-d1a8a76b13fa)
 
 *Note: Twine may encounter issues with imports. If you receive any error messages in step 6, simply restart the application.*
