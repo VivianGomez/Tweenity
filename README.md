@@ -253,6 +253,7 @@ Once you've finished your graph, you can export it for use in Unity. Follow thes
 
 
 2. Then, go to ypur graph and select Build > Proof
+
 ![image](https://github.com/user-attachments/assets/63a337dd-64d1-4cff-aeec-a0014ef3f40d)
 
 3. This action will download the text file. Then, go to Unity and navigate to the folder Assets/Resources/Tweenity/TwineTXTs, and create a new empty .txt file with the name of your story or simulation graph.
