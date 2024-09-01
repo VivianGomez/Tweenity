@@ -201,7 +201,7 @@ First, you need to import the Entwee format, which is the syntax used and interp
 
 ![image](https://github.com/user-attachments/assets/7e000026-15df-4be6-8d64-c59d4706bfec)
 
-3.That option will open a small input field where you need to paste the following link [[url](https://mcdemarco.net/tools/entwee/format.js)](https://mcdemarco.net/tools/entwee/format.js), and then click the 'Add' button.
+3.That option will open a small input field where you need to paste the following link [https://mcdemarco.net/tools/entwee/format.js](https://mcdemarco.net/tools/entwee/format.js), and then click the 'Add' button.
 
 ![image](https://github.com/user-attachments/assets/96dbb95e-144e-464d-86fd-c75e5e84d679)
 
