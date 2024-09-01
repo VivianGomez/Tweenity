@@ -247,7 +247,20 @@ When building your own simulations or games, you will need to create your own gr
 ### Export Twine graph and import into Unity
 
 Once you've finished your graph, you can export it for use in Unity. Follow these steps to do so:
-1. 
+1. First, ensure that you import the Entwee format as a Proofing format (as described in (as is described on [Step 4 of this section](https://github.com/VivianGomez/Tweenity/tree/main?tab=readme-ov-file#visualize-sample-graph-on-twine))
+**Note**: If this format is not tagged as 'Use for proofing,' you can mark it by clicking on Entwee and selecting 'Use to Proof Stories.'
+![image](https://github.com/user-attachments/assets/eef15244-9fde-4954-a06b-e55b50564918)
+
+
+2. Then, go to ypur graph and select Build > Proof
+![image](https://github.com/user-attachments/assets/63a337dd-64d1-4cff-aeec-a0014ef3f40d)
+
+3. This action will download the text file. Then, go to Unity and navigate to the folder Assets/Resources/Tweenity/TwineTXTs, and create a new empty .txt file with the name of your story or simulation graph.
+
+4. Then, copy the text from the downloaded file in Step 3 into the new .txt file.
+
+**Note: This step is very important because the proofing format can manage different character encodings that may not be understood by the Tweenity plugin**
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
