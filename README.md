@@ -172,6 +172,8 @@ To enhance the utilization of the graph in the creation of VR simulators, a seri
 a. Dialogue boxes associated with graph reading and response options available at each node.
 
 
+
+https://github.com/user-attachments/assets/ea5c185b-45b0-4709-a04c-6fd23ca2d2fd
 ![videoframe_5120](https://github.com/user-attachments/assets/29e00376-ed5b-47e4-af51-513d2a0ffe7b)
 
 
@@ -198,18 +200,18 @@ First, you need to import the
 https://github.com/user-attachments/assets/4090ba4e-6613-463d-be18-abcea18f6d0d
 
  Entwee format, which is the syntax used and interpreted within Unity by the Tweenity plugin. To do this, follow the steps:
-1. Go to Twine editor and select the opction Twine > Story Formats
+1. Go to Twine editor and select the option Twine > Story Formats
 ![image](https://github.com/user-attachments/assets/5a5753cf-79ae-4c8e-98a3-9b7800bcae70)
 
 2. Then, press the 'Add' button to import the Entwee format.
 
 ![image](https://github.com/user-attachments/assets/7e000026-15df-4be6-8d64-c59d4706bfec)
 
-3.That option will open a small input field where you need to paste the following link [https://mcdemarco.net/tools/entwee/format.js](https://mcdemarco.net/tools/entwee/format.js), and then click the 'Add' button.
+3. That option will open a small input field where you need to paste the following link [https://mcdemarco.net/tools/entwee/format.js](https://mcdemarco.net/tools/entwee/format.js), and then click the 'Add' button.
 
 ![image](https://github.com/user-attachments/assets/96dbb95e-144e-464d-86fd-c75e5e84d679)
 
-4. This action will add the Entwee format and yo will see it as your "Proofing format"
+4. This action will add the Entwee format and you will see it as your "Proofing format"
 ![image](https://github.com/user-attachments/assets/15d91fe9-ec0b-490c-808b-c3167a98c588)
 
 To visualize the example graph in the Twine editor:
@@ -234,7 +236,7 @@ To visualize the example graph in the Twine editor:
 
 ### Create your own graph on Twine
 When building your own simulations or games, you will need to create your own graphs. Follow these steps to do so:  
-1.   Open Twimne editor, and click on "New" option (this create a new graph)
+1.   Open Twine editor, and click on "New" option (this create a new graph)
 ![image](https://github.com/user-attachments/assets/695f8f19-c436-4f27-8d58-1cf4a59de64a)
 
 2.   That will open a small input field, write there the name of your graph, then click on "Create"
@@ -256,7 +258,7 @@ Once you've finished your graph, you can export it for use in Unity. Follow thes
 ![image](https://github.com/user-attachments/assets/eef15244-9fde-4954-a06b-e55b50564918)
 
 
-2. Then, go to ypur graph and select Build > Proof
+2. Then, go to your graph and select Build > Proof
 
 ![image](https://github.com/user-attachments/assets/63a337dd-64d1-4cff-aeec-a0014ef3f40d)
 
