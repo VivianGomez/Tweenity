@@ -171,7 +171,7 @@ To enhance the utilization of the graph in the creation of VR simulators, a seri
 ![image](https://github.com/VivianGomez/Tweenity/assets/30846540/daa06c7e-fd4e-4fde-96a5-8ce2a49fc079)
 a. Dialogue boxes associated with graph reading and response options available at each node.
 
-https://github.com/VivianGomez/Tweenity/assets/30846540/8cac8b41-071f-497c-960b-3ffbd1b988bd
+
 ![videoframe_5120](https://github.com/user-attachments/assets/29e00376-ed5b-47e4-af51-513d2a0ffe7b)
 
 
@@ -193,7 +193,11 @@ The VR example scene loads a [sample graph](https://drive.google.com/file/d/1GoW
 
 ### Visualize sample graph on Twine
 
-First, you need to import the Entwee format, which is the syntax used and interpreted within Unity by the Tweenity plugin. To do this, follow the steps:
+First, you need to import the
+
+https://github.com/user-attachments/assets/4090ba4e-6613-463d-be18-abcea18f6d0d
+
+ Entwee format, which is the syntax used and interpreted within Unity by the Tweenity plugin. To do this, follow the steps:
 1. Go to Twine editor and select the opction Twine > Story Formats
 ![image](https://github.com/user-attachments/assets/5a5753cf-79ae-4c8e-98a3-9b7800bcae70)
 
