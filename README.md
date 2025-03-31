@@ -171,7 +171,7 @@ To enhance the utilization of the graph in the creation of VR simulators, a seri
 ![image](https://github.com/VivianGomez/Tweenity/assets/30846540/daa06c7e-fd4e-4fde-96a5-8ce2a49fc079)
 a. Dialogue boxes associated with graph reading and response options available at each node.
 
-https://github.com/VivianGomez/Tweenity/assets/30846540/8cac8b41-071f-497c-960b-3ffbd1b988bd
+![videoframe_5120](https://github.com/VivianGomez/Tweenity/assets/30846540/8cac8b41-071f-497c-960b-3ffbd1b988bd)
 ![videoframe_5120](https://github.com/user-attachments/assets/29e00376-ed5b-47e4-af51-513d2a0ffe7b)
 
 
