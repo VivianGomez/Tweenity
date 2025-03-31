@@ -81,7 +81,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-<!-- https://github.com/VivianGomez/Tweenity/assets/30846540/1b574f50-b155-4a57-97b3-69efba540f9e -->
+https://github.com/VivianGomez/Tweenity/assets/30846540/1b574f50-b155-4a57-97b3-69efba540f9e
 
 The Tweenity plugin streamlines the connection between Twine and Unity3D tools by reading and interpreting Twine graphs in Unity. Specifically, this plugin was designed to support a methodology aimed at enabling the rapid prototyping of simulators in Virtual Reality.
 
@@ -171,7 +171,7 @@ To enhance the utilization of the graph in the creation of VR simulators, a seri
 ![image](https://github.com/VivianGomez/Tweenity/assets/30846540/daa06c7e-fd4e-4fde-96a5-8ce2a49fc079)
 a. Dialogue boxes associated with graph reading and response options available at each node.
 
-<!--https://github.com/VivianGomez/Tweenity/assets/30846540/8cac8b41-071f-497c-960b-3ffbd1b988bd-->
+https://github.com/VivianGomez/Tweenity/assets/30846540/8cac8b41-071f-497c-960b-3ffbd1b988bd
 ![videoframe_5120](https://github.com/user-attachments/assets/29e00376-ed5b-47e4-af51-513d2a0ffe7b)
 
 
@@ -271,13 +271,13 @@ Once you've finished your graph, you can export it for use in Unity. Follow thes
 Tweenity originated as a result of developing two virtual reality training simulators. These simulators aimed to replicate a procedure involving a series of steps with varying sequences, hence the proposal to use graphs for defining simulations. Below, we showcase the projects created with Tweenity.
 
 ### Videos Showcase
-<!--[<img src="https://github.com/VivianGomez/Tweenity/assets/30846540/abe41807-2f04-423c-8f30-eb2259ab309d" width="550" height="350">](https://youtu.be/FQgroO2jkbw)
+[<img src="https://github.com/VivianGomez/Tweenity/assets/30846540/abe41807-2f04-423c-8f30-eb2259ab309d" width="550" height="350">](https://youtu.be/FQgroO2jkbw)
 
 **P1 - Navy Simulator**
 A simulator of the ship’s control room in our Navy. The purpose of this simulator is to facilitate training in both normal and emergency situations that
 an Engineering Officer could encounter. In this project, we had a team composed of six Navy officials, two designers, and two developers. ([Video](https://youtu.be/ScdDqaJFiPg))
 
--->
+
 [<img src="https://github.com/VivianGomez/Tweenity/assets/30846540/42542a58-06de-497d-9cad-53dd51814b93" width="550" height="350">](https://youtu.be/ScdDqaJFiPg)
 
 **P - Birth simulator**
@@ -310,7 +310,17 @@ Don't forget to give the project a star! Thanks again!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## References and Sources
 
+This software is based on the **Entwee** text format, a structure used to represent interactive stories in Twine. For more details about Entwee, you can check the following link:
+
+[Entwee Format - Entweedle](https://www.maximumverbosity.net/twine/Entweedle/format.js)
+
+Additionally, the analysis and processing of this format in Unity were inspired by **Matthew Ventures' tutorial**, which explains how to convert a Twine story to Unity. You can access the tutorial here:
+
+[Converting a Twine Story to Unity - Matthew Ventures](https://www.mrventures.net/all-tutorials/converting-a-twine-story-to-unity)
+
+This project references both resources to facilitate the integration of interactive stories into Unity, but we add several nodes and a particular format, created specially for VR Simulators for Procedural Training, as is explained in the Master Thesis Document [here](https://repositorio.uniandes.edu.co/entities/publication/85b48b5f-7d37-456e-8cfc-67c39b6e301a) and the Journal Article of this work [here](https://ieeexplore.ieee.org/document/10458365).
 
 <!-- LICENSE -->
 ## License
