@@ -335,7 +335,6 @@ Distributed under the GPLv3 License. See [`LICENSE`](https://github.com/VivianGo
 ## Contact
 
 * Vivian Gómez  - vn.gomez@uniandes.edu.co
-* Pablo Figueroa - pfiguero@uniandes.edu.co
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
